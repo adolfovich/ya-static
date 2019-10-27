@@ -2,9 +2,9 @@
 <footer class="footer">
   <div class="row align-items-center justify-content-xl-between">
     <div class="col-xl-6">
-      <!--div class="copyright text-center text-xl-left text-muted">
-        © <?=date("Y")?><a href="http://noname-studio.ru" class="font-weight-bold ml-1" target="_blank">NoNameStudio</a>
-      </div-->
+      <div class="copyright text-center text-xl-left text-muted">
+        © <?=date("Y")?><a href="https://exeptional.ru" class="font-weight-bold ml-1" target="_blank" style="color: #6c757d; font-weight: 100 !important;">e<span style="color: green;">[x]</span>eptional software</a>
+      </div>
     </div>
     <!--div class="col-xl-6">
       <ul class="nav nav-footer justify-content-center justify-content-xl-end">

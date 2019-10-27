@@ -90,7 +90,7 @@
       <label for="inputPassword" class="sr-only">Пароль</label>
       <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Пароль" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
-      <p class="mt-5 mb-3 text-muted">NoNameStudio &copy; <?=date("Y")?></p>
+      <p class="mt-5 mb-3 text-muted"><a href="https://exeptional.ru" class="font-weight-bold ml-1" target="_blank" style="color: #6c757d; font-weight: 100 !important;">e<span style="color: green;">[x]</span>eptional software</a> &copy; <?=date("Y")?></p>
     </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
