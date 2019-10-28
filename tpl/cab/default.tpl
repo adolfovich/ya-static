@@ -13,7 +13,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-8 mb-5 mb-xl-0">
-          <div class="card bg-gradient-default shadow">
+          <div class="card">
             <div class="card-header bg-transparent" style="padding-bottom: 0;">
               <div class="row align-items-center">
 
@@ -27,7 +27,7 @@
                             <div class="form-group">
                               <div class="input-group mb-4">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" style="height: 44px; margin-top: 1px; border: none;">Салон:</span>
+                                  <span class="input-group-text" style="">Салон:</span>
                                 </div>
                                 <select id="chart_salon" class="form-control" data-toggle="select"  onChange="reloadChart()">
                                   <option value="all">Все салоны</option>
@@ -47,7 +47,7 @@
                           <div class="form-group">
                             <div class="input-group mb-4">
                               <div class="input-group-prepend">
-                                <span class="input-group-text" style="height: 44px; margin-top: 1px; border: none;">С</span>
+                                <span class="input-group-text" style="">С</span>
                               </div>
                               <input id="chart_date_from" name="stat_date_from" type="date" class="form-control" onChange="reloadChart()" value="<?=date('Y-m-d', time() - (86400 * 7))?>">
                             </div>
@@ -57,7 +57,7 @@
                           <div class="form-group">
                             <div class="input-group mb-4">
                               <div class="input-group-prepend">
-                                <span class="input-group-text" style="height: 44px; margin-top: 1px; border: none;">ПО</span>
+                                <span class="input-group-text" style="">ПО</span>
                               </div>
                               <input id="chart_date_to" name="stat_date_to" type="date" class="form-control" onChange="reloadChart()" value="<?=date('Y-m-d')?>">
                             </div>
@@ -255,6 +255,7 @@
 
           function onAjaxSuccess(data)
           {
+            //console.log(data);
             var result = JSON.parse(data);
             document.getElementById('chart').innerHTML = '';
 
@@ -283,16 +284,12 @@
                 xaxis: {
                     categories: result.categories,
                 },
-                theme: {
-                    mode: 'dark',
-                    palette: 'palette2',
-                    monochrome: {
-                        enabled: false,
-                        color: '#255aee',
-                        shadeTo: 'light',
-                        shadeIntensity: 0.65
-                    },
-                }
+                grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+                },
             }
 
             var chart = new ApexCharts(

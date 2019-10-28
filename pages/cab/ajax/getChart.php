@@ -32,8 +32,10 @@ $sql = $db->parse("
     SUM(`value`) as `value`
   FROM `stat_data`
   WHERE `stat_id` = ?i AND `date` BETWEEN ?s AND ?s $salon
-  GROUP BY YEAR(`date`), $param_type(`date`)
+  GROUP BY YEAR(`date`), $param_type(`date`) ORDER BY `date`
 ", $statistic['id'], $form['date_from'], $form['date_to']);
+
+//var_dump($sql);
 
 $data = $db->getAll($sql);
 
