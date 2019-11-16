@@ -67,7 +67,9 @@
                           <div class="form-group">
                             <select id="chart_stat" class="form-control" data-toggle="select"  onChange="reloadChart()">
                               <?php foreach($statistics as $statistic) { ?>
+                                <?php if (in_array($statistic['id'], $user_stats) || $user_data['salons'] == 0) { ?>
                                 <option value="<?=$statistic['string_id']?>"><?=$statistic['name']?></option>
+                                <?php } ?>
                               <?php } ?>
                             </select>
                           </div>
@@ -80,6 +82,13 @@
                             <option value="by_month">По месяцам</option>
                           </select>
                         </div>
+                        </div>
+                      </div>
+                      <div class="row justify-content-end">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <button type="button" onClick="reloadChart()" class="btn btn-primary">Показать</button>
+                          </div>
                         </div>
                       </div>
 
@@ -123,7 +132,9 @@
                     <label for="selectStatistic">Выберите статистику</label>
                     <select id="selectStatistic" class="form-control has-success" data-toggle="select" onChange="changeStatForm(this.value)">
                       <?php foreach($statistics as $statistic) { ?>
+                        <?php if (in_array($statistic['id'], $user_stats) || $user_data['salons'] == 0) { ?>
                         <option value="<?=$statistic['string_id']?>"><?=$statistic['name']?></option>
+                        <?php } ?>
                       <?php } ?>
                     </select>
                   </div>
@@ -264,7 +275,11 @@
                     height: 350,
                     type: 'line',
                     zoom: {
-                        enabled: false
+                      enabled: false,
+                    },
+                    toolbar: {
+                      show: false,
+                      autoSelected: 'zoom'
                     }
                 },
                 series: [{
@@ -272,7 +287,7 @@
                     data: result.data
                 }],
                 dataLabels: {
-                    enabled: false
+                    enabled: true
                 },
                 stroke: {
                     curve: 'straight'
@@ -285,10 +300,13 @@
                     categories: result.categories,
                 },
                 grid: {
-                row: {
-                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                    opacity: 0.5
+                  row: {
+                      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                      opacity: 0.5
+                  },
                 },
+                markers: {
+                  size: 4
                 },
             }
 

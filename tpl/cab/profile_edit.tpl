@@ -37,34 +37,65 @@
             <div style="padding-left: 20px; padding-right: 20px;">
             <form id="profileEdit" method="POST" action="?a=save&id=<?=$profile_data['id']?>">
               <div class="row">
-
                 <div class="col-md-6">
                   <div class="form-group">
                     <input type="text" class="form-control" name="profileName" id="userName" placeholder="Название профиля" value="<?=$profile_data['name']?>">
                   </div>
                 </div>
               </div>
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h3 class="mb-0">Разрешения:</h3>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Разрешения:</h3>
+                      </div>
+
+                    </div>
                   </div>
+                  <?php foreach ($menu as $value) {?>
+                    <?php if (in_array($value['id'], $access)) {$checked = 'checked';} else {$checked = '';} ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="access[]" type="checkbox" value="<?=$value['id']?>" class="custom-control-input" id="customSwitch<?=$value['id']?>" <?=$checked?>>
+                          <label class="custom-control-label" for="customSwitch<?=$value['id']?>"><?=$value['name']?></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <?php } ?>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Доступные статистики:</h3>
+                      </div>
+                    </div>
+                  </div>
+
+                  <?php foreach ($statistics as $value) {?>
+                    <?php if (in_array($value['id'], $stat_access)) {$checked = 'checked';} else {$checked = '';} ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="stat_access[]" type="checkbox" value="<?=$value['id']?>" class="custom-control-input" id="customSwitchStat<?=$value['id']?>" <?=$checked?>>
+                          <label class="custom-control-label" for="customSwitchStat<?=$value['id']?>"><?=$value['name']?></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <?php } ?>
+
 
                 </div>
               </div>
-              <?php foreach ($menu as $value) {?>
-                <?php if (in_array($value['id'], $access)) {$checked = 'checked';} else {$checked = '';} ?>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="custom-control custom-switch">
-                      <input name="access[]" type="checkbox" value="<?=$value['id']?>" class="custom-control-input" id="customSwitch<?=$value['id']?>" <?=$checked?>>
-                      <label class="custom-control-label" for="customSwitch<?=$value['id']?>"><?=$value['name']?></label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <?php } ?>
+
+
 
 
             </form>

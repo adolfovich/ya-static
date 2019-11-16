@@ -21,3 +21,12 @@
 </head>
 
 <body>
+  <style>
+    .ticketsTable {
+      cursor: pointer;
+    }
+
+    .ticketsTable:hover {
+      background: #eee;
+    }
+  </style>
