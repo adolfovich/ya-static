@@ -67,6 +67,17 @@
                     </div>
                   </div>
                   <?php } ?>
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="change_ticket_status" type="checkbox" value="1" class="custom-control-input" id="customSwitch_changeTicket" <?php if ($profile_data['change_ticket_status']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_changeTicket">Может измениять статусы заявок</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="card-header border-0">

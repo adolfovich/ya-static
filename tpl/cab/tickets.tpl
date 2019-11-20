@@ -1,5 +1,4 @@
 
-
 <div class="main-content">
     <!-- Top navbar -->
     <?php include ('tpl/cab/tpl_header.tpl'); ?>
@@ -31,7 +30,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Дата создания</th>
+                            <th scope="col">Дата</th>
                             <th scope="col">Пользователь</th>
                             <th scope="col">Тип заявки</th>
                             <th scope="col">Статус</th>

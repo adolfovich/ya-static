@@ -20,8 +20,15 @@ if (isset($get['a']) && $get['a'] == 'save') {
       }
       $update_stat_access .= $end_element1;
 
+      if (isset($form['change_ticket_status']) && $form['change_ticket_status'] == 1) {
+        $change_ticket_status = '1';
+      } else {
+        $change_ticket_status = '0';
+      }
+
       $update['access'] = $update_access;
       $update['stat_access'] = $update_stat_access;
+      $update['change_ticket_status'] = $change_ticket_status;
 
       $q = $db->parse("UPDATE `profiles` SET ?u WHERE `id` = ?i", $update, $get['id']);
 

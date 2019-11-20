@@ -257,4 +257,18 @@ class Core
      return json_encode($response);
    }
 
+  public function ticketLog($ticket_id, $uder_id, $text)
+  {
+    global $db;
+    $db->query("INSERT INTO `tickets_log` SET `ticket_id` = ?i, `user_id` = ?i, `text` = ?s", $ticket_id, $uder_id, $text);
+  }
+
+  public function getTicketStatusInfo($id)
+  {
+    global $db;
+    $status_info = $db->getRow("SELECT * FROM `tickets_statuses` WHERE `id` = ?i", $id);
+    //var_dump($status_info);
+    return $status_info;
+  }
+
 }

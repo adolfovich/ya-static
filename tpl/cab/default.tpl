@@ -30,10 +30,11 @@
                                   <span class="input-group-text" style="">Салон:</span>
                                 </div>
                                 <select id="chart_salon" class="form-control" data-toggle="select"  onChange="reloadChart()">
-                                  <option value="all">Все салоны</option>
+
+                                  <option value="all" <?php if (isset($_GET['salon']) && $_GET['salon'] == 'all') echo 'selected';?> >Все салоны</option>
                                   <?php foreach($salons as $salon) { ?>
                                     <?php if (in_array($salon['id'], $user_salons) || $user_data['salons'] == 0) { ?>
-                                    <option value="<?=$salon['id']?>"><?=$salon['name']?></option>
+                                    <option value="<?=$salon['id']?>" <?php if (isset($_GET['salon']) && $_GET['salon'] == $salon['id']) echo 'selected'; ?> ><?=$salon['name']?></option>
                                     <?php } ?>
                                   <?php } ?>
                                 </select>
@@ -49,7 +50,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text" style="">С</span>
                               </div>
-                              <input id="chart_date_from" name="stat_date_from" type="date" class="form-control" onChange="reloadChart()" value="<?=date('Y-m-d', time() - (86400 * 7))?>">
+                              <input id="chart_date_from" name="stat_date_from" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateFrom'])) { echo $_GET['dateFrom'];} else { echo date('Y-m-d', time() - (86400 * 7));}?>">
                             </div>
                           </div>
                         </div>
@@ -59,7 +60,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text" style="">ПО</span>
                               </div>
-                              <input id="chart_date_to" name="stat_date_to" type="date" class="form-control" onChange="reloadChart()" value="<?=date('Y-m-d')?>">
+                              <input id="chart_date_to" name="stat_date_to" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateTo'])) { echo $_GET['dateTo'];} else { echo date('Y-m-d', time() - (86400 * 7));}?>">
                             </div>
                           </div>
                         </div>
@@ -68,7 +69,7 @@
                             <select id="chart_stat" class="form-control" data-toggle="select"  onChange="reloadChart()">
                               <?php foreach($statistics as $statistic) { ?>
                                 <?php if (in_array($statistic['id'], $user_stats) || $user_data['salons'] == 0) { ?>
-                                <option value="<?=$statistic['string_id']?>"><?=$statistic['name']?></option>
+                                <option value="<?=$statistic['string_id']?>" <?php if (isset($_GET['stat']) && $_GET['stat'] == $statistic['string_id']) echo 'selected'; ?> ><?=$statistic['name']?></option>
                                 <?php } ?>
                               <?php } ?>
                             </select>
@@ -85,6 +86,11 @@
                         </div>
                       </div>
                       <div class="row justify-content-end">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <button type="button" onClick="editData()" class="btn btn-primary">Редактировать</button>
+                          </div>
+                        </div>
                         <div class="col-md-3">
                           <div class="form-group">
                             <button type="button" onClick="reloadChart()" class="btn btn-primary">Показать</button>
@@ -106,11 +112,6 @@
               </div>
             </div>
             <div class="card-body">
-              <!-- Chart -->
-              <!--div class="chart"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-
-                <canvas id="chart-sales" class="chart-canvas chartjs-render-monitor" width="567" height="350" style="display: block; width: 567px; height: 350px;"></canvas>
-              </div-->
               <div id="chart"></div>
             </div>
           </div>
@@ -242,6 +243,19 @@
               })
             }
           }
+        }
+
+        function editData()
+        {
+          var dateFrom = document.getElementById('chart_date_from').value;
+          var dateTo = document.getElementById('chart_date_to').value;
+          var stat = document.getElementById('chart_stat').value;
+          var type = document.getElementById('chart_type').value;
+          var salon = document.getElementById('chart_salon').value;
+
+          var url = 'editStat?dateFrom='+dateFrom+'&dateTo='+dateTo+'&stat='+stat+'&type='+type+'&salon='+salon;
+          console.log(url);
+          window.location.href = url;
         }
 
         function reloadChart()

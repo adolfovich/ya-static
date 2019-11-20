@@ -15,6 +15,7 @@ unset($form['type']);
 unset($form['salon']);
 
 $arr = [];
+$form_arr = [];
 
 $save = FALSE;
 
@@ -27,15 +28,18 @@ foreach ($form as $key => $value) {
     echo $core->returnJson($arr);
     die();
   } else {
-    $arr[$field['id']] = $value;
-    $save = TRUE;
+    //if ($value) {
+      $form_arr[$field['id']] = $value;
+      $save = TRUE;
+    //}
+
   }
 }
 
-//var_dump($arr);
+//var_dump($form_arr);
 
 if ($save) {
-  $json = json_encode($arr);
+  $json = json_encode($form_arr);
 
   $insert = [
     "type" => $type,
@@ -45,8 +49,11 @@ if ($save) {
   ];
 
   $db->query("INSERT INTO `tickets` SET ?u", $insert);
-
   $insert_id = $db->insertId();
+
+  $core->ticketLog($insert_id, $user_create, 'Создание заявки');
+
+
 
   $arr['response'] = 'Заявка добавлена. Номер заявки #'.$insert_id;
   echo $core->returnJson($arr);
