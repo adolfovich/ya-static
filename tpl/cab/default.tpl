@@ -68,7 +68,7 @@
                           <div class="form-group">
                             <select id="chart_stat" class="form-control" data-toggle="select"  onChange="reloadChart()">
                               <?php foreach($statistics as $statistic) { ?>
-                                <?php if (in_array($statistic['id'], $user_stats) || $user_data['salons'] == 0) { ?>
+                                <?php if (in_array($statistic['id'], $user_stats) || !$user_profile['stat_access']) { ?>
                                 <option value="<?=$statistic['string_id']?>" <?php if (isset($_GET['stat']) && $_GET['stat'] == $statistic['string_id']) echo 'selected'; ?> ><?=$statistic['name']?></option>
                                 <?php } ?>
                               <?php } ?>
