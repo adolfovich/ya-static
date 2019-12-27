@@ -15,7 +15,7 @@ if (isset($form)) {
     unset($form['comment']);
   }
 
-  if ($comment) {
+  if (isset($comment)) {
     $core->ticketLog($_GET['id'], $user_data['id'], $comment);
   }
 

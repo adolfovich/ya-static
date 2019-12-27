@@ -39,7 +39,7 @@
                 <?php
                   foreach ($data as $key => $value) {
                     $feeld = $db->getRow("SELECT * FROM tickets_fields WHERE id = ?i", $key);
-                    if ($ticket['edited']) { $disable = '';} else { $disable = 'disabled'; }
+                    if ($ticket['edited'] && $ticket['user_create'] == $user_id) { $disable = '';} else { $disable = 'disabled'; }
                     ?>
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label"><?=$feeld['name']?>:</label>
@@ -55,7 +55,7 @@
                   }
                 ?>
 
-                <?php if ($user_profile['change_ticket_status'] && $next_statuses[0] != 0) {?>
+                <?php if ($next_statuses[0] != 0) {?>
 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Коментарий:</label>
@@ -63,6 +63,10 @@
                       <textarea name="comment" class="form-control" rows="5" onKeyUp="enSaveButton()"></textarea>
                     </div>
                   </div>
+
+                <?php } ?>
+
+                <?php if ($user_profile['change_ticket_status'] && $next_statuses[0] != 0) {?>
 
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Изменить статус:</label>
@@ -78,11 +82,14 @@
                 </div>
                 <?php } ?>
 
-                <?php if ($ticket['edited'] || $user_profile['change_ticket_status']) { ?>
-                  <?php if ($next_statuses[0] != 0) {?>
-                  <div class="form-group"><button id="saveButton" type="submit" onclick="" class="btn btn-primary" disabled>Сохранить</button></div>
+                <div class="form-group">
+                  <?php if ($ticket['edited'] || $user_profile['change_ticket_status']) { ?>
+                    <?php if ($next_statuses[0] != 0) {?>
+                    <button id="saveButton" type="submit" onclick="" class="btn btn-primary" disabled>Сохранить</button>
+                    <?php } ?>
                   <?php } ?>
-                <?php } ?>
+                  <button onclick="location.href = 'tickets'; return false;" class="btn btn-primary" >Закрыть</button>
+                </div>
               </form>
 
 
@@ -138,7 +145,7 @@
     <script>
     Swal.fire({
       title: 'Успешно!',
-      text: 'Изменения созранены',
+      text: 'Изменения сохранены',
       type: 'success',
       confirmButtonText: 'ОК'
     })

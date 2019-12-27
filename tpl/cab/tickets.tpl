@@ -36,7 +36,7 @@
                             <th scope="col">Статус</th>
                         </tr>
                     </thead>
-                    <tbody class="list">
+                    <tbody class="list" id="ticketsLIst">
                       <?php foreach ($tickets as $ticket) {?>
                         <tr class = "ticketsTable" onClick="location.href = 'view_ticket?id=<?=$ticket['id']?>'" style="">
                           <td class="budget"><?=$ticket['id']?></td>
@@ -99,11 +99,12 @@
           url: "/pages/cab/ajax/setTicket.php",
           data: ticketForm.serialize(),
           success: function (data) {
-            console.log(data);
+            //console.log(data);
             if (data.status == 'OK') {
               swtype = 'success';
               swtitile = 'Успешно!';
               swtext = data.response;
+
             } else {
               swtype = 'error';
               swtitile = 'Ошибка!';
@@ -117,11 +118,30 @@
               confirmButtonText: 'ОК'
             })
 
+            loadTickets();
+
             //
           },
           dataType: "json"
         });
 
+      }
+
+      function loadTickets()
+      {
+        //console.log('ticketsLoad');
+        $.ajax({
+          type: 'POST',
+          url: "/pages/cab/ajax/loadTickets.php",
+          data: '',
+          success: function (data) {
+            //console.log(data);
+            if (data.status == 'OK') {
+              document.getElementById('ticketsLIst').innerHTML = data.response;
+            }
+          },
+          dataType: "json"
+        });
       }
 
 

@@ -1,5 +1,7 @@
 <?php
 
+//$page_title = "Заявки";
+
 $tickets = $db->getAll("
   SELECT *,
   (SELECT name FROM users WHERE id = t.user_create) as user_name,
