@@ -2,7 +2,7 @@
 
 if (isset($get['a']) && $get['a'] == 'save') {
   $update = [];
-  var_dump($form);
+  //var_dump($form);
   if ($form['userPass'] && $form['userRePass']) {
     if (strlen($form['userPass']) >= 5) {
       if ($form['userPass'] == $form['userRePass']) {
@@ -10,7 +10,7 @@ if (isset($get['a']) && $get['a'] == 'save') {
           $msg = ["type"=>"success", "text"=>"Пароль изменен"];
         }
       } else {
-        $msg = ["type"=>"danger", "text"=>"Ошибка! Введенные пароли не совпадают"]; 
+        $msg = ["type"=>"danger", "text"=>"Ошибка! Введенные пароли не совпадают"];
       }
     } else {
       $msg = ["type"=>"danger", "text"=>"Ошибка! Пароль должен быть не менее 5 символов"];

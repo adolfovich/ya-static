@@ -1,10 +1,20 @@
 <?php
 
 //var_dump($url);
-$core->setPageCookie($url, $_GET);
+//$core->setPageCookie($url, $_GET);
 
 if (!$core->login()) {
-  $core->redir('/login');
+  if (isset($url[1]) && $url[1] != '') {
+    $get_staring = '?page='.$url[1];
+    if (isset($_GET) && count($_GET)) {
+      foreach ($_GET as $key => $value) {
+        $get_staring .= '&'.$key.'='.$value;
+      }
+    }
+  } else {
+    $get_staring = '';
+  }
+  $core->redir('/login'.$get_staring);
 } else {
 
   /*if (isset($_COOKIE['page']) && $_COOKIE['page'] != '') {

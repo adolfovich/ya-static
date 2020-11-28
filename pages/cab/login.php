@@ -2,8 +2,29 @@
 
 //var_dump($form);
 
+if (isset($_GET) && count($_GET)) {
+  if (isset($_GET['page'])) {
+    $get_page_name = $_GET['page'];
+    unset($_GET['page']);
+    $get_page_params = '';
+    $i = 0;
+    foreach ($_GET as $key => $value) {
+      if ($i == 0) {
+        $get_page_params .= '?';
+      } else {
+        $get_page_params .= '&';
+      }
+      $get_page_params .= $key.'='.$value;
+      $i++;
+    }
+  }
+} else {
+  $get_page_name = '';
+  $get_page_params = '';
+}
+
 if ($core->login()) {
-  $core->redir('cab/');
+  $core->redir('cab/'.$get_page_name.$get_page_params);
 }
 
 if (isset($form['inputLogin']) && $form['inputLogin'] == '') {
@@ -24,7 +45,7 @@ if (isset($form['inputLogin']) && $form['inputLogin'] == '') {
       if (setcookie("login", $user_info['login'], time() + $session_time)) {
         //echo 'OKK';
         //var_dump($_SESSION);
-        $core->redir('cab/');
+        $core->redir('cab/'.$get_page_name.$get_page_params);
       } else {
         echo 'ошибка установки cookie';
       }
