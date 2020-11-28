@@ -16,7 +16,7 @@ if (!$core->login()) {
     $page = 'pages/cab/404.php';
   }
 
-  //var_dump($page);
+  //var_dump('pages/cab/'.$url[1].'.php');
 
   include ('tpl/cab/header.tpl');
   include ('tpl/cab/template.tpl');
