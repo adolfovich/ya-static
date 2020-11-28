@@ -31,7 +31,6 @@
                   <a href="#" class="btn btn-sm btn-primary" onClick="document.getElementById('statEdit').submit()">Сохранить</a>
                   <a href="#" class="btn btn-sm btn-primary" onClick="window.location='stat_settings'">Закрыть</a>
                 </div>
-
               </div>
             </div>
             <div style="padding-left: 20px; padding-right: 20px;">
@@ -53,14 +52,10 @@
                   </div>
                 </div>
                 <div class="row">
-                </div>                
+                </div>
               </form>
           </div>
         </div>
-
-
-
-
       </div>
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>

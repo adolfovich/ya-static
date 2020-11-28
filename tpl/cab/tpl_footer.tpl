@@ -24,3 +24,60 @@
     </div-->
   </div>
 </footer>
+
+<script>
+  function modalDelete(type, id) {
+    $.post(
+      "/pages/cab/ajax/getModalEdu.php",
+      {
+        type: type,
+        id: id
+      },
+      onAjaxSuccess
+    );
+
+    function onAjaxSuccess(data)
+    {
+      //console.log(data);
+      var result = JSON.parse(data);
+      if (result.status == 'OK') {
+        document.getElementById('deleteBody').innerHTML = result.response; //response
+        $('#delete').modal('show');
+      } else {
+        Swal.fire({
+          title: 'Ошибка!',
+          text: result.error,
+          type: 'error',
+          confirmButtonText: 'ОК'
+        })
+      }
+    }
+  }
+  function modalEdit(type, id) {
+    $.post(
+      "/pages/cab/ajax/getModalEdu.php",
+      {
+        type: type,
+        id: id
+      },
+      onAjaxSuccess
+    );
+
+    function onAjaxSuccess(data)
+    {
+      //console.log(data);
+      var result = JSON.parse(data);
+      if (result.status == 'OK') {
+        document.getElementById('editBody').innerHTML = result.response; //response
+        $('#edit').modal('show');
+      } else {
+        Swal.fire({
+          title: 'Ошибка!',
+          text: result.error,
+          type: 'error',
+          confirmButtonText: 'ОК'
+        })
+      }
+    }
+  }
+</script>

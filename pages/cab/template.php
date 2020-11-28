@@ -1,10 +1,18 @@
 <?php
 
 //var_dump($url);
+$core->setPageCookie($url, $_GET);
 
 if (!$core->login()) {
   $core->redir('/login');
 } else {
+
+  if (isset($_COOKIE['page']) && $_COOKIE['page'] != '') {
+    header("Location: /cab/".$_COOKIE['page']);
+    setcookie("page", '');
+  }
+
+
 
   //var_dump($url);
 

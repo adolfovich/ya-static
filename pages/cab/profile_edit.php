@@ -26,9 +26,17 @@ if (isset($get['a']) && $get['a'] == 'save') {
         $change_ticket_status = '0';
       }
 
+      if (isset($form['edit_education']) && $form['edit_education'] == 1) {
+        $edit_education = '1';
+      } else {
+        $edit_education = '0';
+      }
+
       $update['access'] = $update_access;
       $update['stat_access'] = $update_stat_access;
       $update['change_ticket_status'] = $change_ticket_status;
+      $update['edit_education'] = $edit_education;
+
 
       $q = $db->parse("UPDATE `profiles` SET ?u WHERE `id` = ?i", $update, $get['id']);
 
