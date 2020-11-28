@@ -78,6 +78,17 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="edit_education" type="checkbox" value="1" class="custom-control-input" id="customSwitch_editEdu" <?php if ($profile_data['edit_education']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_editEdu">Редактирование раздела "Обучение"</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="card-header border-0">
@@ -101,22 +112,12 @@
                     </div>
                   </div>
                   <?php } ?>
-
-
                 </div>
               </div>
-
-
-
-
             </form>
             </div>
           </div>
         </div>
-
-
-
-
       </div>
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>

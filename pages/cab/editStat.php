@@ -8,12 +8,7 @@ $stat_id = $db->getOne("SELECT `id` FROM `statistics` WHERE `string_id` = ?s", $
 $salons = [];
 
 if ($_GET['salon'] == 'all') {
-  if ($user_salons[0] != '0') {
-    $all_salons = $db->getAll("SELECT `id` FROM `salons` WHERE `id` IN (?a) AND `enabled` = 1", $user_salons);
-  } else {
-    $all_salons = $db->getAll("SELECT `id` FROM `salons` WHERE `enabled` = 1");
-  }
-
+  $all_salons = $db->getAll("SELECT `id` FROM `salons` WHERE `enabled` = 1");
   foreach ($all_salons as $salon) {
     $salons[] = $salon['id'];
   }

@@ -19,7 +19,6 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--7">
-
       <div class="row">
         <div class="col-sm-8">
           <div class="card shadow">
@@ -31,7 +30,6 @@
                 <div class="col text-right">
                   <a href="new_statistic" class="btn btn-sm btn-primary">Добавить статистику</a>
                 </div>
-
               </div>
             </div>
             <div class="table-responsive">
@@ -66,13 +64,11 @@
                     </td>
                   </tr>
                   <?php } ?>
-
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
         <div class="col-sm-4">
 
         </div>

@@ -271,4 +271,21 @@ class Core
     return $status_info;
   }
 
+  public function setPageCookie($url, $get)
+  {
+    $page_cooke = $url[1];
+    $i = 0;
+    foreach ($get as $key => $value) {
+      if ($i == 0) {
+        $page_cooke .= '?';
+      } else {
+        $page_cooke .= '&';
+      }
+      $page_cooke .= $key . '=' . $value;
+      $i++;
+    }
+
+    setcookie("page", $page_cooke);
+  }
+
 }

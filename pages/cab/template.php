@@ -1,10 +1,18 @@
 <?php
 
 //var_dump($url);
+$core->setPageCookie($url, $_GET);
 
 if (!$core->login()) {
   $core->redir('/login');
 } else {
+
+  if (isset($_COOKIE['page']) && $_COOKIE['page'] != '') {
+    header("Location: /cab/".$_COOKIE['page']);
+    setcookie("page", '');
+  }
+
+
 
   //var_dump($url);
 
@@ -16,7 +24,7 @@ if (!$core->login()) {
     $page = 'pages/cab/404.php';
   }
 
-  //var_dump($page);
+  //var_dump('pages/cab/'.$url[1].'.php');
 
   include ('tpl/cab/header.tpl');
   include ('tpl/cab/template.tpl');
