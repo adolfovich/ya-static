@@ -165,8 +165,8 @@
                   <h6 class="text-uppercase text-muted ls-1 mb-1"></h6>
                   <h2 class="mb-0">
                     <a href="/cab/education">Категории</a> <i class="fas fa-long-arrow-alt-right"></i>
-                    <a href="/cab/education?cat=<?=$cat_data['id']?>"><?=$cat_data['name']?></a> <i class="fas fa-long-arrow-alt-right"></i>
-                    <?=$subcat_data['name']?>
+                    <a style="color: <?=$cat_data['color']?>" href="/cab/education?cat=<?=$cat_data['id']?>"><?=$cat_data['name']?></a> <i class="fas fa-long-arrow-alt-right"></i>
+                    <span style="color: <?=$subcat_data['color']?>"><?=$subcat_data['name']?></span>
                   </h2>
                 </div>
               </div>

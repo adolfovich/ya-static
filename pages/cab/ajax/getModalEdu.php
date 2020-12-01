@@ -15,13 +15,34 @@ if (isset($_POST['type']) && isset($_POST['id'])) {
     $arr['response'] .= '<label for="catName">Название</label>';
     $arr['response'] .= '<input type="text" name="catName" class="form-control" id="catName" placeholder="Название" value="'.$cat_data['name'].'">';
     $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="catColor">Цвет</label>';
+    $arr['response'] .= '<input type="color" name="catColor" class="form-control" id="catColor" placeholder="" value="'.$cat_data['color'].'">';
+    $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="catOrdering">Сортировка</label>';
+    $arr['response'] .= '<input type="text" name="catOrdering" class="form-control" id="catOrdering" placeholder="" value="'.$cat_data['ordering'].'">';
+    $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="catIcon">Иконка</label>';
+    $arr['response'] .= '<img style="width:30px; margin-left: 10px;" src="'.$cat_data['icon'].'">';
+    $arr['response'] .= '<input style="margin-top: 10px;" type="file" name="catIcon" class="form-control" id="catIcon aria-describedby="iconlHelp" ">';
+    $arr['response'] .= '<small id="iconlHelp" class="form-text text-muted">Для изменения иконки загрузите новое изображение</small>';
+
+    $arr['response'] .= '</div>';
+
     $arr['response'] .= '';
     $arr['response'] .= '<div class="form-group">';
-    $arr['response'] .= '<label for="catName">Профили</label>';
+    $arr['response'] .= '<label for="profiles">Профили</label>';
     foreach ($profiles as $profile) {
       $arr['response'] .= '<div class="form-check">';
 
       if (in_array($profile['id'], explode(",", $cat_data['access']))) {
+        $checked = 'checked';
+      } else if ($profile['id'] == 1) {
         $checked = 'checked';
       } else {
         $checked = '';
@@ -50,6 +71,16 @@ if (isset($_POST['type']) && isset($_POST['id'])) {
     $arr['response'] .= '<label for="subCatName">Название</label>';
     $arr['response'] .= '<input type="text" name="subCatName" class="form-control" id="subCatName" placeholder="Название" value="'.$subcat_data['name'].'">';
     $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="subCatColor">Цвет</label>';
+    $arr['response'] .= '<input type="color" name="subCatColor" class="form-control" id="subCatColor" placeholder="" value="'.$subcat_data['color'].'">';
+    $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="subCatOrdering">Сортировка</label>';
+    $arr['response'] .= '<input type="text" name="subCatOrdering" class="form-control" id="subCatOrdering" placeholder="" value="'.$subcat_data['ordering'].'">';
+    $arr['response'] .= '</div>';
     $arr['response'] .= '';
   } else if ($_POST['type'] == 'deleteSubcat') {
     $subcat_data = $db->getRow("SELECT * FROM edu_subcategories WHERE id = ?i", $_POST['id']);
@@ -66,6 +97,11 @@ if (isset($_POST['type']) && isset($_POST['id'])) {
     $arr['response'] .= '<input type="hidden" name="videotId" value="'.$video_data['id'].'">';
     $arr['response'] .= '<label for="videoName">Название</label>';
     $arr['response'] .= '<input type="text" name="videoName" class="form-control" id="videoName" placeholder="Название" value="'.$video_data['name'].'">';
+    $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="videoOrdering">Сортировка</label>';
+    $arr['response'] .= '<input type="text" name="videoOrdering" class="form-control" id="videoOrdering" placeholder="" value="'.$video_data['ordering'].'">';
     $arr['response'] .= '</div>';
     $arr['response'] .= '';
   } else if ($_POST['type'] == 'deleteVideo') {

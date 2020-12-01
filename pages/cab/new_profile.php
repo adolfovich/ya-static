@@ -1,9 +1,9 @@
 <?php
 
-if (isset($get['a']) && $get['a'] == 'save') {
+if (isset($get['a']) && $get['a'] == 'new') {
   //var_dump($form);
   if (strlen($form['profileName']) >= 5) {
-    $update['name'] = $form['profileName'];
+    $insert['name'] = $form['profileName'];
     if ($form['access']) {
       $update_access = '';
       $update_stat_access = '';
@@ -32,18 +32,22 @@ if (isset($get['a']) && $get['a'] == 'save') {
         $edit_education = '0';
       }
 
-      $update['access'] = $update_access;
-      $update['stat_access'] = $update_stat_access;
-      $update['change_ticket_status'] = $change_ticket_status;
-      $update['edit_education'] = $edit_education;
+      //$insert['name'] = $update_access;
+      $insert['access'] = $update_access;
+      $insert['stat_access'] = $update_stat_access;
+      $insert['change_ticket_status'] = $change_ticket_status;
+      $insert['edit_education'] = $edit_education;
 
 
-      $q = $db->parse("UPDATE `profiles` SET ?u WHERE `id` = ?i", $update, $get['id']);
+      //$q = $db->parse("UPDATE `profiles` SET ?u WHERE `id` = ?i", $update, $get['id']);
+      $q = $db->parse("INSERT INTO profiles SET ?u", $insert);
 
       //var_dump($q);
 
       if ($db->query($q)) {
-        $msg = ["type"=>"success", "text"=>"Профиль изменен"];
+        $new_id = $db->insertId();
+        $core->jsredir('profile_edit?id='.$new_id.'&type=new');
+        //$msg = ["type"=>"success", "text"=>"Профиль сохранен"];
       }
 
     }
@@ -53,22 +57,16 @@ if (isset($get['a']) && $get['a'] == 'save') {
 }
 
 if (isset($get['id'])) {
-  if (intval($get['id']) > 0 && $profile_data = $db->getRow("SELECT * FROM `profiles` WHERE `id` = ?i", $get['id'])) {
+  if ($profile_data = $db->getRow("SELECT * FROM `profiles` WHERE `id` = ?i", $get['id'])) {
     $access = explode(",", $profile_data['access']);
 
     $statistics = $db->getAll("SELECT * FROM `statistics` WHERE `enabled` = 1");
     $stat_access = explode(",", $profile_data['stat_access']);
-
   } else {
     $msg = ["type"=>"danger", "text"=>"Ошибка! профиль не найден"];
-    $error_open = TRUE;
   }
 }
 
-if (isset($get['type']) && $get['type'] == 'new') {
+$statistics = $db->getAll("SELECT * FROM `statistics` WHERE `enabled` = 1");
 
-    $msg = ["type"=>"success", "text"=>"Профиль создан"];
-
-}
-
-include ('tpl/cab/profile_edit.tpl');
+include ('tpl/cab/new_profile.tpl');

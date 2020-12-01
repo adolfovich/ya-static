@@ -32,6 +32,15 @@
   margin-left: 35px;
   color:rgba(85, 85, 85, 0.2)
   }
+
+  .cat-icon-bg {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
   </style>
 
   <div class="modal" id="delete"  tabindex="-1" role="dialog">
@@ -62,7 +71,7 @@
 
   <div class="modal" id="edit"  tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <form id="editForm" method="POST">
+      <form id="editForm" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="editActionType" name="action_type" value="edit_cat">
         <div class="modal-content">
           <div class="modal-header">
@@ -89,7 +98,7 @@
 
   <div class="modal" id="addCat"  tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <form id="addCatForm" method="POST">
+      <form id="addCatForm" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="action_type" value="add_cat">
         <div class="modal-content">
           <div class="modal-header">
@@ -103,19 +112,28 @@
               <label for="catName">Название</label>
               <input type="text" name="catName" class="form-control" id="catName" placeholder="Название" value="<?php if(isset($_POST['catName'])) echo $_POST['catName']; ?>">
             </div>
-            <!--div class="form-group">
+
+            <div class="form-group">
+              <label for="catColor">Цвет</label>
+              <input type="color" name="catColor" class="form-control" id="catColor" placeholder="" value="<?php if(isset($_POST['catColor'])) echo $_POST['catColor']; ?>">
+            </div>
+
+            <div class="form-group">
+              <label for="catOrdering">Сортировка</label>
+              <input type="text" name="catOrdering" class="form-control" id="catOrdering" placeholder="" value="<?php if(isset($_POST['catOrdering'])) echo $_POST['catOrdering']; ?>">
+            </div>
+
+            <div class="form-group">
               <label for="catIco">Иконка</label>
-              <select name="catIco" class="form-control" id="catIco">
-                <?php foreach($icons as $icon) { ?>
-                <option value="<?=$icon['name']?>">&#x<?=$icon['unicode']?></option>
-                <?php } ?>
-              </select>
-            </div-->
+              <input type="file" name="catIco" class="form-control" id="catIco">
+            </div>
+
             <div class="form-group">
               <label for="catName">Профили</label>
               <?php foreach($profiles as $profile) { ?>
+                <?php if ($profile['id'] == 1) {$checked = 'checked onclick="return false;"';} else {$checked = '';} ?>
               <div class="form-check">
-                <input name="profiles[]" class="form-check-input" type="checkbox" value="<?=$profile['id']?>" id="profiles<?=$profile['id']?>">
+                <input name="profiles[]" class="form-check-input" type="checkbox" value="<?=$profile['id']?>" id="profiles<?=$profile['id']?>" <?=$checked?>>
                   <label class="form-check-label" for="profiles<?=$profile['id']?>">
                     <?=$profile['name']?>
                   </label>
@@ -189,14 +207,35 @@
               </div>
               <div class="row" style="text-align: center;">
                 <?php foreach($cats as $cat) { ?>
+                  <style>
+                    #catstyle<?=$cat['id']?> {
+                      border: 1px <?=$cat['color']?> solid;
+                      color: <?=$cat['color']?>;
+
+                    }
+                    #caticon<?=$cat['id']?> {
+                      background-image:url(<?=$cat['icon']?>);
+                      background-repeat: no-repeat;
+                      background-size: 80%;
+                      background-position: center;
+                      width: 100%;
+                      height: 100%;
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      margin: 0;
+                      opacity: 0.1;
+                    }
+                  </style>
                   <div class="col mt-5 ">
                     <div class="row">
                       <a href="/cab/education?cat=<?=$cat['id']?>" style="margin: 0 auto;">
-                        <div class="cat-icon">
-                          <i class="<?=$cat['icon']?>"></i>
-                        </div>
-                        <div class="cat ">
-                          <span class="cat-name"><?=$cat['name']?></span>
+
+                        <div class="cat " id="catstyle<?=$cat['id']?>">
+
+
+                          <div class="cat-icon" id="caticon<?=$cat['id']?>" style="z-index: 99;"></div>
+                          <div class="cat-name" style="z-index: 101;"><?=$cat['name']?></div>
                         </div>
                       </a>
                     </div>
@@ -220,5 +259,3 @@
       <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
-
-  

@@ -101,10 +101,21 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="catName">Название</label>
-              <input type="text" name="catName" class="form-control" id="catName" placeholder="Название" value="<?php if(isset($_POST['catName'])) echo $_POST['catName']; ?>">
+              <input type="text" name="subCatName" class="form-control" id="catName" placeholder="Название" value="<?php if(isset($_POST['subCatName'])) echo $_POST['subCatName']; ?>">
+            </div>
+
+            <div class="form-group">
+              <label for="catColor">Цвет</label>
+              <input type="color" name="subCatColor" class="form-control" id="catColor" placeholder="" value="<?php if(isset($_POST['subCatColor'])) echo $_POST['subCatColor']; ?>">
+            </div>
+
+            <div class="form-group">
+              <label for="catOrdering">Сортировка</label>
+              <input type="text" name="subCatOrdering" class="form-control" id="catOrdering" placeholder="" value="<?php if(isset($_POST['subCatOrdering'])) echo $_POST['subCatOrdering']; ?>">
             </div>
 
           </div>
+
           <div class="modal-error text-danger">
             <?php if (isset($msg) && $msg['type'] == 'error') { echo $msg['text']; } ?>
           </div>
@@ -159,7 +170,7 @@
                   <h6 class="text-uppercase text-muted ls-1 mb-1"></h6>
                   <h2 class="mb-0">
                     <a href="/cab/education">Категории</a> <i class="fas fa-long-arrow-alt-right"></i>
-                    <?=$cat_data['name']?>
+                    <span style="color: <?=$cat_data['color']?>;"><?=$cat_data['name']?></span>
                   </h2>
                 </div>
               </div>
@@ -177,10 +188,16 @@
               </div>
               <div class="row" style="text-align: center;">
                 <?php foreach($subcats as $subcat) { ?>
+                  <style>
+                    #subcatstyle<?=$subcat['id']?> {
+                      border: 1px <?=$subcat['color']?> solid;
+                      color: <?=$subcat['color']?>;
+                    }
+                  </style>
                   <div class="col mt-5 ">
                     <div class="row">
                     <a href="/cab/education?cat=<?=$cat_data['id']?>&subcat=<?=$subcat['id']?>" style="margin: 0 auto;">
-                      <div class="cat ">
+                      <div class="cat " id="subcatstyle<?=$subcat['id']?>">
                         <span class="cat-name"><?=$subcat['name']?></span>
                       </div>
                     </a>
