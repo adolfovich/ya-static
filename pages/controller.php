@@ -27,6 +27,8 @@ if (isset($user_id)) {
 
 if ($url[0] == 'cab') {
   include ('pages/cab/template.php');
+} else if ($url[0] == 'video') {
+  include ('pages/video.php');
 } else {
   include ('pages/cab/login.php');
 }

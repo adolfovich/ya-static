@@ -53,6 +53,7 @@
       }
     }
   }
+
   function modalEdit(type, id) {
     $.post(
       "/pages/cab/ajax/getModalEdu.php",
