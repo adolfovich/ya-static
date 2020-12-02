@@ -78,7 +78,27 @@
 
     <form class="form-signin" method="post">
 
-      <img class="mb-4" src="{{ site.baseurl }}/docs/{{ site.docs_version }}/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+
+      <div class="row">
+        <div class="col">
+          <img class="mb-4" src="/logos/1.png" alt="" width="72" >
+        </div>
+        <div class="col">
+          <img class="mb-4" src="/logos/2.png" alt="" width="85" >
+        </div>
+        <div class="col">
+          <img class="mb-4" src="/logos/3.png" alt="" width="72">
+        </div>
+        <div class="col">
+          <img class="mb-4" src="/logos/4.png" alt="" width="72">
+        </div>
+        <div class="col">
+          <img class="mb-4" src="/logos/5.png" alt="" width="100">
+        </div>
+        <div class="col">
+          <img class="mb-4" src="/logos/6.png" alt="" width="65">
+        </div>
+      </div>
       <h1 class="h3 mb-3 font-weight-normal">Пожалуйста авторизуйтесь</h1>
       <?php if (isset($error)) {?>
         <div class="alert alert-danger" role="alert">
