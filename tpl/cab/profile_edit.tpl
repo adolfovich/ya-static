@@ -91,6 +91,17 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="edit_finance" type="checkbox" value="1" class="custom-control-input" id="customSwitch_editFin" <?php if ($profile_data['edit_finance']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_editFin">Редактирование раздела "Финансы"</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="card-header border-0">

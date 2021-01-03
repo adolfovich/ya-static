@@ -26,4 +26,7 @@ $get = $core->setGet();
 
 if (isset($_SESSION['id'])) {
   $user_id = $_SESSION['id'];
+  $user_data = $db->getRow("SELECT * FROM `users` WHERE `id` = ?i", $user_id);
+} else {
+  die();
 }

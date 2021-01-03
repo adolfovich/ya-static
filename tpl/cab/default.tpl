@@ -267,7 +267,7 @@
           var salon = document.getElementById('chart_salon').value;
 
           $.post(
-            "/pages/cab/ajax/getChart.php",
+            "/pages/cab/ajax/getChart.php", 
             {
               date_from: dateFrom,
               date_to: dateTo,
