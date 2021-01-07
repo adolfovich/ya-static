@@ -20,9 +20,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="padding-top: 5px; padding-bottom: 5px;">
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opSalon">Салон</label>
               <select class="form-control" id="opSalon" name="opSalon">
                 <?php foreach($user_salons as $user_salon) { ?>
@@ -31,32 +31,33 @@
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opDete">Дата операции</label>
               <input type="date" name="opDete" class="form-control" id="opDete" placeholder="" value="<?=date("Y-m-d")?>">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opType">Тип операции</label>
               <select class="form-control" id="opType" name="opType" onChange="loadDescriptions();">
                 <option value="1">Доход</option>
                 <option value="2">Расход</option>
+                <option value="3">Инкассация</option>
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opDesc">Расшифровка</label>
               <select class="form-control" id="opDesc" name="opDesc">
                 <option selected disabled>Выберите тип операции</option>
               </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opAmount">Сумма</label>
               <input type="number" name="opAmount" class="form-control" id="opAmount" placeholder="" >
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opComment">Комментарий</label>
               <input type="text" name="opComment" class="form-control" id="opComment" placeholder="" >
             </div>
@@ -66,7 +67,34 @@
           <div class="modal-error text-danger">
             <?php if (isset($msg) && $msg['type'] == 'error') { echo $msg['text']; } ?>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" style="padding-top: 0.5rem;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="editOperation"  tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <form id="editOperationForm" method="POST">
+        <input type="hidden" name="action_type" value="edit_operation">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Изменение операции</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="editOperationBody" style="padding-top: 5px; padding-bottom: 5px;">
+
+          </div>
+          <div class="modal-error text-danger">
+            <?php if (isset($msg) && $msg['type'] == 'error') { echo $msg['text']; } ?>
+          </div>
+          <div class="modal-footer" style="padding-top: 0.5rem;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
             <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
@@ -113,51 +141,92 @@
           <div class="card shadow">
             <div class="card-header bg-transparent" style="padding-bottom: 0;">
               <div class="row align-items-center">
-                <div class="col-md-9">
+                <div class="col-md-8">
 
                   <form class="form-inline" id="finForm">
-                    <div class="form-group mb-2">
-                      <label for="text1" class="sr-only">Период</label>
-                      <input type="text" readonly class="form-control-plaintext" id="text1" value="Выбрать период">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <label for="dateFrom" class="sr-only">с</label>
-                      <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder="" value="<?=date("Y-m-d", time() - 604800)?>" onChange="loadFinData()">
-                    </div>
-                    <div class="form-group mb-2">
-                      <label for="text2" class="sr-only"></label>
-                      <input type="text" style="width: 15px;" readonly class="form-control-plaintext" id="text2" value=" - " >
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <label for="dateTo" class="sr-only">с</label>
-                      <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder="" value="<?=date("Y-m-d")?>" onChange="loadFinData()">
+                    <div class="form-row">
+
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="dateFrom" style="padding-right: 47px;">Период с </label>
+                        <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder=""
+                        value="<?php if(isset($filter['dateFrom'])) {echo date("Y-m-d", strtotime($filter['dateFrom'])); } else {date("Y-m-d", time() - 604800);} ?>"
+                        onChange="loadFinData()">
+                      </div>
+
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="dateTo" style="padding-right: 30px;"> - </label>
+                        <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder=""
+                        value="<?php if(isset($filter['dateTo'])) {echo date("Y-m-d", strtotime($filter['dateTo'])); } else {date("Y-m-d");} ?>"
+                        onChange="loadFinData()">
+                      </div>
                     </div>
 
-                    <div class="form-group mx-sm-3 mb-2">
-                      <label for="salon">Салон</label>
-                      <select name="salon" id="salon" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
-                        <?php
-                        if (count($user_salons) <= 1) {
-                          ?>
-                          <option value="<?=$user_salons[0]['id']?>" selected><?=$user_salons[0]['name']?></option>
+                    <div class="form-row">
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="salon" style="padding-right: 60px;">Салон</label>
+                        <select name="salon" id="salon" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
                           <?php
-                        } else {
-                          ?>
-                          <option value="all" selected>Все</option>
-                          <?php
-                          foreach ($user_salons as $user_salon) {
+                          if (count($user_salons) <= 1) {
                             ?>
-                            <option value="<?=$user_salon['id']?>"><?=$user_salon['name']?></option>
+                            <option value="<?=$user_salons[0]['id']?>" selected><?=$user_salons[0]['name']?></option>
                             <?php
+                          } else {
+                            ?>
+                            <option value="all" selected>Все</option>
+                            <?php
+                            $selected = '';
+                            foreach ($user_salons as $user_salon) {
+                              if (isset($filter['salon']) && $filter['salon'] == $user_salon['id']) {
+                                $selected = 'selected';
+                              } else {
+                                $selected = '';
+                              }
+                              ?>
+                              <option value="<?=$user_salon['id']?>" <?=$selected?>><?=$user_salon['name']?></option>
+                              <?php
+                            }
                           }
-                        }
-                        ?>
-                      </select>
+                          ?>
+                        </select>
+                      </div>
+
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="type">Тип</label>
+                        <select name="type" id="type" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadDescriptionsFilter(); loadFinData();">
+                          <option value="all" <?php if (isset($filter['type']) && $filter['type'] == 'all') echo 'selected'; ?>>Все</option>
+                          <option value="2" <?php if (isset($filter['type']) && $filter['type'] == '2') echo 'selected'; ?>>Расходы</option>
+                          <option value="1" <?php if (isset($filter['type']) && $filter['type'] == '1') echo 'selected'; ?>>Доходы</option>
+                          <option value="3" <?php if (isset($filter['type']) && $filter['type'] == '3') echo 'selected'; ?>>Инкассация</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="description">Расшифровка</label>
+                        <select name="description" id="description" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
+
+                            <option value="all" selected>Все</option>
+                            <?php
+                            $selected = '';
+                            foreach ($op_descriptions as $op_description) {
+                              if (isset($filter['description']) && $filter['description'] == $op_description['id']) {
+                                $selected = 'selected';
+                              } else {
+                                $selected = '';
+                              }
+                              ?>
+                              <option value="<?=$op_description['id']?>" <?=$selected?>><?=$op_description['name']?></option>
+                              <?php
+                              }
+                            ?>
+                        </select>
+                      </div>
                     </div>
                   </form>
 
                 </div>
-                <div class="col-md-3 text-right">
+                <div class="col-md-4 text-right">
                   <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
                   <?php if ($profile_data['edit_finance']) { ?>
                   <a href="finance_settings" class="btn btn-primary mb-2" ><i class="fas fa-cog"></i></a>
@@ -169,56 +238,33 @@
 
               <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="expenses-tab" data-toggle="tab" href="#expenses" role="tab" aria-controls="expenses" aria-selected="true" onclick="document.cookie='finTab=expenses'">Расходы</a>
+                  <a class="nav-link active" id="operations-tab" data-toggle="tab" href="#operations" role="tab" aria-controls="operations" aria-selected="true" onclick="document.cookie='finTab=operations'">Операции</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="income-tab" data-toggle="tab" href="#income" role="tab" aria-controls="income" aria-selected="false" onclick="document.cookie='finTab=income'">Доходы</a>
-                </li>
+
                 <li class="nav-item">
                   <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="false" onclick="document.cookie='finTab=chart'">График</a>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="expenses" role="tabpanel" aria-labelledby="expenses-tab">
+                <div class="tab-pane fade show active" id="operations" role="tabpanel" aria-labelledby="operations-tab">
 
-                  <table class="table">
+                  <table class="table table-sm">
                     <thead class="thead-light">
                       <tr>
-                        <th scope="col">Салон</th>
-                        <th scope="col">Дата</th>
-                        <th scope="col">Тип операции</th>
-                        <th scope="col">Расшифровка</th>
-                        <th scope="col">Сумма</th>
-                        <th scope="col">Комментарий</th>
+                        <th scope="col" style="text-align: center;">Салон</th>
+                        <th scope="col" style="text-align: center;">Дата</th>
+                        <th scope="col" style="text-align: center;">Тип<br>операции</th>
+                        <th scope="col" style="text-align: center;">Расшифровка</th>
+                        <th scope="col" style="text-align: center;">Сумма</th>
+                        <th scope="col" style="text-align: center;">Комментарий</th>
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody class="table-striped" id="table-expenses">
-
+                    <tbody class="table-striped" id="table-operations">
                     </tbody>
                   </table>
-
                 </div>
-                <div class="tab-pane fade" id="income" role="tabpanel" aria-labelledby="income-tab">
 
-                  <table class="table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col">Салон</th>
-                        <th scope="col">Дата</th>
-                        <th scope="col">Тип операции</th>
-                        <th scope="col">Расшифровка</th>
-                        <th scope="col">Сумма</th>
-                        <th scope="col">Комментарий</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-striped" id="table-income">
-
-                    </tbody>
-                  </table>
-
-                </div>
                 <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
                   <form id="formChart">
                     <div class="form-group">
@@ -238,11 +284,9 @@
           </div>
         </div>
       </div>
-
       <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
-
 
   <script>
 
@@ -253,6 +297,36 @@
   function activaTab(tab){
     $('.nav-tabs a[href="#' + tab + '"]').tab('show');
   };
+
+  function editOperation(opId) {
+    //console.log(opId);
+    $.post(
+      "/pages/cab/ajax/loadOpData.php",
+      { id: opId },
+      onAjaxSuccess
+    );
+
+    function onAjaxSuccess(data)
+    {
+      //console.log(data);
+      result = JSON.parse(data);
+      //console.log(result.response);
+      if (result.status == 'OK') {
+        document.getElementById('editOperationBody').innerHTML = result.response.html;
+        $('#editOperation').modal('show');
+        //document.getElementById('table-income').innerHTML = result.response.income;//income
+
+        loadChart();
+      } else {
+        Swal.fire({
+          title: 'Ошибка!',
+          text: result.error,
+          type: 'error',
+          confirmButtonText: 'ОК'
+        })
+      }
+    }
+  }
 
     var descriptoins = JSON.parse('<?=$descriptions?>');
 
@@ -265,8 +339,26 @@
       }
     }
 
+    function loadDescriptionsFilter() {
+      type = document.getElementById("type").value;
+      descr = document.getElementById("description");
+      descr.innerHTML = '<option value="0">Все</option>';
+
+      selectedDescr = '<?=$filter['description']?>';
+
+      for (key in descriptoins[type]) {
+        if (selectedDescr == descriptoins[type][key]) {
+          descr.innerHTML += '<option value="'+descriptoins[type][key]+'" selected>'+descriptoins[type][key]+'</option>';
+        } else {
+          descr.innerHTML += '<option value="'+descriptoins[type][key]+'">'+descriptoins[type][key]+'</option>';
+        }
+
+      }
+    }
+
     $(document).ready(function(){
         loadDescriptions();
+        loadDescriptionsFilter();
     })
 
     function loadChart() {
@@ -351,8 +443,18 @@
     }
 
 
+    function setCookieFilter() {
+      filterData = $("#finForm").serialize();
+      //console.log(filterData);
+      document.cookie='finFilter='+filterData;
+    }
+
+
 
     function loadFinData() {
+
+      setCookieFilter();
+
       $.post(
         "/pages/cab/ajax/loadFinData.php",
         $("#finForm").serialize(),
@@ -366,8 +468,8 @@
         //console.log(result);
 
         if (result.status == 'OK') {
-          document.getElementById('table-expenses').innerHTML = result.response.expenses; //response
-          document.getElementById('table-income').innerHTML = result.response.income;//income
+          document.getElementById('table-operations').innerHTML = result.response.operations; //response
+          //document.getElementById('table-income').innerHTML = result.response.income;//income
 
           loadChart();
         } else {

@@ -1,5 +1,18 @@
 <?php
 
+if (isset($form['action_type']) && $form['action_type'] == 'edit_operation') {
+  $update = [
+    'salon' => $form['opSalon'],
+    'name' => $form['opName'],
+    'type' => $form['opType']
+  ];
+
+  $db->query("UPDATE finance_operation_types SET ?u WHERE id =?i", $update, $form['opId']);
+
+  $msg['type'] = 'success';
+  $msg['text'] = 'Операция сохранена';
+}
+
 if (isset($form['action_type']) && $form['action_type'] == 'add_operation') {
   if (strlen($form['opName']) > 5) {
 

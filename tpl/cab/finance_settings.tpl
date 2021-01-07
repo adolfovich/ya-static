@@ -59,6 +59,36 @@
     </div>
   </div>
 
+  <div class="modal" id="editOperation"  tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <form id="editOperationForm" method="POST" action="finance_settings">
+        <input type="hidden" name="action_type" value="edit_operation">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Изменить операцию</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="editOperationBody">
+
+
+
+          </div>
+
+          <div class="modal-error text-danger">
+            <?php if (isset($msg) && $msg['type'] == 'error') { echo $msg['text']; } ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <?php if (isset($msg) && $msg['type'] == 'error') { ?>
     <script>
       $('#<?=$msg['window']?>').modal('show');
@@ -125,7 +155,7 @@
             </div>
             <div class="card-body">
 
-              <table class="table">
+              <table class="table table-sm">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">Название</th>
@@ -156,8 +186,8 @@
                     <td><?=$op_type?></td>
                     <td><?=$salon_name?></td>
                     <td>
-                      <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                      <a href="?delete=<?=$operation['id']?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm" onClick="editOperationDescr(<?=$operation['id']?>)"><i class="fas fa-edit"></i></a>
+                      <a href="?delete=<?=$operation['id']?>" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   <?php }
@@ -175,3 +205,33 @@
       <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
+
+  <script>
+  function editOperationDescr(opId) {
+    //console.log(opId);
+    $.post(
+      "/pages/cab/ajax/loadOpDescrData.php",
+      { id: opId },
+      onAjaxSuccess
+    );
+
+    function onAjaxSuccess(data)
+    {
+      //console.log(data);
+      result = JSON.parse(data);
+      //console.log(result.response);
+      if (result.status == 'OK') {
+        document.getElementById('editOperationBody').innerHTML = result.response.html;
+        $('#editOperation').modal('show');
+
+      } else {
+        Swal.fire({
+          title: 'Ошибка!',
+          text: result.error,
+          type: 'error',
+          confirmButtonText: 'ОК'
+        })
+      }
+    }
+  }
+  </script>

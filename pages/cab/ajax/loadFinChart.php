@@ -40,11 +40,7 @@ if ($form["chartType"] == 'days') {
 
     $x_axis[] = date("d.m", $date_start);
     $date_start += 86400;// прибавляем 86400 секунд (24 часа)
-
-
   }
-
-
 
 } else if ($form["chartType"] == 'weeks') {
 
