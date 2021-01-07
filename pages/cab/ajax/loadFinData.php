@@ -15,7 +15,11 @@ $op_type_names = [
 ];
 
 if ($form["salon"] == 'all') {
-  $accepted_salons = explode(",", $user_data['salons']);
+ if ($user_data['salons'] == '0') {
+	$accepted_salons = $db->getCol("SELECT id FROM salons WHERE enabled = 1");
+ } else {
+	$accepted_salons = explode(",", $user_data['salons']);
+ }
 } else {
   $accepted_salons[] = $form["salon"];
 }
@@ -31,13 +35,17 @@ if ($form["type"] == 'all') {
     $type = 'neutral';
   }
 
-  if (isset($form['description']) && $form['description'] != '' && $form['description'] != 'all') {
+  if (isset($form['description']) && $form['description'] != '' && $form['description'] != '0') {
     $sql = $db->parse("SELECT *, (SELECT name FROM salons WHERE id = salon) as salon_name FROM finance_journal WHERE 	op_decryption = ?s AND op_type = ?s AND salon IN (?a) AND date BETWEEN ?s AND ?s ORDER BY date DESC", $form['description'], $type, $accepted_salons, $form["dateFrom"], $form["dateTo"]);
   } else {
     $sql = $db->parse("SELECT *, (SELECT name FROM salons WHERE id = salon) as salon_name FROM finance_journal WHERE op_type = ?s AND salon IN (?a) AND date BETWEEN ?s AND ?s ORDER BY date DESC", $type, $accepted_salons, $form["dateFrom"], $form["dateTo"]);
   }
 
 }
+
+//var_dump($sql);
+
+$arr['response'][0] = $sql;
 
 $operations = $db->getAll($sql);
 
