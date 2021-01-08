@@ -52,7 +52,7 @@
                   <?php foreach($users as $user) { ?>
                   <tr>
                     <th scope="row"><?=$user['id']?></th>
-                    <td class="text-left"><?=$user['name']?></td>
+                    <td class="text-left"><a href="/cab/user_edit?id=<?=$user['id']?>"><?=$user['name']?></a></td>
                     <td><?=getUserSalons($user['salons'])?></td>
                     <td><?=$user['profileName']?></td>
                     <td>

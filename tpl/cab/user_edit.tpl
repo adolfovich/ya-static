@@ -51,9 +51,16 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div id="showPassIco" class="input-group-text" style="cursor: pointer;" onClick="showPass()"><i class="fas fa-eye"></i></div>
+                    </div>
                     <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Новый пароль">
                   </div>
+                  <!--div class="form-group">
+                    <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Новый пароль">
+                  </div-->
+
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
@@ -61,6 +68,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -77,7 +85,7 @@
                     <select class="custom-select" multiple name="userSalons[]">
                       <option disabled>Парикмахерские: </option>
                       <?php foreach($salons as $salon) { ?>
-                        <?php if (in_array($salon['id'], $user_salons)) { ?> 
+                        <?php if (in_array($salon['id'], $user_salons)) { ?>
                           <option value="<?=$salon['id']?>" selected><?=$salon['name']?></option>
                         <?php } else { ?>
                           <option value="<?=$salon['id']?>"><?=$salon['name']?></option>
@@ -100,3 +108,17 @@
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
+
+  <script>
+    function showPass() {
+      if ($('#userPass').get(0).type == 'password') {
+        $('#userPass').get(0).type = 'text';
+        $('#userRePass').get(0).type = 'text';
+        $('#showPassIco').html('<i class="fas fa-eye-slash"></i>');
+      } else {
+        $('#userPass').get(0).type = 'password';
+        $('#userRePass').get(0).type = 'password';
+        $('#showPassIco').html('<i class="fas fa-eye"></i>');
+      }
+    }
+  </script>
