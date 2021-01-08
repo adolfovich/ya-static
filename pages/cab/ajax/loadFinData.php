@@ -51,7 +51,7 @@ if ($operations) {
     $arr['response']['operations'] .= '<td>'.$op_type_names[$operation['op_type']].'</td>';
     $arr['response']['operations'] .= '<td>'.$operation['op_decryption'].'</td>';
     $arr['response']['operations'] .= '<td>'.number_format($operation['amount'], 2, '.', ' ').'</td>';
-    $arr['response']['operations'] .= '<td>'.$operation['op_comment'].'</td>';
+    $arr['response']['operations'] .= '<td ><div style="max-width: 150px; white-space: normal;">'.$operation['op_comment'].'</div></td>';
     $arr['response']['operations'] .= '<td style="padding-left: 0; padding-right: 0; text-align: center;">';
     $arr['response']['operations'] .= '<a class="btn btn-outline-primary btn-sm" href="#" onClick="editOperation('.$operation['id'].')"><i class="fas fa-edit"></i></a> ';
     $arr['response']['operations'] .= '<a class="btn btn-outline-danger btn-sm" href="?deleteRecord='.$operation['id'].'"><i class="fas fa-trash-alt"></i></a>';
