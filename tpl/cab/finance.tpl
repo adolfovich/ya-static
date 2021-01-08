@@ -465,7 +465,7 @@
       {
         //console.log(data);
         result = JSON.parse(data);
-        //console.log(result);
+        console.log(result);
 
         if (result.status == 'OK') {
           document.getElementById('table-operations').innerHTML = result.response.operations; //response
