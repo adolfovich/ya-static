@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="description" content="Ya Statistic">
   <meta name="author" content="Exeptional Software">
   <title>Парикмахерская Я </title>
   <!-- Favicon -->
@@ -38,5 +38,23 @@
 
     .ticketsTable:hover {
       background: #eee;
+    }
+
+
+    .form-group {
+      margin-bottom: 0.5rem !important;
+    }
+
+    .modal-body {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .modal-footer {
+      padding-top: 5px;
+    }
+
+    .modal-header {
+      padding-bottom: 5px;
     }
   </style>

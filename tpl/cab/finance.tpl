@@ -1,11 +1,9 @@
 <div class="main-content">
 
   <style>
-
   .modal-error {
-  text-align: center;
+    text-align: center;
   }
-
   </style>
 
   <div class="modal" id="addOperation"  tabindex="-1" role="dialog">
@@ -142,17 +140,14 @@
             <div class="card-header bg-transparent" style="padding-bottom: 0;">
               <div class="row align-items-center">
                 <div class="col-md-8">
-
                   <form class="form-inline" id="finForm">
                     <div class="form-row">
-
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="dateFrom" style="padding-right: 47px;">Период с </label>
                         <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder=""
                         value="<?php if(isset($filter['dateFrom'])) {echo date("Y-m-d", strtotime($filter['dateFrom'])); } else {date("Y-m-d", time() - 604800);} ?>"
                         onChange="loadFinData()">
                       </div>
-
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="dateTo" style="padding-right: 30px;"> - </label>
                         <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder=""
@@ -160,7 +155,6 @@
                         onChange="loadFinData()">
                       </div>
                     </div>
-
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="salon" style="padding-right: 60px;">Салон</label>
@@ -189,7 +183,6 @@
                           ?>
                         </select>
                       </div>
-
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="type">Тип</label>
                         <select name="type" id="type" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadDescriptionsFilter(); loadFinData();">
@@ -200,12 +193,10 @@
                         </select>
                       </div>
                     </div>
-
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="description">Расшифровка</label>
                         <select name="description" id="description" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
-
                             <option value="all" selected>Все</option>
                             <?php
                             $selected = '';
@@ -224,7 +215,6 @@
                       </div>
                     </div>
                   </form>
-
                 </div>
                 <div class="col-md-4 text-right">
                   <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
@@ -235,19 +225,16 @@
               </div>
             </div>
             <div class="card-body">
-
               <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="operations-tab" data-toggle="tab" href="#operations" role="tab" aria-controls="operations" aria-selected="true" onclick="document.cookie='finTab=operations'">Операции</a>
                 </li>
-
                 <li class="nav-item">
                   <a class="nav-link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="false" onclick="document.cookie='finTab=chart'">График</a>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="operations" role="tabpanel" aria-labelledby="operations-tab">
-
                   <table class="table table-sm">
                     <thead class="thead-light">
                       <tr>
@@ -264,7 +251,6 @@
                     </tbody>
                   </table>
                 </div>
-
                 <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
                   <form id="formChart">
                     <div class="form-group">
@@ -308,14 +294,10 @@
 
     function onAjaxSuccess(data)
     {
-      //console.log(data);
       result = JSON.parse(data);
-      //console.log(result.response);
       if (result.status == 'OK') {
         document.getElementById('editOperationBody').innerHTML = result.response.html;
         $('#editOperation').modal('show');
-        //document.getElementById('table-income').innerHTML = result.response.income;//income
-
         loadChart();
       } else {
         Swal.fire({
@@ -352,7 +334,6 @@
         } else {
           descr.innerHTML += '<option value="'+descriptoins[type][key]+'">'+descriptoins[type][key]+'</option>';
         }
-
       }
     }
 
@@ -370,12 +351,9 @@
 
       function onAjaxSuccess(data)
       {
-        //console.log(data);
         result = JSON.parse(data);
-        //console.log(result);
 
         if (result.status == 'OK') {
-
           var options = {
               chart: {
                   height: 350,
@@ -422,15 +400,11 @@
           }
 
           document.getElementById('finChart').innerHTML = '';
-
           var chart = new ApexCharts(
               document.querySelector("#finChart"),
               options
           );
-
           chart.render()
-
-
         } else {
           Swal.fire({
             title: 'Ошибка!',
@@ -442,19 +416,13 @@
       }
     }
 
-
     function setCookieFilter() {
       filterData = $("#finForm").serialize();
-      //console.log(filterData);
       document.cookie='finFilter='+filterData;
     }
 
-
-
     function loadFinData() {
-
       setCookieFilter();
-
       $.post(
         "/pages/cab/ajax/loadFinData.php",
         $("#finForm").serialize(),
@@ -463,14 +431,10 @@
 
       function onAjaxSuccess(data)
       {
-        //console.log(data);
         result = JSON.parse(data);
-        console.log(result);
 
         if (result.status == 'OK') {
-          document.getElementById('table-operations').innerHTML = result.response.operations; //response
-          //document.getElementById('table-income').innerHTML = result.response.income;//income
-
+          document.getElementById('table-operations').innerHTML = result.response.operations;
           loadChart();
         } else {
           Swal.fire({

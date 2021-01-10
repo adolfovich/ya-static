@@ -41,6 +41,9 @@
     top: 0;
     left: 0;
   }
+
+  
+
   </style>
 
   <div class="modal" id="delete"  tabindex="-1" role="dialog">
@@ -95,7 +98,6 @@
     </div>
   </div>
 
-
   <div class="modal" id="addCat"  tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <form id="addCatForm" method="POST" enctype="multipart/form-data">
@@ -108,7 +110,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <div class="form-group" >
               <label for="catName">Название</label>
               <input type="text" name="catName" class="form-control" id="catName" placeholder="Название" value="<?php if(isset($_POST['catName'])) echo $_POST['catName']; ?>">
             </div>

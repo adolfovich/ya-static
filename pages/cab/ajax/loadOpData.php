@@ -17,7 +17,6 @@ if (!$user_data['salons']) {
 }
 
 $operation_data = $db->getRow("SELECT * FROM finance_journal WHERE id = ?i", $form['id']);
-
 $selected = '';
 
 $arr['response']['html'] = '';
@@ -40,7 +39,6 @@ $arr['response']['html'] .= '<div class="form-group" style="margin-bottom: 0.5re
 $arr['response']['html'] .= '<label for="opDete">Дата операции</label>';
 $arr['response']['html'] .= '<input type="date" name="opDete" class="form-control" id="opDete" placeholder="" value="'.date("Y-m-d", strtotime($operation_data['date'])).'">';
 $arr['response']['html'] .= '</div>';
-//$selected = '';
 $arr['response']['html'] .= '<div class="form-group" style="margin-bottom: 0.5rem;">';
 $arr['response']['html'] .= '<label for="opType">Тип операции</label>';
 $arr['response']['html'] .= '<select class="form-control" id="opType" name="opType" onChange="loadDescriptions();">';
@@ -69,7 +67,6 @@ foreach ($descriptions as $description) {
   }
   $arr['response']['html'] .= '<option value="'.$description['name'].'" '.$selected.'>'.$description['name'].'</option>';
 }
-//$arr['response']['html'] .= '<option selected disabled>Выберите тип операции</option>';
 $arr['response']['html'] .= '</select>';
 $arr['response']['html'] .= '</div>';
 
@@ -84,6 +81,5 @@ $arr['response']['html'] .= '<input type="text" name="opComment" class="form-con
 $arr['response']['html'] .= '</div>';
 $arr['response']['html'] .= '';
 $arr['response']['html'] .= '';
-
 
 echo $core->returnJson($arr);

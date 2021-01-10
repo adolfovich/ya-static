@@ -57,9 +57,6 @@
                     </div>
                     <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Новый пароль">
                   </div>
-                  <!--div class="form-group">
-                    <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Новый пароль">
-                  </div-->
 
                 </div>
                 <div class="col-md-6">
@@ -100,9 +97,6 @@
             </div>
           </div>
         </div>
-
-
-
 
       </div>
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>

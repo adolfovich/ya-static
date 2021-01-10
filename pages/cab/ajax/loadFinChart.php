@@ -80,9 +80,6 @@ if ($form["chartType"] == 'days') {
   }
 }
 
-
-
-
 $arr['response']['chart']['element'] = 'Расходы';
 $arr['response']['chart']['data'] = $data_values;
 
@@ -91,6 +88,5 @@ $arr['response']['chart']['data1'] = $data_values1;
 
 $arr['response']['chart']['title'] = 'Доходы и расходы';
 $arr['response']['chart']['categories'] = $x_axis;
-
 
 echo $core->returnJson($arr);
