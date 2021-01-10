@@ -43,10 +43,6 @@ if ($form["type"] == 'all') {
 
 }
 
-//var_dump($sql);
-
-$arr['response'][0] = $sql;
-
 $operations = $db->getAll($sql);
 
 $sum = 0;
