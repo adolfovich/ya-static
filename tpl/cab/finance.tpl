@@ -158,7 +158,7 @@
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="salon" style="padding-right: 60px;">Салон</label>
-                        <select name="salon" id="salon" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
+                        <select name="salon" id="salon" class="form-control chosen-select" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()" >
                           <?php
                           if (count($user_salons) <= 1) {
                             ?>
@@ -183,6 +183,8 @@
                           ?>
                         </select>
                       </div>
+
+
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="type">Тип</label>
                         <select name="type" id="type" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadDescriptionsFilter(); loadFinData();">
@@ -196,7 +198,7 @@
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="description">Расшифровка</label>
-                        <select name="description" id="description" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
+                        <select name="description" id="description" class="form-control  select2-salon" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
                             <option value="all" selected>Все</option>
                             <?php
                             $selected = '';

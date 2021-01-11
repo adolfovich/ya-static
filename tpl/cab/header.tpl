@@ -28,6 +28,12 @@
   <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="../assets/js/argon.js?v=1.0.0"></script>
+
+  <!--link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script-->
+  <script src="../assets/js/chosen.jquery.js"></script>
+  <link type="text/css" href="../assets/css/chosen.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -56,5 +62,25 @@
 
     .modal-header {
       padding-bottom: 5px;
+    }
+
+    a.chosen-single {
+      font-size: 1rem !important;
+      line-height: 1.5 !important;
+      width: 100% !important;
+      height: calc(2.75rem + 2px) !important;
+      padding: .625rem .75rem !important;
+      transition: all .2s cubic-bezier(.68, -.55, .265, 1.55) !important;
+      color: #8898aa !important;
+      border: 1px solid #cad1d7 !important;
+      border-radius: .375rem !important;
+      background: #fff !important;
+      background-clip: padding-box !important;
+      box-shadow: none !important;
+    }
+
+    div.chosen-container {
+      width: 140px !important;
+      margin-left: 10px;
     }
   </style>
