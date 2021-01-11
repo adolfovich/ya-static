@@ -25,8 +25,6 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'delete_video') {
   $msg['text'] = 'Видеоролик удален';
 }
 
-/////////////////////////////////////////////////////////////
-
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_subcat') {
   $check_ordering = $db->getRow("SELECT * FROM edu_subcategories WHERE ordering = ?i", $_POST['subCatOrdering']);
   $all_edit_subcats = $db->getAll("SELECT * FROM edu_subcategories WHERE ordering >= ?i AND id != ?i", $_POST['subCatOrdering'], $_POST['subCatId']);
@@ -46,14 +44,6 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'delete_subcat') {
   $msg['type'] = 'success';
   $msg['text'] = 'Подкатегория удалена';
 }
-
-/*if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_subcat') {
-
-    $db->query("UPDATE edu_subcategories SET name = ?s WHERE id = ?i", $_POST['subCatName'], $_POST['subCatId']);
-    $msg['type'] = 'success';
-    $msg['text'] = 'Подкатегория сохранена';
-
-}*/
 
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'delete_cat') {
   $db->query("UPDATE edu_categories SET deleted = 1 WHERE id = ?i", $_POST['catId']);
@@ -100,8 +90,6 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_cat') {
       $msg['text'] = 'Категория сохранена';
 }
 
-
-
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
   //var_dump($_POST);
   if ($_POST['catName'] != '') {
@@ -132,8 +120,6 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
             $db->query("INSERT INTO edu_categories SET name = ?s, access = ?s, color = ?s, ordering = ?i, icon = ?s", $_POST['catName'], $profiles, $_POST['catColor'], $_POST['catOrdering'], $dbpath);
             $new_cat_id = $db->insertId();
 
-
-
             $check_ordering = $db->getRow("SELECT * FROM edu_categories WHERE ordering = ?i", $_POST['catOrdering']);
             $all_edit_cats = $db->getAll("SELECT * FROM edu_categories WHERE ordering >= ?i AND id != ?i", $_POST['catOrdering'], $new_cat_id);
 
@@ -149,16 +135,11 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
             $msg['text'] = 'Ошибка копирования';
           }
 
-
-
-
           unset($_POST);
           $msg['type'] = 'success';
           $msg['text'] = 'Категория успешно добавлена';
         }
       }
-
-
 
     } else {
       $msg['window'] = 'addCat';
@@ -204,7 +185,6 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_video') {
     $full_path = dirname(__FILE__);
     $full_path = str_replace('pages/cab', 'videos/', $full_path);
 
-
     if (isset($_FILES['videoFile']) && $_FILES['videoFile']['error'] == 0 && $_FILES['videoFile']['type'] == 'video/mp4') {
 
       $fileTmpPath = $_FILES['videoFile']['tmp_name'];
@@ -222,13 +202,11 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_video') {
         $msg['type'] = 'error';
         $msg['text'] = 'Ошибка копирования';
       }
-
     } else {
       $msg['window'] = 'addCat';
       $msg['type'] = 'error';
       $msg['text'] = 'Не выбран файл или неверный формат файла';
     }
-
   } else {
     $msg['window'] = 'addCat';
     $msg['type'] = 'error';
@@ -236,21 +214,15 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_video') {
   }
 }
 
-//var_dump($auth_user);
-
 if (isset($_GET['cat']) &&  $_GET['cat'] > 0) {
   $cat_data = $db->getRow("SELECT * FROM edu_categories WHERE id = ?i", $_GET['cat']);
 
   $access_groups = explode(',', $cat_data['access']);
 
-
-
   if ($cat_data) {
     if (in_array($auth_user['profile'], $access_groups)) {
       if (isset($_GET['subcat'])) {
         $subcat_data = $db->getRow("SELECT * FROM edu_subcategories WHERE id = ?i", $_GET['subcat']);
-
-        //var_dump($_GET['video']);
 
         if (isset($_GET['video'])) {
           $video_data = $db->getRow("SELECT * FROM edu_videos WHERE id = ?i", $_GET['video']);
@@ -261,7 +233,7 @@ if (isset($_GET['cat']) &&  $_GET['cat'] > 0) {
           }
         } else {
           if ($subcat_data) {
-            $videos = $db->getAll("SELECT * FROM edu_videos WHERE subcat = ?i AND deleted = 0", $_GET['subcat']);
+            $videos = $db->getAll("SELECT * FROM edu_videos WHERE subcat = ?i AND deleted = 0 ORDER BY ordering", $_GET['subcat']);
             include ('tpl/cab/education_viseos.tpl');
           } else {
             include ('tpl/cab/404.tpl');
@@ -275,20 +247,13 @@ if (isset($_GET['cat']) &&  $_GET['cat'] > 0) {
       include ('tpl/cab/403.tpl');
     }
 
-
-
-
-
   } else {
     include ('tpl/cab/404.tpl');
   }
 
-
 } else {
   $cats = $db->getAll("SELECT * FROM edu_categories WHERE deleted = 0 ORDER BY ordering");
-
   $profiles = $db->getAll("SELECT * FROM profiles WHERE is_del = 0");
-
   $icons = $db->getAll("SELECT * FROM icons");
   include ('tpl/cab/education.tpl');
 }
