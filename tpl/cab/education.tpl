@@ -42,7 +42,7 @@
     left: 0;
   }
 
-  
+
 
   </style>
 
@@ -229,6 +229,8 @@
                       opacity: 0.1;
                     }
                   </style>
+                  <?php $cat_access = explode(',', $cat['access']) ?>
+                  <?php if (in_array($user_profile['id'], $cat_access)) { ?>
                   <div class="col mt-5 ">
                     <div class="row">
                       <a href="/cab/education?cat=<?=$cat['id']?>" style="margin: 0 auto;">
@@ -249,8 +251,9 @@
                       </span>
                     </div>
                     <?php } ?>
-
                   </div>
+                  <?php } ?>
+
                 <?php } ?>
               </div>
             </div>

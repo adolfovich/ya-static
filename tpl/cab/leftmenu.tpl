@@ -89,11 +89,14 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <?php foreach ($menu as $value) { ?>
+            <?php $access_arr = explode(',', $user_profile['access']); ?>
+            <?php if (in_array($value['id'], $access_arr)) { ?>
             <li class="nav-item">
               <a class="nav-link" href="<?=$value['url']?>">
                 <i class="<?=$value['i']?>"></i> <?=$value['name']?>
               </a>
             </li>
+            <?php } ?>
           <?php } ?>
         </ul>
         <!-- Divider -->

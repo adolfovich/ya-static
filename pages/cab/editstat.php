@@ -21,6 +21,4 @@ $statistics = $db->getAll("SELECT
                                   (SELECT name FROM statistics WHERE id = sd.`stat_id`) as stat_name
                            FROM `stat_data` sd WHERE sd.`date` BETWEEN ?s AND ?s AND sd.`stat_id` = ?i AND sd.`salon_id` IN (?a)", $_GET['dateFrom'],  $_GET['dateTo'], $stat_id, $salons);
 
-
-
 include ('tpl/cab/editStat.tpl');
