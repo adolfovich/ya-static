@@ -1,3 +1,5 @@
+
+
 <div class="main-content">
     <!-- Top navbar -->
     <?php include ('tpl/cab/tpl_header.tpl'); ?>
@@ -36,11 +38,17 @@
               </div>
             </div>
             <div class="table-responsive">
+              <style>
+                .card .table td, .card .table th {
+                  padding-right: 0.5rem;
+                  padding-left: 0.5rem;
+                }
+              </style>
               <!-- Projects table -->
-              <table class="table align-items-center table-flush">
+              <table class="table table-sm align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" style="width: 20px;">#</th>
+
                     <th scope="col" class="text-left">ФИО</th>
                     <th scope="col" >Салоны</th>
                     <th scope="col" >Профиль</th>
@@ -51,7 +59,7 @@
                 <tbody>
                   <?php foreach($users as $user) { ?>
                   <tr>
-                    <th scope="row"><?=$user['id']?></th>
+                    
                     <td class="text-left"><a href="/cab/user_edit?id=<?=$user['id']?>"><?=$user['name']?></a></td>
                     <td><?=getUserSalons($user['salons'])?></td>
                     <td><?=$user['profileName']?></td>
@@ -93,7 +101,7 @@
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table align-items-center table-flush">
+              <table class="table table-sm align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" class="text-left">Название</th>

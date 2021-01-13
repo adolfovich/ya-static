@@ -7,8 +7,11 @@
   }
 
   .cat {
-  width: 150px;
+    min-width: 150px;
+      max-width: 150px;
   height: 150px;
+  display: table-cell;
+  vertical-align: middle;
 
   border: 1px #5e72e4 solid;
 
@@ -19,8 +22,6 @@
   }
 
   .cat-name {
-  margin-top: calc(50% - 1rem);
-  display: inline-block;
   font-weight: 600;
   }
 
