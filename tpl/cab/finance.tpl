@@ -220,7 +220,7 @@
                 </div>
                 <div class="col-md-4 text-right">
                   <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
-                  <?php if ($profile_data['edit_finance']) { ?>
+                  <?php if ($user_profile['edit_finance']) { ?>                    
                   <a href="finance_settings" class="btn btn-primary mb-2" ><i class="fas fa-cog"></i></a>
                   <?php } ?>
                   <br>

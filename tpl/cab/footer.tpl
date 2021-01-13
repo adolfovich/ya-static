@@ -1,7 +1,4 @@
 <script>
-  //$(document).ready(function() {
-  //    $('.select2-salon').select2();
-  //});
 
   var config = {
   '.chosen-select'           : {},
@@ -10,11 +7,17 @@
   '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
   '.chosen-select-rtl'       : { rtl: true },
   '.chosen-select-width'     : { width: '95%' }
-}
-for (var selector in config) {
-  $(selector).chosen(config[selector]);
-}
+  }
+  for (var selector in config) {
+    $(selector).chosen(config[selector]);
+  }
+
+  function openReport(form, file) {
+    getString = file + '?' + $("#"+form).serialize();
+    window.open(getString);
+  }
 </script>
+
 </body>
 
 </html>

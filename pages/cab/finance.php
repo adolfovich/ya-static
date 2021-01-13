@@ -1,7 +1,5 @@
 <?php
 
-$profile_data = $db->getRow("SELECT * FROM `profiles` WHERE `id` = ?i", $auth_user['id']);
-
 if (!$user_data['salons']) {
   $accepted_salons = 0;
   $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1");
