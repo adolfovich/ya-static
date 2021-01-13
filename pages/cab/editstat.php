@@ -1,7 +1,6 @@
 <?php
 
 $url_params = explode('?', $_SERVER['REQUEST_URI']);
-//var_dump($url_params);
 
 $stat_id = $db->getOne("SELECT `id` FROM `statistics` WHERE `string_id` = ?s", $_GET['stat']);
 
@@ -15,8 +14,6 @@ if ($_GET['salon'] == 'all') {
 } else {
   $salons[] = $_GET['salon'];
 }
-
-//var_dump($salons);
 
 $statistics = $db->getAll("SELECT
                                   sd.*,

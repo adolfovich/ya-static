@@ -220,20 +220,14 @@
                 </div>
                 <div class="col-md-4 text-right">
                   <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
-                  <?php if ($user_profile['edit_finance']) { ?>                    
+                  <?php if ($user_profile['edit_finance']) { ?>
                   <a href="finance_settings" class="btn btn-primary mb-2" ><i class="fas fa-cog"></i></a>
                   <?php } ?>
                   <br>
                   <a href="#" class="btn btn-primary mb-2" onClick="openReport('finForm', '/reports/finance_salons.php')">Отчет по салонам</i></a>
                 </div>
               </div>
-              <script>
-                function openReport(form, file) {
-                  getString = file + '?' + $("#"+form).serialize();
-                  window.open(getString);
-                }
-
-              </script>
+              
             </div>
             <div class="card-body">
               <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
