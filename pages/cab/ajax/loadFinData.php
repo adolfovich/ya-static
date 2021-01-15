@@ -35,7 +35,7 @@ if ($form["type"] == 'all') {
     $type = 'neutral';
   }
 
-  if (isset($form['description']) && $form['description'] != '' && $form['description'] != '0') {
+  if (isset($form['description']) && $form['description'] != '' && $form['description'] != '0' && $form['description'] != 'all') {
     $sql = $db->parse("SELECT *, (SELECT name FROM salons WHERE id = salon) as salon_name FROM finance_journal WHERE 	op_decryption = ?s AND op_type = ?s AND salon IN (?a) AND date BETWEEN ?s AND ?s ORDER BY date DESC", $form['description'], $type, $accepted_salons, $form["dateFrom"], $form["dateTo"]);
   } else {
     $sql = $db->parse("SELECT *, (SELECT name FROM salons WHERE id = salon) as salon_name FROM finance_journal WHERE op_type = ?s AND salon IN (?a) AND date BETWEEN ?s AND ?s ORDER BY date DESC", $type, $accepted_salons, $form["dateFrom"], $form["dateTo"]);
@@ -46,8 +46,9 @@ if ($form["type"] == 'all') {
 $operations = $db->getAll($sql);
 
 $sum = 0;
-
+//var_dump($sql);
 if ($operations) {
+
   foreach($operations as $operation) {
     $arr['response']['operations'] .= '<tr>';
     $arr['response']['operations'] .= '<th scope="row">'.$operation['salon_name'].'</th>';

@@ -57,7 +57,7 @@ if (isset($form['action_type']) && $form['action_type'] == 'add_operation') {
   if ($accepted_salons == 0 || in_array($form['opSalon'], $accepted_salons)) {
     if (time() > strtotime($form['opDete'])) {
       if ($form['opAmount'] > 0) {
-        $operation_data = $db->getRow("SELECT * FROM finance_operation_types WHERE name = ?s", $form['opDesc']);
+        $operation_data = $db->getRow("SELECT * FROM finance_operation_types WHERE id = ?s", $form['opDesc']);
         $insert = [
           'salon' => $form['opSalon'],
           'date' => $form['opDete'],
@@ -93,11 +93,11 @@ $descriptions = [];
 
 foreach ($op_descriptions as $op_description) {
   if ($op_description['type'] == 'debit') {
-    $descriptions[1][] = $op_description['name'];
+    $descriptions[1][$op_description['id']] = $op_description['name'];
   } else if ($op_description['type'] == 'credit') {
-    $descriptions[2][] = $op_description['name'];
+    $descriptions[2][$op_description['id']] = $op_description['name'];
   } else {
-    $descriptions[3][] = $op_description['name'];
+    $descriptions[3][$op_description['id']] = $op_description['name'];
   }
 }
 

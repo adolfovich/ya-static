@@ -227,7 +227,7 @@
                   <a href="#" class="btn btn-primary mb-2" onClick="openReport('finForm', '/reports/finance_salons.php')">Отчет по салонам</i></a>
                 </div>
               </div>
-              
+
             </div>
             <div class="card-body">
               <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -285,6 +285,8 @@
     activaTab('<?=$_COOKIE['finTab']?>');
   <?php } ?>
 
+
+
   function activaTab(tab){
     $('.nav-tabs a[href="#' + tab + '"]').tab('show');
   };
@@ -322,7 +324,7 @@
       descr = document.getElementById("opDesc");
       descr.innerHTML = '';
       for (key in descriptoins[type]) {
-        descr.innerHTML += '<option value="'+descriptoins[type][key]+'">'+descriptoins[type][key]+'</option>';
+        descr.innerHTML += '<option value="'+key+'">'+descriptoins[type][key]+'</option>';
       }
     }
 
@@ -343,8 +345,10 @@
     }
 
     $(document).ready(function(){
+
         loadDescriptions();
         loadDescriptionsFilter();
+        loadFinData();
     })
 
     function loadChart() {
@@ -427,6 +431,7 @@
     }
 
     function loadFinData() {
+
       setCookieFilter();
       $.post(
         "/pages/cab/ajax/loadFinData.php",
@@ -436,6 +441,7 @@
 
       function onAjaxSuccess(data)
       {
+
         result = JSON.parse(data);
 
         if (result.status == 'OK') {
@@ -452,5 +458,5 @@
       }
     }
 
-    loadFinData();
+
   </script>
