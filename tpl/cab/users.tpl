@@ -30,7 +30,7 @@
                 <div class="col">
                   <h3 class="mb-0">Список пользователей</h3>
                 </div>
-                <div class="col text-right">
+                <div class="col-7 text-right">
                   <a href="new_user" class="btn btn-sm btn-primary">Добавить пользователя</a>
                   <a href="users?a=all_users" class="btn btn-sm btn-primary">Показать удаленных</a>
                 </div>
