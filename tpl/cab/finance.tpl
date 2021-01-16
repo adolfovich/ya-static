@@ -217,7 +217,15 @@
                         </select>
                       </div>
                     </div>
+
+
+
                   </form>
+                  <div class="form-row">
+                    <div class="form-group mx-sm-3 mb-2">
+                      <a href="#" class="btn btn-primary mb-2" onClick="loadFinData()">Применить</a>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-4 text-right">
                   <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
