@@ -144,14 +144,15 @@
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="dateFrom" style="padding-right: 47px;">Период с </label>
+
                         <input type="date" name="dateFrom" class="form-control" id="dateFrom" placeholder=""
-                        value="<?php if(isset($filter['dateFrom'])) {echo date("Y-m-d", strtotime($filter['dateFrom'])); } else {date("Y-m-d", time() - 604800);} ?>"
+                        value="<?php if(isset($filter['dateFrom'])) {echo date("Y-m-d", strtotime($filter['dateFrom'])); } else { echo date("Y-m-d", (time() - (86400 * 30)));} ?>"
                         onChange="loadFinData()">
                       </div>
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="dateTo" style="padding-right: 30px;"> - </label>
                         <input type="date" name="dateTo" class="form-control" id="dateTo" placeholder=""
-                        value="<?php if(isset($filter['dateTo'])) {echo date("Y-m-d", strtotime($filter['dateTo'])); } else {date("Y-m-d");} ?>"
+                        value="<?php if(isset($filter['dateTo'])) {echo date("Y-m-d", strtotime($filter['dateTo'])); } else { echo date("Y-m-d");} ?>"
                         onChange="loadFinData()">
                       </div>
                     </div>
@@ -332,8 +333,11 @@
       type = document.getElementById("type").value;
       descr = document.getElementById("description");
       descr.innerHTML = '<option value="0">Все</option>';
-
+      <?php if (isset($filter['description'])) { ?>
       selectedDescr = '<?=$filter['description']?>';
+      <?php } else { ?>
+      selectedDescr = '';
+      <?php } ?>
 
       for (key in descriptoins[type]) {
         if (selectedDescr == descriptoins[type][key]) {
