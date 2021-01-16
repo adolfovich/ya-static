@@ -17,7 +17,13 @@ function getUserSalons($user_salons) {
 
 if (isset($get['a']) && $get['a'] == 'del') {
   if ($db->query("UPDATE `users` SET `status` = 0 WHERE `id` = ?i", $get['id'])) {
-    $msg = ["type"=>"success", "text"=>"Пользователь уволен"];
+    $msg = ["type"=>"success", "text"=>"Пользователь удален"];
+  };
+}
+
+if (isset($get['a']) && $get['a'] == 'return') {
+  if ($db->query("UPDATE `users` SET `status` = 1 WHERE `id` = ?i", $get['id'])) {
+    $msg = ["type"=>"success", "text"=>"Пользователь восстановлен"];
   };
 }
 

@@ -32,7 +32,7 @@
                 </div>
                 <div class="col text-right">
                   <a href="new_user" class="btn btn-sm btn-primary">Добавить пользователя</a>
-                  <a href="users?a=all_users" class="btn btn-sm btn-primary">Показать уволеных</a>
+                  <a href="users?a=all_users" class="btn btn-sm btn-primary">Показать удаленных</a>
                 </div>
 
               </div>
@@ -59,13 +59,13 @@
                 <tbody>
                   <?php foreach($users as $user) { ?>
                   <tr>
-                    
+
                     <td class="text-left"><a href="/cab/user_edit?id=<?=$user['id']?>"><?=$user['name']?></a></td>
                     <td><?=getUserSalons($user['salons'])?></td>
                     <td><?=$user['profileName']?></td>
                     <td>
                       <?php if ($user['id'] != 1) { ?>
-                      <a href="/cab/user_edit?id=<?=$user['id']?>" class="mdc-button mdc-button--unelevated">
+                      <a href="/cab/user_edit?id=<?=$user['id']?>" class="btn btn-outline-primary btn-sm" title="Редактировать пользователя">
                         <i class="fas fa-user-edit"></i>
                       </a>
                     <?php } ?>
@@ -73,9 +73,13 @@
                     <td>
                       <?php if ($user['id'] != 1) { ?>
                         <?php if ($user['status'] == 1) { ?>
-                      <a href="/cab/users?a=del&id=<?=$user['id']?>"class="mdc-button mdc-button--unelevated secondary-filled-button mdc-ripple-upgraded">
-                        <i class="fas fa-user-minus"></i>
-                      </a>
+                        <a href="/cab/users?a=del&id=<?=$user['id']?>" class="btn btn-outline-danger btn-sm" title="Удалить пользователя">
+                          <i class="fas fa-user-minus"></i>
+                        </a>
+                      <?php } else if ($user['status'] == 0) { ?>
+                          <a href="/cab/users?a=return&id=<?=$user['id']?>" class="btn btn-outline-success btn-sm" title="Восстановить пользователя">
+                            <i class="fas fa-undo-alt"></i>
+                          </a>
                     <?php }} ?>
                     </td>
                   </tr>
@@ -115,14 +119,14 @@
                       <th scope="row"><?=$profile['name']?></th>
                       <td>
                         <?php if ($profile['id'] != 1) { ?>
-                          <a href="/cab/profile_edit?id=<?=$profile['id']?>"class="mdc-button mdc-button--unelevated secondary-filled-button mdc-ripple-upgraded">
+                          <a href="/cab/profile_edit?id=<?=$profile['id']?>"class="btn btn-outline-primary btn-sm" title="Редактировать профиль">
                             <i class="fas fa-edit"></i>
                           </a>
                         <?php } ?>
                       </td>
                       <td>
                         <?php if ($profile['id'] != 1) { ?>
-                          <a href="/cab/users?a=del_profile&id=<?=$profile['id']?>"class="mdc-button mdc-button--unelevated secondary-filled-button mdc-ripple-upgraded">
+                          <a href="/cab/users?a=del_profile&id=<?=$profile['id']?>"class="btn btn-outline-danger btn-sm" title="Удалить профиль">
                             <i class="fas fa-trash-alt"></i>
                           </a>
                         <?php } ?>
