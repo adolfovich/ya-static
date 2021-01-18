@@ -1,7 +1,6 @@
 <div class="main-content">
 
   <style>
-
   .modal-error {
   text-align: center;
   }
@@ -63,7 +62,7 @@
 
   <div class="modal" id="edit"  tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <form id="editForm" method="POST">
+      <form id="editForm" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="editActionType" name="action_type" value="edit_video">
         <div class="modal-content">
           <div class="modal-header">
@@ -110,6 +109,20 @@
               <input type="file" name="videoFile" class="form-control" id="videoFile" aria-describedby="fileHelp" >
               <small id="fileHelp" class="form-text text-muted">Файл должен быть в формате MP4</small>
             </div>
+
+            <ul class="list-group">
+              <li class="list-group-item">Дополнительные файлы</li>
+              <li class="list-group-item" id="dopFiles">
+                <div class="form-group">
+                  <input type="file" name="dopFile1" class="form-control" id="dopFile1" aria-describedby="dopFileHelp1" >
+                  <small id="dopFileHelp1" class="form-text text-muted">Файл должен быть в формате MP3, Word, Excel, PDF</small>
+                </div>
+
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="btn btn-outline-primary btn-sm" onClick="addFileField()">Добавить еще один файл</a>
+              </li>
+            </ul>
           </div>
 
           <div class="modal-error text-danger">
@@ -123,12 +136,6 @@
       </form>
     </div>
   </div>
-
-  <?php if (isset($msg) && $msg['type'] == 'error') { ?>
-    <script>
-      $('#addCat').modal('show');
-    </script>
-  <?php } ?>
 
     <!-- Top navbar -->
     <?php include ('tpl/cab/tpl_header.tpl'); ?>
@@ -210,3 +217,33 @@
       <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
+  <?php if (isset($msg) && isset($msg['video_id'])) { ?>
+    <script>
+      modalEdit('editVideo', 28, '<?=$msg["text"]?>');
+    </script>
+  <?php } ?>
+
+  <?php if (isset($msg) && $msg['type'] == 'error') { ?>
+    <script>
+      $('#<?=$msg["window"]?>').modal('show');
+    </script>
+  <?php } ?>
+
+  <script>
+    function deleteDopFile(id) {
+      $("#modalEditDopFile"+id).remove();
+
+      newElems = $('<input type="hidden" name="deleteDopFile[]" value="'+id+'">');
+      $('#dopFiles').append(newElems);
+    }
+
+  function addFileField() {
+    countFileFields = $("#dopFiles .form-group").length;
+    fileFields = document.getElementById("dopFiles");
+    newFieldNum = countFileFields + 1;
+
+    newElems = $('<div class="form-group"><input type="file" name="dopFile[]" class="form-control" id="dopFile'+newFieldNum+'" aria-describedby="dopFileHelp'+newFieldNum+'" ><small id="dopFileHelp'+newFieldNum+'" class="form-text text-muted">Файл должен быть в формате MP3, Word, Excel, PDF</small></div>')
+
+    $('#dopFiles').append(newElems);
+  }
+  </script>

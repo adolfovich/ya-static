@@ -307,4 +307,31 @@ class Core
     return $month_names[$month];
   }
 
+  public function getFileIco($extention) {
+    switch ($extention) {
+    case 'mp3':
+        $ico = '<i class="far fa-file-audio"></i>';
+        break;
+    case 'doc':
+        $ico = '<i class="far fa-file-word"></i>';
+        break;
+    case 'docx':
+        $ico = '<i class="far fa-file-word"></i>';
+        break;
+    case 'xls':
+        $ico = '<i class="far fa-file-excel"></i>';
+        break;
+    case 'xlsx':
+        $ico = '<i class="far fa-file-excel"></i>';
+        break;
+    case 'pdf':
+        $ico = '<i class="far fa-file-pdf"></i>';
+        break;
+    default:
+        $ico = '<i class="far fa-file"></i>';
+        break;
+      }
+    return $ico;
+  }
+
 }

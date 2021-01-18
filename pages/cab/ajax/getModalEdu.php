@@ -103,6 +103,59 @@ if (isset($_POST['type']) && isset($_POST['id'])) {
     $arr['response'] .= '<label for="videoOrdering">Сортировка</label>';
     $arr['response'] .= '<input type="text" name="videoOrdering" class="form-control" id="videoOrdering" placeholder="" value="'.$video_data['ordering'].'">';
     $arr['response'] .= '</div>';
+
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<label for="videoFile">Файл видеоролика</label>';
+    $arr['response'] .= '<input type="file" name="videoFile" class="form-control" id="videoFile" aria-describedby="fileHelp" >';
+    $arr['response'] .= '<small id="fileHelp" class="form-text text-muted"><b>Если оставить поле пустым, видео не изменится.</b> Файл должен быть в формате MP4.</small>';
+    $arr['response'] .= '</div>';
+
+
+    $dopFiles = $db->getAll("SELECT * FROM edu_videos_files WHERE video_id = ?i AND deleted = 0", $video_data['id']);
+
+    $arr['response'] .= '<ul class="list-group">';
+    $arr['response'] .= '<li class="list-group-item" style="background-color: #eee;">Дополнительные файлы</li>';
+
+    if ($dopFiles) {
+      foreach ($dopFiles as $dopFile) {
+        $dopFileName = explode("/", $dopFile['path']);
+        $dopFileName = $dopFileName[3];
+        $dopFileExtention = explode(".", $dopFileName);
+        $dopFileExtention = end($dopFileExtention);
+        $arr['response'] .= '<li class="list-group-item" id="modalEditDopFile'.$dopFile['id'].'" style="padding: 0.5rem; padding-left: 1rem; padding-right: 1rem;">';
+        $arr['response'] .= '<div class="row">';
+        $arr['response'] .= '<div class="col-2">';
+        $arr['response'] .= '<span style="font-size: 1.5em;">'.$core->getFileIco($dopFileExtention).'</span>';
+        $arr['response'] .= '</div>';
+        $arr['response'] .= '<div class="col-8">';
+        $arr['response'] .= '<div>';
+        $arr['response'] .= $dopFileName;
+        $arr['response'] .= '</div>';
+        $arr['response'] .= '</div>';
+        $arr['response'] .= '<div class="col-2">';
+        $arr['response'] .= '<a class="btn text-danger" onClick="deleteDopFile('.$dopFile['id'].')"><i class="far fa-trash-alt"></i></a>';
+        $arr['response'] .= '</div>';
+        $arr['response'] .= '</div>';
+        $arr['response'] .= '</li>';
+
+      }
+    }
+
+    $arr['response'] .= '<li class="list-group-item" id="dopFiles">';
+    $arr['response'] .= '<div class="form-group">';
+    $arr['response'] .= '<input type="file" name="dopFile1" class="form-control" id="dopFile1" aria-describedby="dopFileHelp1" >';
+    $arr['response'] .= '<small id="dopFileHelp1" class="form-text text-muted">Файл должен быть в формате MP3, Word, Excel, PDF</small>';
+    $arr['response'] .= '</div>';
+    $arr['response'] .= '</li>';
+    $arr['response'] .= '<li class="list-group-item">';
+    $arr['response'] .= '<a href="#" class="btn btn-outline-primary btn-sm" onClick="addFileField(); return false;">Добавить еще один файл</a>';
+    $arr['response'] .= '</li>';
+    $arr['response'] .= '</ul>';
+    $arr['response'] .= '';
+
+    $arr['response'] .= '';
+    $arr['response'] .= '';
+
     $arr['response'] .= '';
   } else if ($_POST['type'] == 'deleteVideo') {
     $video_data = $db->getRow("SELECT * FROM edu_videos WHERE id = ?i", $_POST['id']);

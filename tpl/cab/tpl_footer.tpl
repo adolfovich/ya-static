@@ -6,22 +6,6 @@
         © <?=date("Y")?><a href="https://exeptional.ru" class="font-weight-bold ml-1" target="_blank" style="color: #6c757d; font-weight: 100 !important;">e<span style="color: green;">[x]</span>eptional software</a>
       </div>
     </div>
-    <!--div class="col-xl-6">
-      <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-        <li class="nav-item">
-          <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-        </li>
-        <li class="nav-item">
-          <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-        </li>
-      </ul>
-    </div-->
   </div>
 </footer>
 
@@ -38,7 +22,6 @@
 
     function onAjaxSuccess(data)
     {
-      //console.log(data);
       var result = JSON.parse(data);
       if (result.status == 'OK') {
         document.getElementById('deleteBody').innerHTML = result.response; //response
@@ -54,7 +37,7 @@
     }
   }
 
-  function modalEdit(type, id) {
+  function modalEdit(type, id, msg = '') {
     $.post(
       "/pages/cab/ajax/getModalEdu.php",
       {
@@ -66,10 +49,12 @@
 
     function onAjaxSuccess(data)
     {
-      //console.log(data);
       var result = JSON.parse(data);
       if (result.status == 'OK') {
         document.getElementById('editBody').innerHTML = result.response; //response
+        if (msg != '') {
+          document.getElementById('editError').innerHTML = msg;
+        }
         $('#edit').modal('show');
       } else {
         Swal.fire({

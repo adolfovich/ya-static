@@ -1,7 +1,6 @@
 <div class="main-content">
 
   <style>
-
   .modal-error {
   text-align: center;
   }
@@ -117,11 +116,35 @@
                 </div>
               </div>
               <br>
-              <div class="row" style="text-align: center;">
+              <div class="row" style="text-align: center;" >
                 <div class="embed-responsive embed-responsive-16by9">
                   <video style="margin: 0 auto;" src="<?=$video_data['path']?>" controls></video>
                 </div>
               </div>
+              <?php if ($dopFiles) { ?>
+              <div class="row" style="text-align: center;">
+                <div class="col-sm" style="margin-top: 20px;">
+                  Дополнительные файлы
+                </div>
+              </div>
+              <div class="row" style="text-align: center;">
+                <?php foreach ($dopFiles as $dopFile) { ?>
+                  <?php
+                    $dopFileName = explode("/", $dopFile['path']);
+                    $dopFileName = $dopFileName[3];
+                    $dopFileExtention = explode(".", $dopFileName);
+                    $dopFileExtention = end($dopFileExtention);
+                   ?>
+                   <div class="card" style="width: 10rem;">
+                     <span class="card-img-top" style="font-size: 5em;"><?=$core->getFileIco($dopFileExtention)?></span>
+                      <div class="card-body" style="padding-top: 0;padding: 0.5rem; ">
+                        <h5 class="card-title" style="margin-bottom: 0;"><?=$dopFileName?></h5>
+                      </div>
+                      <a href="<?=$dopFile['path']?>" target="_blank" class="btn btn-primary" style="margin: 10px;">Скачать</a>
+                    </div>
+                <?php } ?>
+              </div>
+              <?php } ?>
             </div>
           </div>
         </div>
@@ -143,7 +166,6 @@
 
     function onAjaxSuccess(data)
     {
-      //console.log(data);
       var result = JSON.parse(data);
       if (result.status == 'OK') {
         document.getElementById('onceLinkModalBody').innerHTML = result.response; //response
@@ -160,9 +182,9 @@
   }
 
   function copyUrl(){
-  var copyText = document.getElementById("inputUrl");
-  copyText.select();
-  document.execCommand("copy");
+    var copyText = document.getElementById("inputUrl");
+    copyText.select();
+    document.execCommand("copy");
   }
 
 
