@@ -41,7 +41,7 @@ if (isset($get['a']) && $get['a'] == 'save') {
 
   $q = $db->parse("UPDATE `users` SET ?u WHERE id = ?i", $update, $get['id']);
 
-  var_dump($q);
+  //var_dump($q);
 
   //$db->query("UPDATE `users` SET ?u WHERE id = ?i", $update, $get['id']);
 

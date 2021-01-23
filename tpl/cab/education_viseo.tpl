@@ -116,17 +116,21 @@
                 </div>
               </div>
               <br>
+              <?php if ($video_data["path"]) { ?>
               <div class="row" style="text-align: center;" >
                 <div class="embed-responsive embed-responsive-16by9">
                   <video style="margin: 0 auto;" src="<?=$video_data['path']?>" controls></video>
                 </div>
               </div>
+              <?php } ?>
               <?php if ($dopFiles) { ?>
-              <div class="row" style="text-align: center;">
-                <div class="col-sm" style="margin-top: 20px;">
-                  Дополнительные файлы
+                <?php if ($video_data["path"]) { ?>
+                <div class="row" style="text-align: center;">
+                  <div class="col-sm" style="margin-top: 20px;">
+                    Дополнительные файлы
+                  </div>
                 </div>
-              </div>
+                <?php } ?>
               <div class="row" style="text-align: center;">
                 <?php foreach ($dopFiles as $dopFile) { ?>
                   <?php

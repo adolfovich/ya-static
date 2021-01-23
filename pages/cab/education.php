@@ -245,56 +245,63 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_video') {
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_video') {
   if ($_POST['videoName'] != '') {
 
-    if (isset($_FILES['videoFile']) && $_FILES['videoFile']['error'] == 0 && $_FILES['videoFile']['type'] == 'video/mp4') {
+    if (isset($_FILES['videoFile']) && $_FILES['videoFile']['error'] == 0) {
 
-      $fileTmpPath = $_FILES['videoFile']['tmp_name'];
-      $name = $_FILES['videoFile']['name'];
-      $dest_path = $full_path . $name;
-      $dbpath = '/videos/'.$name;
+      if ($_FILES['videoFile']['type'] != 'video/mp4') {
+        $msg['window'] = 'addCat';
+        $msg['type'] = 'error';
+        $msg['text'] = 'Не выбран файл или неверный формат файла';
 
-      if(move_uploaded_file($fileTmpPath, $dest_path)) {
-        unset($_FILES['videoFile']);
+        break;
+      } else {
+        $fileTmpPath = $_FILES['videoFile']['tmp_name'];
+        $name = $_FILES['videoFile']['name'];
+        $dest_path = $full_path . $name;
+        $dbpath = '/videos/'.$name;
 
-        $db->query("INSERT INTO edu_videos SET name = ?s, path = ?s, subcat = ?i", $_POST['videoName'], $dbpath, $_POST['subcat']);
-        $new_video_id = $db->insertId();
+        move_uploaded_file($fileTmpPath, $dest_path);
 
-        foreach ($_FILES as $dopFile) {
 
-          if (in_array(mime_content_type($dopFile['tmp_name']), $allowFileTypes)) {
+      }
 
-            $fileTmpPath = $dopFile['tmp_name'];
-            $name = $dopFile['name'];
-            $dest_path = $full_path . '/dopfiles/' . $name;
-            $dbpath = '/videos/dopfiles/'.$name;
+    } else {
+      $dbpath = '';
+    }
 
-            move_uploaded_file($fileTmpPath, $dest_path);
+    $db->query("INSERT INTO edu_videos SET name = ?s, path = ?s, subcat = ?i", $_POST['videoName'], $dbpath, $_POST['subcat']);
+    $new_video_id = $db->insertId();
 
-            $insert = [
-              'video_id' => $new_video_id,
-              'path' => $dbpath
-            ];
+    unset($_FILES['videoFile']);
 
-            $db->query("INSERT INTO edu_videos_files SET ?u", $insert);
-          } else {
-            $msg['window'] = 'addCat';
-            $msg['type'] = 'error';
-            $msg['text'] = 'Недопустимый формат дополнительного файла';
-            break;
-          }
-        }
-        $msg['type'] = 'success';
-        $msg['text'] = 'Видео успешно добавлено';
-        unset($_POST);
+    foreach ($_FILES as $dopFile) {
+
+      if (in_array(mime_content_type($dopFile['tmp_name']), $allowFileTypes)) {
+
+        $fileTmpPath = $dopFile['tmp_name'];
+        $name = $dopFile['name'];
+        $dest_path = $full_path . '/dopfiles/' . $name;
+        $dbpath = '/videos/dopfiles/'.$name;
+
+        move_uploaded_file($fileTmpPath, $dest_path);
+
+        $insert = [
+          'video_id' => $new_video_id,
+          'path' => $dbpath
+        ];
+
+        $db->query("INSERT INTO edu_videos_files SET ?u", $insert);
       } else {
         $msg['window'] = 'addCat';
         $msg['type'] = 'error';
-        $msg['text'] = 'Ошибка копирования';
+        $msg['text'] = 'Недопустимый формат дополнительного файла';
+        break;
       }
-    } else {
-      $msg['window'] = 'addCat';
-      $msg['type'] = 'error';
-      $msg['text'] = 'Не выбран файл или неверный формат файла';
     }
+
+    $msg['type'] = 'success';
+    $msg['text'] = 'Видео успешно добавлено';
+    unset($_POST);
+
   } else {
     $msg['window'] = 'addCat';
     $msg['type'] = 'error';
