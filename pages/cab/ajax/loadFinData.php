@@ -46,6 +46,8 @@ if ($form["type"] == 'all') {
 $operations = $db->getAll($sql);
 
 $sum = 0;
+$credit = 0;
+$debit = 0;
 //var_dump($sql);
 if ($operations) {
 
@@ -66,17 +68,26 @@ if ($operations) {
 
     if ($operation['op_type'] == 'credit') {
       $sum -= $operation['amount'];
+      $credit += $operation['amount'];
     } else if ($operation['op_type'] == 'debit') {
       $sum += $operation['amount'];
+      $debit += $operation['amount'];
     }
   }
 
   //$arr['response']['operations'] .= '<tfoot>';
 
   $arr['response']['operations'] .= '<tr style="background: #f6f9fc;">';
-  $arr['response']['operations'] .= '<th scope="col" colspan="4" style="text-align: right;">ИТОГО:</th>';
-  $arr['response']['operations'] .= '<th scope="col">'.number_format($sum, 2, '.', ' ').'</th>';
-  $arr['response']['operations'] .= '<th scope="col" colspan="2"></th>';
+  //$arr['response']['operations'] .= '<th scope="col" style="text-align: right;"></th>';
+  $arr['response']['operations'] .= '<th scope="col" colspan="7" style="text-align: center; font-weight: 400;">';
+  $arr['response']['operations'] .= 'ДОХОД: ';
+  $arr['response']['operations'] .= '<b>'.number_format($debit, 2, '.', ' ').'р.</b> | ';
+  $arr['response']['operations'] .= 'РАСХОД: ';
+  $arr['response']['operations'] .= '<b>'.number_format($credit, 2, '.', ' ').'р.</b> | ';
+
+  $arr['response']['operations'] .= 'ИТОГО: ';
+  $arr['response']['operations'] .= '<b>'.number_format($sum, 2, '.', ' ').'р.</b></th>';
+
   $arr['response']['operations'] .= '</tr>';
 
   //$arr['response']['operations'] .= '</tfoot>';
