@@ -6,7 +6,9 @@ if (isset($get['a']) && $get['a'] == 'del') {
   }
 }
 
-$salons = $db->getAll("SELECT * FROM `salons` WHERE `enabled` = 1");
+$salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1");
+
+$fields = $db->getAll("SELECT * FROM salons_fields WHERE deleted = 0 AND show_in_table = 1");
 
 
 include ('tpl/cab/salons.tpl');

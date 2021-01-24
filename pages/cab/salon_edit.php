@@ -8,9 +8,17 @@ if (isset($get['a']) && $get['a'] == 'save') {
 
     $q = $db->parse("UPDATE `salons` SET ?u WHERE `id` = ?i", $update, $get['id']);
 
+    foreach ($form['salonFields'] as $field_id => $field_value) {
+      if ($field_value != '') {
+        $core->setSalonFieldValue($get['id'], $field_id, $field_value);
+      }      
+    }
+
     if ($db->query($q)) {
       $msg = ["type"=>"success", "text"=>"Данные сохранены"];
     }
+
+
   } else {
     $msg = ["type"=>"danger", "text"=>"Ошибка! Название салона должно содержать не менее 5 символов"];
   }
@@ -18,7 +26,7 @@ if (isset($get['a']) && $get['a'] == 'save') {
 
 if (isset($get['id'])) {
   if ($salon_data = $db->getRow("SELECT * FROM `salons` WHERE `id` = ?i", $get['id'])) {
-
+    $fields_list = $db->getAll("SELECT * FROM salons_fields WHERE deleted != 1");
   } else {
     $msg = ["type"=>"danger", "text"=>"Ошибка! салон не найден"];
   }

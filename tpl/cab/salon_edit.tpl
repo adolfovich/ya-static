@@ -36,15 +36,23 @@
             </div>
             <div style="padding-left: 20px; padding-right: 20px;">
             <form id="salonEdit" method="POST" action="?a=save&id=<?=$salon_data['id']?>">
-              <div class="row">
+              <div class="row" style="padding-bottom: 20px;">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" name="salonName" placeholder="Название салона" class="form-control" value="<?=$salon_data['name']?>"/>
-
+                    <label for="salonName">Название салона</label>
+                    <input type="text" name="salonName" id="salonName" placeholder="Название салона" class="form-control" value="<?=$salon_data['name']?>"/>
                   </div>
-                </div>
 
+                  <?php foreach ($fields_list as $field) { ?>
+                    <div class="form-group">
+                      <label for="salonFields<?=$field['id']?>"><?=$field['name']?></label>
+                      <input type="text" name="salonFields[<?=$field['id']?>]" id="salonFields<?=$field['id']?>" placeholder="<?=$field['name']?>" class="form-control" value="<?=$core->getSalonFieldValue($salon_data['id'], $field['id'])?>"/>
+                    </div>
+                  <?php } ?>
+                </div>
               </div>
+
+
               <div class="row">
 
               </div>

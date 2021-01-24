@@ -334,4 +334,29 @@ class Core
     return $ico;
   }
 
+  public function getSalonFieldValue($salon_id, $field_id) {
+    global $db;
+    $value = $db->getOne("SELECT value FROM salons_fields_values WHERE salon_id = ?i AND field_id =?i", $salon_id, $field_id);
+    if ($value) {
+      return $value;
+    } else {
+      return '';
+    }
+  }
+
+  public function setSalonFieldValue($salon_id, $field_id, $field_value) {
+    global $db;
+    $value = $db->getOne("SELECT value FROM salons_fields_values WHERE salon_id = ?i AND field_id =?i", $salon_id, $field_id);
+    if ($value) {
+      $db->query("UPDATE salons_fields_values SET value = ?s WHERE salon_id = ?i AND field_id =?i", $field_value, $salon_id, $field_id);
+    } else {
+      $insert = [
+        'salon_id' => $salon_id,
+        'field_id' => $field_id,
+        'value' => $field_value
+      ];
+      $db->query("INSERT INTO salons_fields_values SET ?u", $insert);
+    }
+  }
+
 }

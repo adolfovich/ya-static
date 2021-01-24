@@ -21,7 +21,7 @@
     <div class="container-fluid mt--7">
 
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -29,7 +29,18 @@
                   <h3 class="mb-0">Список салонов</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="new_salon" class="btn btn-sm btn-primary">Добавить салон</a>
+                  <div class="row">
+                    <div class="col">
+                      <a href="new_salon" class="btn btn-sm btn-primary" style="margin-bottom: 10px;">Добавить салон</a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <a href="salons_fields" class="btn btn-sm btn-primary" style="margin-bottom: 10px;">Настройка полей</a>
+                    </div>
+                  </div>
+
+
                 </div>
 
               </div>
@@ -41,8 +52,10 @@
                   <tr>
                     <th scope="col" style="width: 20px;">#</th>
                     <th scope="col" class="text-left">Салон</th>
-                    <th scope="col" ></th>
-                    <th scope="col" ></th>
+                    <?php foreach ($fields as $field) { ?>
+                      <th scope="col" ><?=$field['name']?></th>
+                    <?php } ?>
+
                     <th style="width: 20px;"></th>
                     <th style="width: 20px;"></th>
                   </tr>
@@ -52,8 +65,9 @@
                   <tr>
                     <th scope="row"><?=$salon['id']?></th>
                     <td class="text-left"><?=$salon['name']?></td>
-                    <td></td>
-                    <td></td>
+                    <?php foreach ($fields as $field) { ?>
+                      <td scope="col"><?=$core->getSalonFieldValue($salon['id'], $field['id'])?></td>
+                    <?php } ?>
                     <td>
                       <a href="/cab/salon_edit?id=<?=$salon['id']?>" class="mdc-button mdc-button--unelevated">
                         <i class="fas fa-edit"></i>
@@ -73,9 +87,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4">
 
-        </div>
       </div>
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
