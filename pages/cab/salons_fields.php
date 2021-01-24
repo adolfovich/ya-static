@@ -1,5 +1,10 @@
 <?php
 
+if (!$user_profile['edit_salons']) {
+  include ('tpl/cab/403.tpl');
+  die();
+}
+
 if (isset($form['field_ordering'])) {
   $db->query("UPDATE salons_fields SET ordering = ?i WHERE id = ?i", $form['field_ordering'], $form['field_id']);
 }

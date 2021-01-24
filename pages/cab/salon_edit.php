@@ -1,6 +1,6 @@
 <?php
 
-if (isset($get['a']) && $get['a'] == 'save') {
+if (isset($get['a']) && $get['a'] == 'save' && $user_profile['edit_salons']) {
   if (strlen($form['salonName']) >= 5) {
     $update = [
       "name" => $form['salonName']
@@ -11,7 +11,7 @@ if (isset($get['a']) && $get['a'] == 'save') {
     foreach ($form['salonFields'] as $field_id => $field_value) {
       if ($field_value != '') {
         $core->setSalonFieldValue($get['id'], $field_id, $field_value);
-      }      
+      }
     }
 
     if ($db->query($q)) {
@@ -30,6 +30,12 @@ if (isset($get['id'])) {
   } else {
     $msg = ["type"=>"danger", "text"=>"Ошибка! салон не найден"];
   }
+}
+
+if (!$user_profile['edit_salons']) {
+  $disabled = 'disabled';
+} else {
+  $disabled = '';
 }
 
 include ('tpl/cab/salon_edit.tpl');

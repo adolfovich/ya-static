@@ -34,11 +34,13 @@
                       <a href="new_salon" class="btn btn-sm btn-primary" style="margin-bottom: 10px;">Добавить салон</a>
                     </div>
                   </div>
+                  <?php if ($user_profile['edit_salons']) { ?>
                   <div class="row">
                     <div class="col">
                       <a href="salons_fields" class="btn btn-sm btn-primary" style="margin-bottom: 10px;">Настройка полей</a>
                     </div>
                   </div>
+                  <?php } ?>
 
 
                 </div>
@@ -64,19 +66,25 @@
                   <?php foreach($salons as $salon) { ?>
                   <tr>
                     <th scope="row"><?=$salon['id']?></th>
-                    <td class="text-left"><?=$salon['name']?></td>
+                    <td class="text-left"><a href="/cab/salon_edit?id=<?=$salon['id']?>" ><?=$salon['name']?></a></td>
                     <?php foreach ($fields as $field) { ?>
                       <td scope="col"><?=$core->getSalonFieldValue($salon['id'], $field['id'])?></td>
                     <?php } ?>
                     <td>
                       <a href="/cab/salon_edit?id=<?=$salon['id']?>" class="mdc-button mdc-button--unelevated">
+                        <?php if ($user_profile['edit_salons']) { ?>
                         <i class="fas fa-edit"></i>
+                        <?php } else { ?>
+                        <i class="far fa-eye"></i>
+                        <?php } ?>
                       </a>
                     </td>
                     <td>
+                      <?php if ($user_profile['edit_salons']) { ?>
                       <a href="/cab/salons?a=del&id=<?=$salon['id']?>"class="mdc-button mdc-button--unelevated secondary-filled-button mdc-ripple-upgraded">
                         <i class="fas fa-trash-alt"></i>
                       </a>
+                      <?php } ?>
                     </td>
                   </tr>
                   <?php } ?>

@@ -38,12 +38,18 @@ if (isset($get['a']) && $get['a'] == 'save') {
         $edit_finance = '0';
       }
 
+      if (isset($form['edit_salons']) && $form['edit_salons'] == 1) {
+        $edit_salons = '1';
+      } else {
+        $edit_salons = '0';
+      }
+
       $update['access'] = $update_access;
       $update['stat_access'] = $update_stat_access;
       $update['change_ticket_status'] = $change_ticket_status;
       $update['edit_education'] = $edit_education;
       $update['edit_finance'] = $edit_finance;
-
+      $update['edit_salons'] = $edit_salons;
 
       $q = $db->parse("UPDATE `profiles` SET ?u WHERE `id` = ?i", $update, $get['id']);
 

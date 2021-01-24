@@ -74,6 +74,18 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <div class="custom-control custom-switch">
+                          <input name="edit_salons" type="checkbox" value="1" class="custom-control-input" id="customSwitch_edit_salons" <?php if ($profile_data['edit_salons']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_edit_salons">Может редактировать салоны</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
                           <input name="change_ticket_status" type="checkbox" value="1" class="custom-control-input" id="customSwitch_changeTicket" <?php if ($profile_data['change_ticket_status']) echo 'checked';?>>
                           <label class="custom-control-label" for="customSwitch_changeTicket">Может измениять статусы заявок</label>
                         </div>

@@ -28,7 +28,9 @@
                   <h3 class="mb-0">Редактирование салона</h3>
                 </div>
                 <div class="col text-right">
+                  <?php if (!$disabled) { ?>
                   <a href="#" class="btn btn-sm btn-primary" onClick="document.getElementById('salonEdit').submit()">Сохранить</a>
+                  <?php } ?>
                   <a href="#" class="btn btn-sm btn-primary" onClick="window.location='salons'">Закрыть</a>
                 </div>
 
@@ -40,30 +42,24 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="salonName">Название салона</label>
-                    <input type="text" name="salonName" id="salonName" placeholder="Название салона" class="form-control" value="<?=$salon_data['name']?>"/>
+                    <input type="text" name="salonName" id="salonName" placeholder="Название салона" class="form-control" value="<?=$salon_data['name']?>" <?=$disabled?> />
                   </div>
 
                   <?php foreach ($fields_list as $field) { ?>
                     <div class="form-group">
                       <label for="salonFields<?=$field['id']?>"><?=$field['name']?></label>
-                      <input type="text" name="salonFields[<?=$field['id']?>]" id="salonFields<?=$field['id']?>" placeholder="<?=$field['name']?>" class="form-control" value="<?=$core->getSalonFieldValue($salon_data['id'], $field['id'])?>"/>
+                      <input type="text" name="salonFields[<?=$field['id']?>]" id="salonFields<?=$field['id']?>" placeholder="<?=$field['name']?>" class="form-control" value="<?=$core->getSalonFieldValue($salon_data['id'], $field['id'])?>" <?=$disabled?> />
                     </div>
                   <?php } ?>
                 </div>
               </div>
 
-
-              <div class="row">
-
-              </div>
+              <div class="row"></div>
 
             </form>
             </div>
           </div>
         </div>
-
-
-
 
       </div>
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
