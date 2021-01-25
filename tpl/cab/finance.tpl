@@ -225,7 +225,8 @@
                   </div>
                 </div>
                 <div class="col-md-4 text-right">
-                  <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addOperation">Добавить операцию</button>
+                  <button class="btn btn-primary mb-2" onClick="openModalAddOperation()">Добавить операцию</button>
+
                   <?php if ($user_profile['edit_finance']) { ?>
                   <a href="finance_settings" class="btn btn-primary mb-2" ><i class="fas fa-cog"></i></a>
                   <?php } ?>
@@ -286,7 +287,12 @@
   </div>
 
   <script>
-
+    function openModalAddOperation() {
+      addSalonId = $('#salon').val();
+      $("#opSalon option[value='"+addSalonId+"']").attr("selected", "selected");
+      $('#addOperation').modal('show');
+    }
+  
   <?php if (isset($_COOKIE['finTab'])) { ?>
     activaTab('<?=$_COOKIE['finTab']?>');
   <?php } ?>
