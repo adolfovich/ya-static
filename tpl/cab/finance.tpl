@@ -369,7 +369,11 @@
 
       function onAjaxSuccess(data)
       {
+
+        console.log(data);
         result = JSON.parse(data);
+
+        console.log(result);
 
         if (result.status == 'OK') {
           var options = {

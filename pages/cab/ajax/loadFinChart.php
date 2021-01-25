@@ -13,7 +13,16 @@ $date_start = strtotime($form["dateFrom"]);
 $date_end = strtotime($form["dateTo"]);
 
 if ($form["salon"] == 'all') {
-  $accepted_salons = explode(",", $user_data['salons']);
+  if ($user_data['salons'] == 0) {
+    $accepted_salons = [];
+    for ($i = 1; $i <= 500; $i++) {
+      $accepted_salons[] = $i;
+    }
+  } else {
+    $accepted_salons = explode(",", $user_data['salons']);
+  }
+
+  //var_dump($accepted_salons);
 } else {
   $accepted_salons[] = $form["salon"];
 }
@@ -68,7 +77,7 @@ if ($form["chartType"] == 'days') {
   $incomes = $db->getAll("SELECT *, (SELECT name FROM salons WHERE id = salon) as salon_name, SUM(amount) as sum_amount FROM finance_journal WHERE op_type = 'debit' AND salon IN (?a) AND date BETWEEN ?s AND ?s GROUP BY YEAR(date), MONTH(date)", $accepted_salons, $form["dateFrom"], $form["dateTo"]);
 
   foreach ($expenses as $expense) {
-    $x_axis[] = $core->getMonthName(date("m", strtotime($expense['date']))) .' '. date("Y", strtotime($expense['date']));
+    $x_axis[] = $core->getMonthName(date("n", strtotime($expense['date']))) .' '. date("Y", strtotime($expense['date']));
   }
 
   foreach ($expenses as $value) {
