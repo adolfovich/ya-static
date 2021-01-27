@@ -169,7 +169,7 @@ $( "#addOperationSubmit" ).click(function() {
                         <label for="salon" style="padding-right: 60px;">Салон</label>
                         <select name="salon" id="salon" class="form-control chosen-select" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()" >
                           <?php
-                          if (count($user_salons) <= 1) {
+                          if (count($user_salons) <= 1) { 
                             ?>
                             <option value="<?=$user_salons[0]['id']?>" selected><?=$user_salons[0]['name']?></option>
                             <?php

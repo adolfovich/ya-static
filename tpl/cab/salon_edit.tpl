@@ -43,7 +43,7 @@
 
                   <div class="form-group" style="margin-bottom: 1.5rem !important;">
                     <div class="custom-control custom-switch">
-                      <input name="franchising" type="checkbox" value="1" class="custom-control-input" id="customSwitch_edit_franchising" <?php if ($salon_data['franchising']) echo 'checked';?>>
+                      <input name="franchising" type="checkbox" value="1" class="custom-control-input" id="customSwitch_edit_franchising" <?php if ($salon_data['franchising']) echo 'checked';?> <?=$disabled?> >
                       <label class="custom-control-label" for="customSwitch_edit_franchising">Фрашчайзи</label>
                     </div>
                   </div>
