@@ -67,12 +67,20 @@
           </div>
           <div class="modal-footer" style="padding-top: 0.5rem;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" id="addOperationSubmit" class="btn btn-primary">Сохранить</button>
           </div>
         </div>
       </form>
     </div>
   </div>
+<script>
+$( "#addOperationSubmit" ).click(function() {
+  $( "#addOperationSubmit" ).prop('disabled', true);
+  $( "#addOperationSubmit" ).text( 'Подождите...' );
+  $( "#addOperationForm" ).submit();
+});
+</script>
+
 
   <div class="modal" id="editOperation"  tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -292,7 +300,7 @@
       $("#opSalon option[value='"+addSalonId+"']").attr("selected", "selected");
       $('#addOperation').modal('show');
     }
-  
+
   <?php if (isset($_COOKIE['finTab'])) { ?>
     activaTab('<?=$_COOKIE['finTab']?>');
   <?php } ?>
