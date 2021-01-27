@@ -14,10 +14,7 @@ $date_end = strtotime($form["dateTo"]);
 
 if ($form["salon"] == 'all') {
   if ($user_data['salons'] == 0) {
-    $accepted_salons = [];
-    for ($i = 1; $i <= 500; $i++) {
-      $accepted_salons[] = $i;
-    }
+    $accepted_salons = $db->getCol("SELECT id FROM salons WHERE enabled = 1  AND franchising = 0");
   } else {
     $accepted_salons = explode(",", $user_data['salons']);
   }

@@ -2,8 +2,8 @@
 
 if (!$user_data['salons']) {
   $accepted_salons = 0;
-  $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1");
-  $user_salons_ids = $db->getCol("SELECT id FROM salons WHERE enabled = 1");
+  $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1 AND franchising = 0");
+  $user_salons_ids = $db->getCol("SELECT id FROM salons WHERE enabled = 1 AND franchising = 0");
 } else {
   $accepted_salons = explode(",", $user_data['salons']);
   $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1 AND id IN (?a)", $accepted_salons);

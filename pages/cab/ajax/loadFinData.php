@@ -16,7 +16,7 @@ $op_type_names = [
 
 if ($form["salon"] == 'all') {
  if ($user_data['salons'] == '0') {
-	$accepted_salons = $db->getCol("SELECT id FROM salons WHERE enabled = 1");
+	$accepted_salons = $db->getCol("SELECT id FROM salons WHERE enabled = 1  AND franchising = 0");
  } else {
 	$accepted_salons = explode(",", $user_data['salons']);
  }

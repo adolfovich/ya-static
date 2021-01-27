@@ -2,9 +2,14 @@
 
 if (isset($get['a']) && $get['a'] == 'save' && $user_profile['edit_salons']) {
   if (strlen($form['salonName']) >= 5) {
-    $update = [
-      "name" => $form['salonName']
-    ];
+    $update['name'] = $form['salonName'];
+
+
+    if (isset($form['franchising']) && $form['franchising'] == 1) {
+      $update['franchising'] = 1;
+    } else {
+      $update['franchising'] = 0;
+    }
 
     $q = $db->parse("UPDATE `salons` SET ?u WHERE `id` = ?i", $update, $get['id']);
 

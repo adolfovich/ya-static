@@ -40,10 +40,21 @@
             <form id="salonEdit" method="POST" action="?a=save&id=<?=$salon_data['id']?>">
               <div class="row" style="padding-bottom: 20px;">
                 <div class="col-md-6">
+
+                  <div class="form-group" style="margin-bottom: 1.5rem !important;">
+                    <div class="custom-control custom-switch">
+                      <input name="franchising" type="checkbox" value="1" class="custom-control-input" id="customSwitch_edit_franchising" <?php if ($salon_data['franchising']) echo 'checked';?>>
+                      <label class="custom-control-label" for="customSwitch_edit_franchising">Фрашчайзи</label>
+                    </div>
+                  </div>
+
+
                   <div class="form-group">
                     <label for="salonName">Название салона</label>
                     <input type="text" name="salonName" id="salonName" placeholder="Название салона" class="form-control" value="<?=$salon_data['name']?>" <?=$disabled?> />
                   </div>
+
+
 
                   <?php foreach ($fields_list as $field) { ?>
                     <div class="form-group">
