@@ -4,10 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Пример на bootstrap 4: Прижатый футер отображается в нижней части страницы, когда содержимое окна слишком короткое. Панель навигации в верхней части. Версия v4.3.1.">
 
-    <title>Прижатый футер с меню | Sticky Footer Navbar. Версия v4.3.1</title>
+    <title>Обучающие материалы</title>
 
     <!-- Bootstrap core CSS -->
-<link href="/assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+    <link href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <!-- Argon CSS -->
+    <link type="text/css" href="../assets/css/argon.css?v=1.0.0" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Optional JS -->
+    <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    <!-- Argon JS -->
+    <script src="../assets/js/argon.js?v=1.0.0"></script>
 
 
 
@@ -56,7 +71,7 @@
 
 <!-- Begin page content -->
 <div class="container-fluid mt--7">
-  <div class="container" style="margin-top: 30px;">
+  <div class="container" style="margin-top: 150px;">
     <?php if (isset($arr['error'])) { ?>
       <div class="row">
         <h2 style="text-align: center; color:red;"><?=$arr['error']?></h2>
@@ -66,11 +81,40 @@
     <div class="row">
       <h2 style="text-align: center;"><?=$video['name']?></h2>
     </div>
-    <div class="row" style="text-align: center;">
+    <?php if ($video["path"]) { ?>
+    <div class="row" style="text-align: center;" >
       <div class="embed-responsive embed-responsive-16by9">
         <video style="margin: 0 auto;" src="<?=$video['path']?>" controls></video>
       </div>
     </div>
+    <?php } ?>
+    <?php if ($dopFiles) { ?>
+      <?php if ($video["path"]) { ?>
+      <div class="row" style="text-align: center;">
+        <div class="col-sm" style="margin-top: 20px;">
+          Дополнительные файлы
+        </div>
+      </div>
+      <?php } ?>
+    <div class="row" style="text-align: center;">
+      <?php foreach ($dopFiles as $dopFile) { ?>
+        <?php
+          $dopFileName = explode("/", $dopFile['path']);
+          $dopFileName = $dopFileName[3];
+          $dopFileExtention = explode(".", $dopFileName);
+          $dopFileExtention = end($dopFileExtention);
+         ?>
+         <div class="card" style="width: 10rem;">
+           <span class="card-img-top" style="font-size: 5em;"><?=$core->getFileIco($dopFileExtention)?></span>
+            <div class="card-body" style="padding-top: 0;padding: 0.5rem; ">
+              <h5 class="card-title" style="margin-bottom: 0;"><?=$dopFileName?></h5>
+            </div>
+            <a href="<?=$dopFile['path']?>" target="_blank" class="btn btn-primary" style="margin: 10px;">Скачать</a>
+          </div>
+      <?php } ?>
+    </div>
+    <?php } ?>
+
     <?php } ?>
   </div>
 </div>

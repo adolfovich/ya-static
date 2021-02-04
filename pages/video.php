@@ -13,6 +13,7 @@ if (isset($_GET['id']) && $_GET['id'] != '') {
     if ((strtotime($hash_data['date']) + ($leave_time * 60)) > time()) {
       $video = $db->getRow("SELECT * FROM edu_videos WHERE id = ?i", $hash_data['id_video']);
       //var_dump($video);
+      $dopFiles = $db->getAll("SELECT * FROM edu_videos_files WHERE video_id = ?i AND deleted = 0", $video['id']);
 
     } else {
       $arr['error'] = 'Ошибка. Время действия ссылки истекло.';
