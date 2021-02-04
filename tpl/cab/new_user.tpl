@@ -51,9 +51,13 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Пароль">
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div id="showPassIco" class="input-group-text" style="cursor: pointer;" onClick="showPass()"><i class="fas fa-eye"></i></div>
+                    </div>
+                    <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Новый пароль">
                   </div>
+
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
