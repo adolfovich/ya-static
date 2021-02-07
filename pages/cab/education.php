@@ -169,7 +169,10 @@ $allowFileTypes = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   'application/vnd.ms-office',
-  'application/pdf'
+  'application/pdf',
+  'image/jpeg',
+  'image/png',
+  'image/gif'
 ];
 
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_video') {

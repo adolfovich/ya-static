@@ -102,17 +102,3 @@
     <?php include ('tpl/cab/tpl_footer.tpl'); ?>
     </div>
   </div>
-
-  <script>
-    function showPass() {
-      if ($('#userPass').get(0).type == 'password') {
-        $('#userPass').get(0).type = 'text';
-        $('#userRePass').get(0).type = 'text';
-        $('#showPassIco').html('<i class="fas fa-eye-slash"></i>');
-      } else {
-        $('#userPass').get(0).type = 'password';
-        $('#userRePass').get(0).type = 'password';
-        $('#showPassIco').html('<i class="fas fa-eye"></i>');
-      }
-    }
-  </script>
