@@ -35,7 +35,7 @@ if (isset($form['inputLogin']) && $form['inputLogin'] == '') {
   if ($user_info = $db->getRow('SELECT * FROM users WHERE login = ?s', $form['inputLogin'])) {
 
     if ($core->as_md5($pass_key, $form['inputPassword']) == $user_info['pass']) {
-      echo 'OKK';
+      //echo 'OKK';
 
       $_SESSION['id'] = $user_info['id'];
       $_SESSION['login'] = $user_info['login'];
