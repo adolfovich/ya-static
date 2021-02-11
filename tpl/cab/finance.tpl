@@ -169,7 +169,7 @@ $( "#addOperationSubmit" ).click(function() {
                         <label for="salon" style="padding-right: 60px;">Салон</label>
                         <select name="salon" id="salon" class="form-control chosen-select" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()" >
                           <?php
-                          if (count($user_salons) <= 1) { 
+                          if (count($user_salons) <= 1) {
                             ?>
                             <option value="<?=$user_salons[0]['id']?>" selected><?=$user_salons[0]['name']?></option>
                             <?php
@@ -239,7 +239,18 @@ $( "#addOperationSubmit" ).click(function() {
                   <a href="finance_settings" class="btn btn-primary mb-2" ><i class="fas fa-cog"></i></a>
                   <?php } ?>
                   <br>
-                  <a href="#" class="btn btn-primary mb-2" onClick="openReport('finForm', '/reports/finance_salons.php')">Отчет по салонам</i></a>
+                  <!--a href="#" class="btn btn-primary mb-2" onClick="openReport('finForm', '/reports/finance_salons.php')">Отчет по салонам</i></a-->
+
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary mb-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Отчеты
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <a href="#" class="dropdown-item" onClick="openReport('finForm', '/reports/finance_salons.php')">по салонам</a>
+                      <a href="#" class="dropdown-item" onClick="openReport('finForm', '/reports/finance_salon.php')">по одному салону</a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
