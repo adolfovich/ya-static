@@ -24,11 +24,11 @@ function getDayAmount($date, $operation_id, $salon) {
   }
   return $day_amount;
 }
-
+/*
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
+*/
 echo '<pre>';
 
 $date_start = date("Y-m-d", strtotime($_GET["dateFrom"]));
@@ -51,13 +51,13 @@ if ($_GET["salon"] != 'all') {
 
 if ($salon_data) {
 
-$debit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'debit' AND (salon = 0 OR salon = ?i)", $salon_data["id"]);
+$debit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'debit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
 $insert = [
   'id' => 'debit',
   'name' => 'ДОХОДЫ'
 ];
 array_unshift($debit_operations, $insert);
-$credit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'credit' AND (salon = 0 OR salon = ?i)", $salon_data["id"]);
+$credit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'credit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
 $insert = [
   'id' => 'credit',
   'name' => 'РАСХОДЫ'
