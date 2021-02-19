@@ -14,6 +14,9 @@ if (isset($user_id)) {
   $user_stats = explode(",", $user_profile['stat_access']);
 }
 
+header("Cache-Control: no cache");
+session_cache_limiter("private_no_expire");
+
 if ($url[0] == 'cab') {
   include ('pages/cab/template.php');
 } else if ($url[0] == 'video') {
