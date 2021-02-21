@@ -10,6 +10,15 @@
 </footer>
 
 <script>
+  $("form").submit(
+     function() {
+          $('.submit').prop('disabled', true);
+          return true;
+     }
+  );
+</script>
+
+<script>
   function modalDelete(type, id) {
     $.post(
       "/pages/cab/ajax/getModalEdu.php",
