@@ -34,33 +34,7 @@
   }
   </style>
 
-  <div class="modal" id="onceLinkModal"  tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <form id="deleteForm" method="POST">
-        <input type="hidden" id="editActionType" name="action_type" value="delete_video">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" >Одноразовая ссылка</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="onceLinkModalBody" class="modal-body">
-            <form class="form-inline">
-              <div class="form-row">
-                <div class="col-8">
-                  <input type="text" class="form-control" id="inputPassword2" placeholder="" value="1111111111111">
-                </div>
-                <div class="col-4" style="text-align: right;">
-                  <button type="button" class="btn btn-primary" onclick="copyUrl()">Копировать</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+  
 
     <!-- Top navbar -->
     <?php include ('tpl/cab/tpl_header.tpl'); ?>
@@ -111,7 +85,7 @@
                   <?=$video_data['name']?>
                 </div>
                 <div class="col-sm" style="text-align: right;">
-                  <a href="#" class="btn btn-primary" onClick="getOnceLink(<?=$video_data['id']?>)">Одноразовая ссылка</a>
+                  <a href="#" class="btn btn-primary" onClick="getOnceLink(<?=$video_data['id']?>, 'video')">Одноразовая ссылка</a>
                   <a href="/cab/education?cat=<?=$cat_data['id']?>&subcat=<?=$subcat_data['id']?>" class="btn btn-primary">Закрыть</a>
                 </div>
               </div>
@@ -159,37 +133,7 @@
   </div>
 
 <script>
-  function getOnceLink(videoId) {
-    $.post(
-      "/pages/cab/ajax/getOnceLink.php",
-      {
-        id: videoId
-      },
-      onAjaxSuccess
-    );
 
-    function onAjaxSuccess(data)
-    {
-      var result = JSON.parse(data);
-      if (result.status == 'OK') {
-        document.getElementById('onceLinkModalBody').innerHTML = result.response; //response
-        $('#onceLinkModal').modal('show');
-      } else {
-        Swal.fire({
-          title: 'Ошибка!',
-          text: result.error,
-          type: 'error',
-          confirmButtonText: 'ОК'
-        })
-      }
-    }
-  }
-
-  function copyUrl(){
-    var copyText = document.getElementById("inputUrl");
-    copyText.select();
-    document.execCommand("copy");
-  }
 
 
 </script>

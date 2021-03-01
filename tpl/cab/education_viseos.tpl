@@ -187,6 +187,7 @@
                   <?php } ?>
                 </div>
                 <div class="col-sm" style="text-align: right;">
+                  <a href="#" class="btn btn-primary" onClick="getOnceLink(<?=$subcat_data['id']?>, 'subcat')">Одноразовая ссылка</a>
                   <a href="/cab/education?cat=<?=$cat_data['id']?>" class="btn btn-primary">Назад</a>
                 </div>
               </div>

@@ -37,6 +37,34 @@
           font-size: 3.5rem;
         }
       }
+
+      .cat {
+        min-width: 150px;
+          max-width: 150px;
+      height: 150px;
+      display: table-cell;
+      vertical-align: middle;
+
+      border: 1px #5e72e4 solid;
+
+      position: relative;
+
+      background-color:rgba(85, 85, 85, 0.1);
+      border-radius: 20px;
+      }
+
+      .cat-name {
+      font-weight: 600;
+      }
+
+      .cat-icon {
+      position: absolute;
+
+      font-size: 100px;
+      text-align: center;
+      margin-left: 35px;
+      color:rgba(85, 85, 85, 0.2)
+      }
     </style>
     <!-- Custom styles for this template -->
     <link href="sticky-footer-navbar.css" rel="stylesheet">
@@ -76,7 +104,7 @@
       <div class="row">
         <h2 style="text-align: center; color:red;"><?=$arr['error']?></h2>
       </div>
-    <?php } else { ?>
+    <?php } else if (isset($video)){ ?>
 
     <div class="row">
       <h2 style="text-align: center;"><?=$video['name']?></h2>
@@ -115,7 +143,43 @@
     </div>
     <?php } ?>
 
+  <?php } else if (isset($subcats)) { ?>
+    <div class="row" style="text-align: center;">
+    <?php foreach($subcats as $subcat) { ?>
+      <style>
+        #subcatstyle<?=$subcat['id']?> {
+          border: 1px <?=$subcat['color']?> solid;
+          color: <?=$subcat['color']?>;
+        }
+      </style>
+      <div class="col mt-5 ">
+        <div class="row">
+        <a href="video?id=<?=$_GET['id']?>&subcat=<?=$subcat['id']?>" style="margin: 0 auto;">
+          <div class="cat " id="subcatstyle<?=$subcat['id']?>">
+            <span class="cat-name"><?=$subcat['name']?></span>
+          </div>
+        </a>
+        </div>
+
+      </div>
     <?php } ?>
+    </div>
+  <?php } else if (isset($videos)) {?>
+    <div class="row" style="text-align: center;">
+      <?php foreach($videos as $video) { ?>
+
+        <div class="col mt-5 ">
+          <div class="row">
+            <a href="video?id=<?=$_GET['id']?>&subcat=<?=$video['subcat']?>&video=<?=$video['id']?>" style="margin: 0 auto;">
+              <div class="cat ">
+                <span class="cat-name"><?=$video['name']?></span>
+              </div>
+            </a>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  <?php } ?>
   </div>
 </div>
 

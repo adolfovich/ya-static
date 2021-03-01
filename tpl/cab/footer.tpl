@@ -1,5 +1,40 @@
 <script>
 
+function getOnceLink(videoId, videoType) {
+  $.post(
+    "/pages/cab/ajax/getOnceLink.php",
+    {
+      type: videoType,
+      id: videoId
+    },
+    onAjaxSuccess
+  );
+
+  function onAjaxSuccess(data)
+  {
+    console.log(data);
+    var result = JSON.parse(data);
+    console.log(result);
+    if (result.status == 'OK') {
+      document.getElementById('onceLinkModalBody').innerHTML = result.response; //response
+      $('#onceLinkModal').modal('show');
+    } else {
+      Swal.fire({
+        title: 'Ошибка!',
+        text: result.error,
+        type: 'error',
+        confirmButtonText: 'ОК'
+      })
+    }
+  }
+}
+
+function copyUrl(){
+  var copyText = document.getElementById("inputUrl");
+  copyText.select();
+  document.execCommand("copy");
+}
+
 function showPass() {
   if ($('#userPass').get(0).type == 'password') {
     $('#userPass').get(0).type = 'text';
