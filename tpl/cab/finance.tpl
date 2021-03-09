@@ -265,7 +265,7 @@ $( "#addOperationSubmit" ).click(function() {
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="operations" role="tabpanel" aria-labelledby="operations-tab">
+                <div class="tab-pane fade show active" id="operations" role="tabpanel" aria-labelledby="operations-tab" style="overflow-x: scroll;">
                   <table class="table table-sm">
                     <thead class="thead-light">
                       <tr>
