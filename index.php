@@ -41,4 +41,6 @@ if (isset($_SESSION['id'])) {
   $user_id = $_SESSION['id'];
 }
 
+
+
 require_once('pages/controller.php');

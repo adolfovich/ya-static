@@ -359,4 +359,58 @@ class Core
     }
   }
 
+  public function hex2rgba($color, $opacity = false) {
+
+  	$default = 'rgb(0,0,0)';
+
+  	//Return default if no color provided
+  	if(empty($color))
+            return $default;
+
+  	//Sanitize $color if "#" is provided
+          if ($color[0] == '#' ) {
+          	$color = substr( $color, 1 );
+          }
+
+          //Check if color has 6 or 3 characters and get values
+          if (strlen($color) == 6) {
+                  $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
+          } elseif ( strlen( $color ) == 3 ) {
+                  $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
+          } else {
+                  return $default;
+          }
+
+          //Convert hexadec to rgb
+          $rgb =  array_map('hexdec', $hex);
+
+          //Check if opacity is set(rgba or rgb)
+          if($opacity){
+          	if(abs($opacity) > 1)
+          		$opacity = 1.0;
+          	$output = 'rgba('.implode(",",$rgb).','.$opacity.')';
+          } else {
+          	$output = 'rgb('.implode(",",$rgb).')';
+          }
+
+          //Return rgb(a) color string
+          return $output;
+  }
+
+  public function previousPurchase($nomenclature_id, $salon_id = NULL) {
+    global $db;
+    if ($salon_id) {
+      $purchase = $db->getOne("SELECT tp.purchase FROM tickets_purchases tp WHERE tp.nomenclature_id = ?i AND tp.salon_id = ?i AND (SELECT status FROM tickets WHERE id = tp.ticket_id) = ?i ORDER BY id LIMIT 1", $nomenclature_id, $salon_id, 2);
+    } else {
+      $purchase = $db->getOne("SELECT tp.purchase FROM tickets_purchases tp WHERE tp.nomenclature_id = ?i AND (SELECT status FROM tickets WHERE id = tp.ticket_id) = ?i ORDER BY id LIMIT 1", $nomenclature_id, 2);
+    }
+
+    if ($purchase) {
+      return $purchase;
+    }
+    return 0;
+  }
+
+
+
 }

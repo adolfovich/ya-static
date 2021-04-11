@@ -34,6 +34,20 @@
   <script src="../assets/js/chosen.jquery.js"></script>
   <link type="text/css" href="../assets/css/chosen.css" rel="stylesheet">
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+  <script src="../assets/galery/js/lc_lightbox.lite.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../assets/galery/css/lc_lightbox.css" />
+  <!-- SKINS -->
+  <link rel="stylesheet" href="../assets/galery/skins/minimal.css" />
+  <!-- ASSETS -->
+  <script src="../assets/galery/lib/AlloyFinger/alloy_finger.min.js" type="text/javascript"></script>
+
+
 </head>
 
 <body>
@@ -83,4 +97,58 @@
       width: 140px !important;
       margin-left: 10px;
     }
+
+    elem, .elem * {
+	box-sizing: border-box;
+	margin: 0 !important;
+}
+.elem {
+	display: inline-block;
+	font-size: 0;
+	width: 33%;
+	border: 20px solid transparent;
+	border-bottom: none;
+	background: #fff;
+	padding: 10px;
+	height: auto;
+	background-clip: padding-box;
+}
+.elem > span {
+	display: block;
+	cursor: pointer;
+	height: 0;
+	padding-bottom:	70%;
+	background-size: cover;
+	background-position: center center;
+}
+
+
+.lcl_fade_oc.lcl_pre_show #lcl_overlay,
+.lcl_fade_oc.lcl_pre_show #lcl_window,
+.lcl_fade_oc.lcl_is_closing #lcl_overlay,
+.lcl_fade_oc.lcl_is_closing #lcl_window {
+	opacity: 0 !important;
+}
+.lcl_fade_oc.lcl_is_closing #lcl_overlay {
+	-webkit-transition-delay: .15s !important;
+	transition-delay: .15s !important;
+}
+
+.status {
+
+    padding: 5px;
+    padding-top: 3px;
+    border-radius: 7px;
+    padding-bottom: 3px;
+    font-weight: 700;
+}
+  </style>
+  <style>
+  .single-purchase-row {
+    cursor: pointer;
+  }
+
+  .single-purchase-row:hover {
+    background: #eee;
+  }
   </style>

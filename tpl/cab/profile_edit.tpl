@@ -81,18 +81,6 @@
                     </div>
                   </div>
 
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <div class="custom-control custom-switch">
-                          <input name="change_ticket_status" type="checkbox" value="1" class="custom-control-input" id="customSwitch_changeTicket" <?php if ($profile_data['change_ticket_status']) echo 'checked';?>>
-                          <label class="custom-control-label" for="customSwitch_changeTicket">Может измениять статусы заявок</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -139,6 +127,62 @@
                   <?php } ?>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Заявки:</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="change_ticket_status" type="checkbox" value="1" class="custom-control-input" id="customSwitch_changeTicket" <?php if ($profile_data['change_ticket_status']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_changeTicket">Может измениять статусы заявок</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="change_close_tickets" type="checkbox" value="1" class="custom-control-input" id="customSwitch_changeCloseTicket" <?php if ($profile_data['change_close_tickets']) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_changeCloseTicket">Может измениять закрытые заявки</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Доступные статусы заявок:</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <?php foreach ($tickets_statuses as $tickets_status) { ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input name="accepted_ticket_statuses[]" type="checkbox" value="<?=$tickets_status['id']?>" class="custom-control-input" id="customSwitch_ticketStatus<?=$tickets_status['id']?>" <?php if (in_array($tickets_status['id'],$accepted_statuses) || $profile_data['accepted_ticket_statuses'] == 0) echo 'checked';?>>
+                          <label class="custom-control-label" for="customSwitch_ticketStatus<?=$tickets_status['id']?>"><?=$tickets_status['name']?></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <?php } ?>
+
+                </div>
+              </div>
+            </div>
+            </div>
             </form>
             </div>
           </div>
