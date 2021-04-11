@@ -17,7 +17,12 @@ function getDatesArray($date_start, $date_end)
 
 function getDayAmount($date, $operation_id, $salon) {
   global $db;
-  if ($operation_id == 'debit' || $operation_id == 'credit') {
+  if ($operation_id == 'saldo') {
+    $day_amount_debit = $db->getOne("SELECT SUM(amount) FROM finance_journal WHERE date = ?s AND op_type = ?s AND salon = ?i", $date, 'debit', $salon);
+    $day_amount_credit = $db->getOne("SELECT SUM(amount) FROM finance_journal WHERE date = ?s AND op_type = ?s AND salon = ?i", $date, 'credit', $salon);
+
+    $day_amount = $day_amount_debit - $day_amount_credit;
+  } else if ($operation_id == 'debit' || $operation_id == 'credit') {
     $day_amount = $db->getOne("SELECT SUM(amount) FROM finance_journal WHERE date = ?s AND op_type = ?s AND salon = ?i", $date, $operation_id, $salon);
   } else {
     $day_amount = $db->getOne("SELECT SUM(amount) FROM finance_journal WHERE date = ?s AND op_decryption = (SELECT name FROM finance_operation_types WHERE id = ?i) AND op_type = (SELECT type FROM finance_operation_types WHERE id = ?i) AND salon = ?i", $date, $operation_id, $operation_id, $salon);
@@ -57,14 +62,13 @@ $insert = [
   'name' => 'ДОХОДЫ'
 ];
 array_unshift($debit_operations, $insert);
+
 $credit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'credit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
 $insert = [
   'id' => 'credit',
   'name' => 'РАСХОДЫ'
 ];
 array_unshift($credit_operations, $insert);
-
-
 
 echo '</pre>';
 ?>
@@ -137,7 +141,8 @@ echo '</pre>';
     <div><h2>Отчет по салону <?=$salon_data["name"]?></h2></div>
     <div><h3>за период <?=date("d.m.Y", strtotime($_GET['dateFrom']))?> - <?=date("d.m.Y", strtotime($_GET['dateTo']))?></h3></div>
   </div>
-
+  <?php $sum_debit = 0; ?>
+  <?php $sum_credit = 0; ?>
   <div id="main_table_contaner" style="height: calc(100% - 120px);  overflow: hidden;">
     <table id="main_table" >
       <tr>
@@ -157,10 +162,12 @@ echo '</pre>';
             <?php $day_amount = getDayAmount($date, $debit_operation['id'], $salon_data["id"]); ?>
             <?=$day_amount?>
             <?php $sum += $day_amount;?>
+            <?php $sum_debit += $day_amount; ?>
           </td>
         <?php } ?>
         <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
           <?=$sum?>
+
         </td>
       </tr>
       <?php $i++; ?>
@@ -175,14 +182,31 @@ echo '</pre>';
             <?php $day_amount = getDayAmount($date, $credit_operation['id'], $salon_data["id"]); ?>
             <?=$day_amount?>
             <?php $sum += $day_amount;?>
+            <?php $sum_credit += $day_amount; ?>
           </td>
         <?php } ?>
         <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
           <?=$sum?>
+
         </td>
       </tr>
       <?php $i++; ?>
       <?php } ?>
+      <tr>
+        <td>САЛЬДО</td>
+        <?php foreach ($date_aray as $date) { ?>
+          <td style="background:#eee;">
+            <?php $day_amount = getDayAmount($date, 'saldo', $salon_data["id"]); ?>
+            <?=$day_amount?>
+            <?php $sum += $day_amount;?>
+            <?php $sum_credit += $day_amount; ?>
+          </td>
+        <?php } ?>
+        <td style="background:#eee;">
+          <?=$sum?>
+
+        </td>
+      </tr>
     </table>
   </div>
 
