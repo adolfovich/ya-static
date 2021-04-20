@@ -76,7 +76,8 @@ $ticket = $db->getRow("SELECT
   (SELECT `edited` FROM `tickets_statuses` WHERE `id` = t.`status`) as edited,
   (SELECT `color` FROM `tickets_statuses` WHERE `id` = t.`status`) as status_color,
   (SELECT `name` FROM `tickets_types` WHERE `id` = t.`type`) as type_name,
-  (SELECT name FROM tickets_providers WHERE id = provider) as provider_name
+  (SELECT name FROM tickets_providers WHERE id = provider) as provider_name,
+  (SELECT email FROM tickets_providers WHERE id = provider) as provider_email
   FROM `tickets` t WHERE `id` = ?i", $_GET['id']);
 
 if ($user_profile['accepted_ticket_statuses'] != 0) {

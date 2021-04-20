@@ -26,6 +26,28 @@
   </div>
 </div>
 
+<style>
+.loading {
+  width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+.loading-icon {
+  font-size: 5em;
+      color: #fff;
+      margin-left: calc(50% - 40px);
+      margin-top: 30%;
+}
+
+</style>
+
+<div class="loading">
+  <div class="loading-icon"><i class="fas fa-spinner fa-spin"></i></div>
+</div>
 
 <?php include ('tpl/cab/leftmenu.tpl'); ?>
 <?php include ($page); ?>

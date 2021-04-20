@@ -183,9 +183,10 @@ class Core
     public function writeLog($type, $text)
     {
       global $db;
-      $sql = "INSERT INTO `logs` SET `type` = ?s, text = ?s";
-
-    	$db->query($sql,$type,$text);
+      //$sql = "INSERT INTO `logs` SET `type` = ?s, text = ?s";
+      $sql = $db->parse("INSERT INTO `logs` SET `type` = ?s, text = ?s",$type,$text);
+      var_dump($sql);
+    	//$db->query($sql,$type,$text);
     }
 
     public function getip()
@@ -411,6 +412,37 @@ class Core
     return 0;
   }
 
+  public function sendMyMail($subject, $text , $address = 'adolfovich@list.ru', $errors = 0)  {
+    require_once('PHPM/src/Exception.php');
+    require_once('PHPM/src/PHPMailer.php');
+    require_once('PHPM/src/SMTP.php');
+
+    try {
+      $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+      $mail->isSMTP();
+      $mail->CharSet = "utf-8";
+      $mail->SMTPDebug = 0;
+      $mail->Debugoutput = 'html';
+      $mail->Host = $this->cfgRead('smtp_server');
+      $mail->Port = $this->cfgRead('smtp_port');
+      $mail->SMTPSecure = 'ssl';
+      //$mail->SMTPSecure = 'tls';
+      $mail->SMTPAuth = true;
+      $mail->Username = $this->cfgRead('smtp_user');
+      $mail->Password = $this->cfgRead('smtp_password');
+      $mail->setFrom($this->cfgRead('smtp_user'), 'Парикмахерская Я');
+      $mail->addAddress($address);
+      $mail->Subject = $subject;
+      $mail->Body    = $text;
+      $mail->AltBody = $text;
+      $mail->IsHTML(true);
+      $mail->send();
+      $error_send = 0;
+    } catch (Exception $e) {
+      $error_send = $mail->ErrorInfo;
+      $this->writeLog('email', 'Ошибка отправки письма '.$mail->ErrorInfo.' на адрес '.$address);
+    }
+  }
 
 
 }

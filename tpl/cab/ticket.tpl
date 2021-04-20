@@ -39,10 +39,42 @@
                     <div class="col-md-3 text-right">
                       <?php if ($ticket['type'] == 100 || $ticket['type'] == 0) { ?>
                       <a href="/reports/purchase.php?ticket=<?=$ticket['id']?>" class="btn btn-outline-primary btn-sm" title="Печать" target="_blank"><i class="fas fa-print"></i></a>
-                      <a href="#" class="btn btn-outline-primary btn-sm" title="Сохранить"><i class="far fa-save"></i></a>
-                      <a href="#" class="btn btn-outline-primary btn-sm" title="Отправить по Email"><i class="far fa-envelope"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm disabled" title="Сохранить"><i class="far fa-save"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm <?php if(!$ticket['provider_email']) echo disabled; ?>" title="Отправить по Email" onClick="sendPurchse(<?=$ticket['id']?>)"><i class="far fa-envelope"></i></a>
+
                       <?php } ?>
                     </div>
+                    <script>
+                      function sendPurchse(id) {
+                        //console.log(id);
+                        $('.loading').show();
+                        $.post(
+                          "/pages/cab/ajax/sendPurchaseEmail.php?id="+id,
+                          onAjaxSuccess
+                        );
+                        function onAjaxSuccess(data)
+                        {
+                          $('.loading').hide();
+                          console.log(data);
+                          result = JSON.parse(data);
+                          console.log(result);
+                          if (result.status == 'OK') {
+                            Swal.fire({
+                              text: 'Письмо отправлено успешно',
+                              type: 'success',
+                              confirmButtonText: 'ОК'
+                            })
+                          } else {
+                            Swal.fire({
+                              title: 'Ошибка!',
+                              text: result.error,
+                              type: 'error',
+                              confirmButtonText: 'ОК'
+                            })
+                          }
+                        }
+                      }
+                    </script>
                   </div>
                 </div>
               </div>
