@@ -25,6 +25,11 @@ if (isset($_GET['id'])) {
     $arr['response']['html'] .= '<input type="text" name="providerDescription" class="form-control" id="providerDescription" placeholder="Описание" value="'.$providers['desctiption'].'">';
     $arr['response']['html'] .= '</div>';
 
+    $arr['response']['html'] .= '<div class="form-group" >';
+    $arr['response']['html'] .= '<label for="providerEmail">Email</label>';
+    $arr['response']['html'] .= '<input type="text" name="providerEmail" class="form-control" id="providerEmail" placeholder="Email" value="'.$providers['email'].'">';
+    $arr['response']['html'] .= '</div>';
+
     $arr['response']['html'] .= '';
 
   } else {

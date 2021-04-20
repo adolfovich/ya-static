@@ -26,7 +26,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-9">
                       <h6 class="text-uppercase text-muted ls-1 mb-1"></h6>
                       <h2 class="mb-0">Заявка #<?=$ticket['id']?>
                         <span
@@ -35,6 +35,13 @@
                             <?=$ticket['status_name']?>
                         </span>
                       </h2>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <?php if ($ticket['type'] == 100 || $ticket['type'] == 0) { ?>
+                      <a href="/reports/purchase.php?ticket=<?=$ticket['id']?>" class="btn btn-outline-primary btn-sm" title="Печать" target="_blank"><i class="fas fa-print"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm" title="Сохранить"><i class="far fa-save"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm" title="Отправить по Email"><i class="far fa-envelope"></i></a>
+                      <?php } ?>
                     </div>
                   </div>
                 </div>

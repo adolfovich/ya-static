@@ -45,6 +45,11 @@
                 <input type="text" name="providerDescription" class="form-control" id="providerDescription" placeholder="Описание" value="<?php if(isset($_POST['providerDescription'])) echo $_POST['providerDescription']; ?>">
               </div>
 
+              <div class="form-group" >
+                <label for="providerEmail">Email</label>
+                <input type="text" name="providerEmail" class="form-control" id="providerEmail" placeholder="Email" value="<?php if(isset($_POST['providerEmail'])) echo $_POST['providerEmail']; ?>">
+              </div>
+
 
             </div>
             <div class="modal-error text-danger">
@@ -112,6 +117,7 @@
                   <tr>
                     <th scope="col" style="text-align: center;">Название</th>
                     <th scope="col" style="text-align: center;">Описание</th>
+                    <th scope="col" style="text-align: center;">Email</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -123,6 +129,7 @@
                     <tr>
                       <td style="text-align: center;"><?=$provider['name']?></td>
                       <td style="text-align: center;"><?=$provider['desctiption']?></td>
+                      <td style="text-align: center;"><?=$provider['email']?></td>
 
                       <td style="text-align: center;">
                         <a href="#" class="btn btn-outline-primary btn-sm" title="Редактировать" onClick="openModalEditProvider(<?=$provider['id']?>);">

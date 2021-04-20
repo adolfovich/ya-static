@@ -9,6 +9,7 @@ if (isset($form['action_type'])) {
     $insert = [
       'name' => $form['providerName'],
       'desctiption' => $form['providerDescription'],
+      'email' => $form['providerEmail'],
     ];
     $db->query("INSERT INTO tickets_providers SET ?u", $insert);
   }
@@ -17,6 +18,7 @@ if (isset($form['action_type'])) {
     $update = [
       'name' => $form['providerName'],
       'desctiption' => $form['providerDescription'],
+      'email' => $form['providerEmail'],
     ];
     $db->query("UPDATE tickets_providers SET ?u WHERE id = ?i", $update, $form['providerId']);
   }

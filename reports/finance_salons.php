@@ -70,6 +70,7 @@ if ($_GET["salon"] == 'all') {
   <table>
     <thead>
       <tr>
+        <th style="width: 40px;">#</th>
         <th>Название салона</th>
         <th>Доходы</th>
         <th>Расходы</th>
@@ -82,6 +83,7 @@ if ($_GET["salon"] == 'all') {
 
 $count_incomes = 0;
 $count_expenses = 0;
+$i = 1;
 
 foreach ($accepted_salons as $accepted_salon) {
   if ($_GET["type"] == 'all') {
@@ -116,6 +118,7 @@ foreach ($accepted_salons as $accepted_salon) {
     }
     $balance = $incomes-$expenses;
     echo '<tr>';
+    echo '<td>'.$i.'</td>';
     echo '<td>'.$operation['salon_name'].'</td>';
     echo '<td>'.number_format($incomes, 2, '.', ' ').' р.</td>';
     echo '<td>'.number_format($expenses, 2, '.', ' ').' р.</td>';
@@ -125,6 +128,7 @@ foreach ($accepted_salons as $accepted_salon) {
     $count_incomes += $incomes;
     $count_expenses += $expenses;
   }
+  $i++;
 }
 $count_balance = $count_incomes - $count_expenses;
 echo '<tr style="background: #eee; border: 2px #000 solid;">';
