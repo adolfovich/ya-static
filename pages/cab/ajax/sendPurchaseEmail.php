@@ -2,10 +2,10 @@
 
 require_once('connect.php');
 
+var_dump(222);
+
 $arr = [];
 $html = '';
-
-
 
 if (isset($get['id']) && $get['id'] > 0) {
 
@@ -21,10 +21,6 @@ if (isset($get['id']) && $get['id'] > 0) {
     FROM `tickets` t WHERE `id` = ?i", $_GET['id']);
 
   if ($ticket_data && ($ticket_data['type'] == 0 || $ticket_data['type'] == 100)) {
-
-    //$send_purchse['id'] = $ticket_data['id'];
-    //$send_purchse['provider_name'] = $ticket_data['provider_name'];
-    //$send_purchse['provider_email'] = $ticket_data['provider_email'];
 
     if ($ticket_data['type'] == 0) {
       $purchases = $db->getAll("SELECT tp.*, (SELECT id FROM tickets_nomenclature WHERE id = tp.nomenclature_id) as nomenclature_id, (SELECT name FROM tickets_nomenclature WHERE id = tp.nomenclature_id) as nomenclature, (SELECT type FROM tickets_nomenclature WHERE id = tp.nomenclature_id) as nomenclature_type FROM tickets_purchases tp WHERE tp.ticket_id = ?i AND 	tp.purchase > 0", $ticket_data['id'] );
