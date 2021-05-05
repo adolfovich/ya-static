@@ -36,8 +36,8 @@ ini_set('display_startup_errors', 1);
 */
 echo '<pre>';
 
-$date_start = date("Y-m-d", strtotime($_GET["dateFrom"]));
-$date_end = date("Y-m-d", strtotime($_GET["dateTo"]));
+$date_start = date("Y-m-d 00:00:00", strtotime($_GET["dateFrom"]));
+$date_end = date("Y-m-d 23:59:59", strtotime($_GET["dateTo"]));
 $date_aray = getDatesArray($date_start, $date_end);
 
 if ($_GET["salon"] != 'all') {
