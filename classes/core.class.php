@@ -444,5 +444,39 @@ class Core
     }
   }
 
+  public function getSalonRentSum($salon_id, $month, $year) {
+    global $db;
+
+    $rentSum = $db->getOne(
+      "SELECT SUM(payment_amount) FROM salons_payments WHERE payment_salon_id = ?i AND payment_type = 1 AND payment_date BETWEEN ?s AND ?s",
+      $salon_id,
+      $year.'-'.$month.'-01 00:00:00',
+      $year.'-'.$month.'-'.date("t", strtotime($year.'-'.$month.'-01 00:00:00')).' 23:59:59'
+    );
+
+    if (!$rentSum) {
+      return 0;
+    }
+
+    return $rentSum;
+  }
+
+  public function getSalonCommunalSum($salon_id, $month, $year) {
+    global $db;
+
+    $rentSum = $db->getOne(
+      "SELECT SUM(payment_amount) FROM salons_payments WHERE payment_salon_id = ?i AND payment_type = 2 AND payment_date BETWEEN ?s AND ?s",
+      $salon_id,
+      $year.'-'.$month.'-01 00:00:00',
+      $year.'-'.$month.'-'.date("t", strtotime($year.'-'.$month.'-01 00:00:00')).' 23:59:59'
+    );
+
+    if (!$rentSum) {
+      return 0;
+    }
+
+    return $rentSum;
+  }
+
 
 }

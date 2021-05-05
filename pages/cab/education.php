@@ -77,9 +77,11 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'edit_cat') {
 }
 
 if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
+  var_dump(1111);
   if ($_POST['catName'] != '') {
+    var_dump(222);
     if (isset($_POST['profiles']) && count($_POST['profiles']) > 0) {
-
+      var_dump(333);
       if (isset($_FILES['catIco']) && $_FILES['catIco']['error'] == 0) { //&& $_FILES['videoFile']['error'] == 0
         if (!in_array($_FILES['catIco']['type'], $accepted_img_types)) {
           $msg['window'] = 'addCat';

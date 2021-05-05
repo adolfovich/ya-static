@@ -11,6 +11,13 @@ if (isset($get['a']) && $get['a'] == 'save' && $user_profile['edit_salons']) {
       $update['franchising'] = 0;
     }
 
+    $update['rent_day_pay'] = $form['rent_day_pay'];
+    $update['rent_amount'] = $form['rent_amount'];
+    $update['rent_type'] = $form['rent_type'];
+    $update['communal_amount'] = $form['communal_amount'];
+    $update['payment_card'] = $form['payment_card'];
+    $update['payment_person'] = $form['payment_person'];
+
     $q = $db->parse("UPDATE `salons` SET ?u WHERE `id` = ?i", $update, $get['id']);
 
     foreach ($form['salonFields'] as $field_id => $field_value) {
