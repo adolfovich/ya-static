@@ -50,7 +50,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text" style="">С</span>
                               </div>
-                              <input id="chart_date_from" name="stat_date_from" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateFrom'])) { echo $_GET['dateFrom'];} else { echo date('Y-m-d', time() - (86400 * 7));}?>">
+                              <input id="chart_date_from" name="stat_date_from" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateFrom'])) { echo $_GET['dateFrom'];} else { echo date("Y-m"),'-01';}?>">
                             </div>
                           </div>
                         </div>
@@ -60,7 +60,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text" style="">ПО</span>
                               </div>
-                              <input id="chart_date_to" name="stat_date_to" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateTo'])) { echo $_GET['dateTo'];} else { echo date('Y-m-d', time() - (86400 * 7));}?>">
+                              <input id="chart_date_to" name="stat_date_to" type="date" class="form-control" onChange="reloadChart()" value="<?php if (isset($_GET['dateTo'])) { echo $_GET['dateTo'];} else { echo date('Y-m-d');}?>">
                             </div>
                           </div>
                         </div>
@@ -267,7 +267,7 @@
           var salon = document.getElementById('chart_salon').value;
 
           $.post(
-            "/pages/cab/ajax/getChart.php", 
+            "/pages/cab/ajax/getChart.php",
             {
               date_from: dateFrom,
               date_to: dateTo,
