@@ -11,6 +11,9 @@ if (isset($get['a']) && $get['a'] == 'save' && $user_profile['edit_salons']) {
       $update['franchising'] = 0;
     }
 
+    if (!$form['rent_amount']) $form['rent_amount'] = 0;
+    if (!$form['communal_amount']) $form['communal_amount'] = 0;
+
     $update['rent_day_pay'] = $form['rent_day_pay'];
     $update['rent_amount'] = $form['rent_amount'];
     $update['rent_type'] = $form['rent_type'];
