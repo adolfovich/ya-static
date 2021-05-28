@@ -42,6 +42,7 @@ if (isset($form['action_type'])) {
           break;
         }
       }
+    }
 
       if (!isset($msg['type']) || $msg['type'] != 'error') {
         $insertTicket = [
@@ -68,7 +69,7 @@ if (isset($form['action_type'])) {
           }
         }
       }
-    }
+
   }
 
   if ($form['action_type'] == 'addPurchase') {
