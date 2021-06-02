@@ -44,6 +44,10 @@ if (isset($get['a']) && $get['a'] == 'all_users') {
   $users_where = 'WHERE `status` = 1';
 }
 
+if (isset($_GET['search_user']) && $_GET['search_user'] != '') {
+  $users_where = 'WHERE login LIKE "%'.$_GET['search_user'].'%" OR name LIKE "%'.$_GET['search_user'].'%"';
+}
+
 $users = $db->getAll("SELECT *, (SELECT name FROM profiles WHERE id = u.profile) as profileName FROM `users` u ".$users_where);
 
 $profiles = $db->getAll("SELECT * FROM `profiles` WHERE `is_del` = 0");

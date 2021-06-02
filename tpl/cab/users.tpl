@@ -36,6 +36,20 @@
                 </div>
 
               </div>
+              <div class="row">
+                <div class="col">
+                  <form class="form-inline" style="margin-top: 20px;" method="GET" action="?search">
+                    <div class="form-row" style="width: 100%;">
+                      <div class="col-10">
+                        <input type="text" class="form-control-plaintext" id="search_user" name="search_user" placeholder="Поиск по ФИО или логину" value="<?php if (isset($_GET['search_user'])) echo $_GET['search_user'] ?>">
+                      </div>
+                      <div class="col" style="text-align: right;">
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
             <div class="table-responsive">
               <style>
