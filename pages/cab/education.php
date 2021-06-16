@@ -82,6 +82,7 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
     //var_dump(222);
     if (isset($_POST['profiles']) && count($_POST['profiles']) > 0) {
       //var_dump(333);
+      $dbpath = '';
       if (isset($_FILES['catIco']) && $_FILES['catIco']['error'] == 0) { //&& $_FILES['videoFile']['error'] == 0
         if (!in_array($_FILES['catIco']['type'], $accepted_img_types)) {
           $msg['window'] = 'addCat';
@@ -100,30 +101,34 @@ if (isset($_POST['action_type']) && $_POST['action_type'] == 'add_cat') {
 
           if(move_uploaded_file($fileTmpPath, $dest_path)) {
 
-            if ($_POST['catOrdering'] == '') $_POST['catOrdering'] = 100;
 
-            $profiles = implode(",", $_POST['profiles']);
-            $db->query("INSERT INTO edu_categories SET name = ?s, access = ?s, color = ?s, ordering = ?i, icon = ?s", $_POST['catName'], $profiles, $_POST['catColor'], $_POST['catOrdering'], $dbpath);
-            $new_cat_id = $db->insertId();
-
-            $check_ordering = $db->getRow("SELECT * FROM edu_categories WHERE ordering = ?i", $_POST['catOrdering']);
-            $all_edit_cats = $db->getAll("SELECT * FROM edu_categories WHERE ordering >= ?i AND id != ?i", $_POST['catOrdering'], $new_cat_id);
-
-            if ($check_ordering) {
-              foreach ($all_edit_cats as $edit_cat) {
-                $db->query("UPDATE edu_categories SET ordering = ordering + 1 WHERE id = ?i", $edit_cat['id']);
-              }
-            }
           } else {
             $msg['window'] = 'addCat';
             $msg['type'] = 'error';
             $msg['text'] = 'Ошибка копирования';
           }
-          unset($_POST);
-          $msg['type'] = 'success';
-          $msg['text'] = 'Категория успешно добавлена';
+
         }
       }
+
+      if ($_POST['catOrdering'] == '') $_POST['catOrdering'] = 100;
+
+      $profiles = implode(",", $_POST['profiles']);
+      $db->query("INSERT INTO edu_categories SET name = ?s, access = ?s, color = ?s, ordering = ?i, icon = ?s", $_POST['catName'], $profiles, $_POST['catColor'], $_POST['catOrdering'], $dbpath);
+      $new_cat_id = $db->insertId();
+
+      $check_ordering = $db->getRow("SELECT * FROM edu_categories WHERE ordering = ?i", $_POST['catOrdering']);
+      $all_edit_cats = $db->getAll("SELECT * FROM edu_categories WHERE ordering >= ?i AND id != ?i", $_POST['catOrdering'], $new_cat_id);
+
+      if ($check_ordering) {
+        foreach ($all_edit_cats as $edit_cat) {
+          $db->query("UPDATE edu_categories SET ordering = ordering + 1 WHERE id = ?i", $edit_cat['id']);
+        }
+      }
+
+      unset($_POST);
+      $msg['type'] = 'success';
+      $msg['text'] = 'Категория успешно добавлена';
 
     } else {
       $msg['window'] = 'addCat';
