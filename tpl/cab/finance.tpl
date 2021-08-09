@@ -23,8 +23,12 @@
             <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opSalon">Салон</label>
               <select class="form-control" id="opSalon" name="opSalon">
-                <?php foreach($user_salons as $user_salon) { ?>
-                  <option value="<?=$user_salon['id']?>"><?=$user_salon['name']?></option>
+                <?php if ($user_salons[0] !== '') { ?>
+                  <?php foreach($user_salons as $user_salon) { ?>
+                    <option value="<?=$user_salon['id']?>"><?=$user_salon['name']?></option>
+                  <?php } ?>
+                <?php } else { ?>
+                  <option selected disabled >Нет салонов</option>
                 <?php } ?>
               </select>
             </div>
@@ -167,7 +171,9 @@ $( "#addOperationSubmit" ).click(function() {
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="salon" style="padding-right: 60px;">Салон</label>
+
                         <select name="salon" id="salon" class="form-control chosen-select" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()" >
+                          <?php if ($accepted_salons[0] !== '') { ?>
                           <?php
                           if (count($user_salons) <= 1) {
                             ?>
@@ -190,13 +196,16 @@ $( "#addOperationSubmit" ).click(function() {
                             }
                           }
                           ?>
+                          <?php } else { ?>
+                            <option selected disabled >Нет салонов</option>
+                          <?php } ?>
                         </select>
                       </div>
 
 
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="type">Тип</label>
-                        <select name="type" id="type" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadDescriptionsFilter(); loadFinData();">
+                        <select name="type" id="type" class="form-control" style="margin-left: 10px; max-width: 140px;" onChange="loadDescriptionsFilter(); loadFinData();" <?php if ($accepted_salons === '') echo 'disabled'; ?>>
                           <option value="all" <?php if (isset($filter['type']) && $filter['type'] == 'all') echo 'selected'; ?>>Все</option>
                           <option value="2" <?php if (isset($filter['type']) && $filter['type'] == '2') echo 'selected'; ?>>Расходы</option>
                           <option value="1" <?php if (isset($filter['type']) && $filter['type'] == '1') echo 'selected'; ?>>Доходы</option>
@@ -207,7 +216,7 @@ $( "#addOperationSubmit" ).click(function() {
                     <div class="form-row">
                       <div class="form-group mx-sm-3 mb-2">
                         <label for="description">Расшифровка</label>
-                        <select name="description" id="description" class="form-control  select2-salon" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()">
+                        <select name="description" id="description" class="form-control  select2-salon" style="margin-left: 10px; max-width: 140px;" onChange="loadFinData()" <?php if ($accepted_salons === '') echo 'disabled'; ?> >
                             <option value="all" selected>Все</option>
                             <?php
                             $selected = '';

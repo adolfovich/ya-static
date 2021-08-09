@@ -31,12 +31,18 @@
                                 </div>
                                 <select id="chart_salon" class="form-control" data-toggle="select"  onChange="reloadChart()">
 
-                                  <option value="all" <?php if (isset($_GET['salon']) && $_GET['salon'] == 'all') echo 'selected';?> >Все салоны</option>
-                                  <?php foreach($salons as $salon) { ?>
-                                    <?php if (in_array($salon['id'], $user_salons) || $user_data['salons'] == 0) { ?>
-                                    <option value="<?=$salon['id']?>" <?php if (isset($_GET['salon']) && $_GET['salon'] == $salon['id']) echo 'selected'; ?> ><?=$salon['name']?></option>
+                                  <?php if ($user_salons[0] !== '') { ?>
+                                    <option value="all" <?php if (isset($_GET['salon']) && $_GET['salon'] == 'all') echo 'selected';?> >Все салоны</option>
+                                    <?php foreach($salons as $salon) { ?>
+                                      <?php if (in_array($salon['id'], $user_salons) || $user_data['salons'] == 0) { ?>
+                                      <option value="<?=$salon['id']?>" <?php if (isset($_GET['salon']) && $_GET['salon'] == $salon['id']) echo 'selected'; ?> ><?=$salon['name']?></option>
+                                      <?php } ?>
                                     <?php } ?>
+                                  <?php }  else { ?>
+                                    <option selected disabled >Нет салонов</option>
                                   <?php } ?>
+
+
                                 </select>
                               </div>
                             </div>
@@ -149,10 +155,14 @@
                       <div class="form-group">
                         <label for="selectStatistic">Выберите салон</label>
                         <select id="<?=$statistic['string_id']?>_stat_salon" class="form-control has-success" data-toggle="select">
-                          <?php foreach($salons as $salon) { ?>
-                            <?php if (in_array($salon['id'], $user_salons) || $user_data['salons'] == 0) { ?>
-                            <option value="<?=$salon['id']?>"><?=$salon['name']?></option>
+                          <?php if ($user_salons[0] !== '') { ?>
+                            <?php foreach($salons as $salon) { ?>
+                              <?php if (in_array($salon['id'], $user_salons) || $user_data['salons'] == 0) { ?>
+                              <option value="<?=$salon['id']?>"><?=$salon['name']?></option>
+                              <?php } ?>
                             <?php } ?>
+                          <?php } else { ?>
+                            <option selected disabled >Нет салонов</option>
                           <?php } ?>
                         </select>
                       </div>

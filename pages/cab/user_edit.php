@@ -17,22 +17,31 @@ if (isset($get['a']) && $get['a'] == 'save') {
     }
   }
 
-
-
   if (isset($form['userProfile'])) {
     $userProfile = intval($form['userProfile']);
     $update['profile'] = $userProfile;
   }
 
-  if (isset($form['userSalons'])) {
-    $userSalons = '';
-    $end_element = array_pop($form['userSalons']);
-    foreach ($form['userSalons'] as $value) {
-       $userSalons .= $value . ',';
+  if (isset($form['userSalons']) || isset($form['userSalonsAll'])) {
+
+    if (isset($form['userSalonsAll']) && $form['userSalonsAll'] == 'true') {
+      $update['salons'] = 0;
+    } else if (isset($form['userSalons'])) {
+
+        $userSalons = '';
+        $end_element = array_pop($form['userSalons']);
+        foreach ($form['userSalons'] as $value) {
+           $userSalons .= $value . ',';
+        }
+        $userSalons .= $end_element;
+        $update['salons'] = $userSalons;
+
+    } else {
+      $update['salons'] = '';
     }
-    $userSalons .= $end_element;
-    //var_dump($userSalons);
-    $update['salons'] = $userSalons;
+
+  } else {
+    $update['salons'] = '';
   }
 
   if ($form['userName']) {
@@ -43,14 +52,14 @@ if (isset($get['a']) && $get['a'] == 'save') {
 
   //var_dump($q);
 
-  //$db->query("UPDATE `users` SET ?u WHERE id = ?i", $update, $get['id']);
-
   if ($db->query($q)) {
     $msg = ["type"=>"success", "text"=>"Данные сохранены"];
   }
 
 
 }
+
+//var_dump($user_data['salons']);
 
 if (isset($get['id'])) {
   if ($user_data = $db->getRow("SELECT * FROM `users` WHERE `id` = ?i", $get['id'])) {

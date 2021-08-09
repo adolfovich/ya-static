@@ -1,7 +1,13 @@
 <?php
 
-if (!$user_data['salons']) {
+var_dump($user_data['salons']);
+
+if ($user_data['salons'] === '0') {
   $accepted_salons = 0;
+  $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1 AND franchising = 0");
+  $user_salons_ids = $db->getCol("SELECT id FROM salons WHERE enabled = 1 AND franchising = 0");
+} else if ($user_data['salons'] === '') {
+  $accepted_salons = '';
   $user_salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1 AND franchising = 0");
   $user_salons_ids = $db->getCol("SELECT id FROM salons WHERE enabled = 1 AND franchising = 0");
 } else {

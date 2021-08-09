@@ -9,7 +9,9 @@ if (isset($url[1])) {
 if (isset($user_id)) {
   $auth_user = $db->getRow("SELECT * FROM `users` WHERE `id` = ?i", $user_id);
   $user_data = $db->getRow("SELECT * FROM `users` WHERE `id` = ?i", $user_id);
+
   $user_salons = explode(",", $user_data['salons']);
+  //var_dump($user_salons);
   $user_profile = $db->getRow("SELECT * FROM `profiles` WHERE `id` = ?i", $user_data['profile']);
   $user_stats = explode(",", $user_profile['stat_access']);
 }

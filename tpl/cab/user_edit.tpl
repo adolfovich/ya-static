@@ -78,8 +78,29 @@
                   </div>
                 </div>
                 <div class="col-md-6">
+                  <div class="form-group row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" name="userSalonsAll" type="checkbox" id="userSalonsAll" onChange="disEnSalons()" <?php if ($user_data['salons'] === '0') echo 'checked'; ?> value="true">
+                        <label class="form-check-label" for="gridCheck1">
+                          Все салоны
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <script>
+                  function disEnSalons() {
+                    if ($("#userSalonsAll").is(":checked")) {
+                        $('#userSalons').prop('disabled', 'disabled');
+                    }
+                    else {
+                        $('#userSalons').prop('disabled', false);
+                    }
+                  }
+                  </script>
                   <div class="form-group">
-                    <select class="custom-select" multiple name="userSalons[]">
+                    <select class="custom-select" multiple name="userSalons[]" id="userSalons" <?php if ($user_data['salons'] === '0') echo 'disabled'; ?>>
                       <option disabled>Парикмахерские: </option>
                       <?php foreach($salons as $salon) { ?>
                         <?php if (in_array($salon['id'], $user_salons)) { ?>

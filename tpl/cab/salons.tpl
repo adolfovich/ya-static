@@ -31,8 +31,7 @@
                 "top" : (eventObject.pageY / 2) + 150,
                 "left" : eventObject.pageX / 2
               }).show();
-          //console.log($(this).offset().top);
-          //$(this).offset().left$('#tooltip').offset({top:$(this).offset().top,left:$(this).offset().left+$(this).width()+5});
+
           }).mouseout(function () {
             $("#tooltip").hide()
               .html("");
@@ -47,7 +46,7 @@
           rentSum += thisValue;
         }
       });
-      //console.log(rentSum);
+
       rentPayments = 0;
       $(".rent-payments-"+month).each(function() {
         thisValue = parseFloat($(this).html());
@@ -56,7 +55,7 @@
           rentPayments += thisValue;
         }
       });
-      //console.log(rentPayments);
+
       communalSum = 0;
       $(".commumal-amount-"+month).each(function() {
         thisValue = parseFloat($(this).html());
@@ -64,7 +63,7 @@
           communalSum += thisValue;
         }
       });
-      //console.log(communalSum);
+
       communalPayments = 0;
       $(".commumal-payments-"+month).each(function() {
         thisValue = parseFloat($(this).html());
@@ -72,19 +71,11 @@
           communalPayments += thisValue;
         }
       });
-      //console.log(communalPayments);
 
       countSum = rentSum + communalSum;
       countPayments = rentPayments + communalPayments;
 
-      //console.log(countSum);
-      //console.log(countPayments);
-
       percent = ((100 * countPayments) / countSum).toFixed();
-      //percent = percent.toFixed();
-
-      //console.log(percent);
-
 
 
       if (percent < 50) {
@@ -97,6 +88,8 @@
 
       $('#progress'+month).css("width", percent+"%");
       $('#progress'+month).css("background-color", bgColor);
+
+      $('#count_sum'+month).html("Аренда: "+rentPayments+" из "+rentSum+" Остаток: "+ (rentSum - rentPayments) +" | Комм. платежи: "+communalPayments+" из "+communalSum+" Остаток: "+ (communalSum - communalPayments));
 
     }
   </script>
@@ -223,10 +216,13 @@
                               </button>
                             </h5>
                           </div>
-                          <div class="col-mb-10" style="width: 200px; padding-top: 17px;">
+                          <div class="col-mb-4" style="width: 200px; padding-top: 17px;">
                             <div class="progress">
                               <div id="progress<?=$i?>" class="progress-bar " role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
+                          </div>
+                          <div class="col-mb-6" style="padding-top: 10px; padding-left: 20px; font-size: 14px;" id="count_sum<?=$i?>">
+                            Фонд аренды: 50 000 | Комм. платежи: 40 000
                           </div>
                         </div>
 
