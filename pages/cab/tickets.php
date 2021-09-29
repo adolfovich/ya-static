@@ -88,16 +88,18 @@ if (isset($form['action_type'])) {
     $ticket_id = $db->insertId();
 
     foreach ($form['nomenclature'] as $key => $value) {
-      $insert_purchase = [
-        'ticket_id' => $ticket_id,
-        'salon_id' => $form['purchaseSalon'],
-        'provider_id' => $provider,
-        'nomenclature_id' => $key,
-        'residue' => $value['old'],
-        'purchase' => $value['new'],
-      ];
+      if ($value['old'] != '' && $value['new'] != '') {
+        $insert_purchase = [
+          'ticket_id' => $ticket_id,
+          'salon_id' => $form['purchaseSalon'],
+          'provider_id' => $provider,
+          'nomenclature_id' => $key,
+          'residue' => $value['old'],
+          'purchase' => $value['new'],
+        ];
 
-      $db->query("INSERT INTO tickets_purchases SET ?u", $insert_purchase);
+        $db->query("INSERT INTO tickets_purchases SET ?u", $insert_purchase);
+      }      
     }
 
     $insertLog = [
