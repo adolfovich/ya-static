@@ -51,11 +51,11 @@
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x: hidden;">
               <style>
                 .card .table td, .card .table th {
-                  padding-right: 0.5rem;
-                  padding-left: 0.5rem;
+                  padding-right: 0.2rem;
+                  padding-left: 0.2rem;
                 }
               </style>
               <!-- Projects table -->
