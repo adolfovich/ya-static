@@ -133,7 +133,7 @@ foreach ($accepted_salons as $accepted_salon) {
 }
 $count_balance = $count_incomes - $count_expenses;
 echo '<tr style="background: #eee; border: 2px #000 solid;">';
-echo '<td>Всего по салонам:</td>';
+echo '<td colSpan="2">Всего по салонам:</td>';
 echo '<td>'.number_format($count_incomes, 2, '.', ' ').' р.</td>';
 echo '<td>'.number_format($count_expenses, 2, '.', ' ').' р.</td>';
 echo '<td>'.number_format($count_balance, 2, '.', ' ').' р.</td>';

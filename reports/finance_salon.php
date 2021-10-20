@@ -56,14 +56,14 @@ if ($_GET["salon"] != 'all') {
 
 if ($salon_data) {
 
-$debit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'debit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
+$debit_operations = $db->getAll("SELECT id, name, report_color FROM finance_operation_types WHERE type = 'debit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
 $insert = [
   'id' => 'debit',
   'name' => 'ДОХОДЫ'
 ];
 array_unshift($debit_operations, $insert);
 
-$credit_operations = $db->getAll("SELECT id, name FROM finance_operation_types WHERE type = 'credit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
+$credit_operations = $db->getAll("SELECT id, name, report_color FROM finance_operation_types WHERE type = 'credit' AND (salon = 0 OR salon = ?i) ORDER BY ordering, id", $salon_data["id"]);
 $insert = [
   'id' => 'credit',
   'name' => 'РАСХОДЫ'
@@ -158,14 +158,14 @@ echo '</pre>';
         <td><?=$debit_operation['name']?></td>
         <?php $sum = 0; ?>
         <?php foreach ($date_aray as $date) { ?>
-          <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
+          <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background: ".$debit_operation['report_color'].";";} ?>">
             <?php $day_amount = getDayAmount($date, $debit_operation['id'], $salon_data["id"]); ?>
             <?=$day_amount?>
             <?php $sum += $day_amount;?>
             <?php $sum_debit += $day_amount; ?>
           </td>
         <?php } ?>
-        <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
+        <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background: ".$debit_operation['report_color'].";";} ?>">
           <?=$sum?>
 
         </td>
@@ -178,14 +178,14 @@ echo '</pre>';
         <td><?=$credit_operation['name']?></td>
         <?php $sum = 0; ?>
         <?php foreach ($date_aray as $date) { ?>
-          <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
+          <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background: ".$credit_operation['report_color'].";";} ?>">
             <?php $day_amount = getDayAmount($date, $credit_operation['id'], $salon_data["id"]); ?>
             <?=$day_amount?>
             <?php $sum += $day_amount;?>
             <?php $sum_credit += $day_amount; ?>
           </td>
         <?php } ?>
-        <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background:#fff;";} ?>">
+        <td style="<?php if ($i == 0) {echo "background:#eee;";} else {echo "background: ".$credit_operation['report_color'].";";} ?>">
           <?=$sum?>
 
         </td>
