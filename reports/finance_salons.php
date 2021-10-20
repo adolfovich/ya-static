@@ -127,8 +127,9 @@ foreach ($accepted_salons as $accepted_salon) {
 
     $count_incomes += $incomes;
     $count_expenses += $expenses;
+    $i++;
   }
-  $i++;
+
 }
 $count_balance = $count_incomes - $count_expenses;
 echo '<tr style="background: #eee; border: 2px #000 solid;">';
