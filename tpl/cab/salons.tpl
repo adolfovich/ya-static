@@ -124,9 +124,9 @@
                   <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#salons-list" role="tab" aria-controls="salons-list" aria-selected="true">Список салонов</a>
                   </li>
-                  <li class="nav-item">
+                  <!--li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#salons-payments" role="tab" aria-controls="salons-payments" aria-selected="false">Платежи</a>
-                  </li>
+                  </li-->
                 </ul>
                 <div class="col text-right">
 

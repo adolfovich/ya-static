@@ -64,13 +64,21 @@ if (isset($form['action_type']) && $form['action_type'] == 'add_operation') {
     if (time() > strtotime($form['opDete'])) {
       if ($form['opAmount'] > 0) {
         $operation_data = $db->getRow("SELECT * FROM finance_operation_types WHERE id = ?s", $form['opDesc']);
+
+        if(isset($_POST['op_param'])) {
+          $op_params = json_encode($_POST['op_param']);
+        } else {
+          $op_params = NULL;
+        }
+
         $insert = [
           'salon' => $form['opSalon'],
           'date' => $form['opDete'],
           'op_type' => $operation_data['type'],
           'op_decryption' => $operation_data['name'],
           'amount' => $form['opAmount'],
-          'op_comment' => $form['opComment']
+          'op_comment' => $form['opComment'],
+          'op_params' => $op_params
         ];
         $db->query("INSERT INTO finance_journal SET ?u", $insert);
 
@@ -118,5 +126,7 @@ if (isset($_COOKIE['finFilter']) && $_COOKIE['finFilter'] != '') {
     $filter[$filterEl[0]] = $filterEl[1];
   }
 }
+
+$salons = $db->getAll("SELECT * FROM salons WHERE enabled = 1");
 
 include ('tpl/cab/finance.tpl');
