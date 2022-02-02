@@ -73,7 +73,7 @@ if ($operations) {
       $sum += $operation['amount'];
       $debit += $operation['amount'];
     }  else if ($operation['op_type'] == 'neutral') {
-      $sum += $operation['amount'];
+      //$sum += $operation['amount'];
     }
   }
 

@@ -32,9 +32,63 @@
   margin-left: 35px;
   color:rgba(85, 85, 85, 0.2)
   }
+
+
+
+
+  /* картинка на странице */
+.minimized {
+  width: 100px;
+  cursor: pointer;
+  border: 1px solid #FFF;
+}
+.minimized:hover {
+
+}
+/* увеличенная картинка */
+#magnify {
+  display: none;
+  /* position: absolute; upd: 24.10.2016 */
+  position: fixed;
+  max-width: 600px;
+  height: auto;
+  z-index: 9999;
+}
+#magnify img {
+  width: 100%;
+}
+/* затемняющий фон */
+#overlay {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  z-index: 9990;
+}
+/* кнопка закрытия */
+#close-popup {
+  padding-top: 2px;
+  padding-left: 9px;
+  width: 30px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 1px solid #AFAFAF;
+  border-radius: 15px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+
+
   </style>
 
-  
+
 
     <!-- Top navbar -->
     <?php include ('tpl/cab/tpl_header.tpl'); ?>
@@ -112,14 +166,27 @@
                     $dopFileName = $dopFileName[3];
                     $dopFileExtention = explode(".", $dopFileName);
                     $dopFileExtention = end($dopFileExtention);
+                    //var_dump($dopFileExtention);
+                    if ($dopFileExtention == 'jpg' || $dopFileExtention == 'jpeg' || $dopFileExtention == 'png' || $dopFileExtention == 'gif') {
+                  ?>
+                  <div class="card" style="width: 10rem;">
+                   <span class="card-img-top" style="font-size: 5em;"><img class="minimized" style="width: 100px;" src="<?=$dopFile['path']?>"  /></span>
+                    <div class="card-body" style="padding-top: 0;padding: 0.5rem; ">
+                      <h5 class="card-title" style="margin-bottom: 0;"><?=$dopFileName?></h5>
+                    </div>
+                    <a href="<?=$dopFile['path']?>" target="_blank" class="btn btn-primary" style="margin: 10px;">Скачать</a>
+                  </div>
+                  <?php
+                  } else {
                    ?>
-                   <div class="card" style="width: 10rem;">
+                    <div class="card" style="width: 10rem;">
                      <span class="card-img-top" style="font-size: 5em;"><?=$core->getFileIco($dopFileExtention)?></span>
                       <div class="card-body" style="padding-top: 0;padding: 0.5rem; ">
                         <h5 class="card-title" style="margin-bottom: 0;"><?=$dopFileName?></h5>
                       </div>
                       <a href="<?=$dopFile['path']?>" target="_blank" class="btn btn-primary" style="margin: 10px;">Скачать</a>
                     </div>
+                  <?php } ?>
                 <?php } ?>
               </div>
               <?php } ?>
@@ -134,6 +201,24 @@
 
 <script>
 
+$(function(){
+  $('.minimized').click(function(event) {
+    var i_path = $(this).attr('src');
+    $('body').append('<div id="overlay"></div><div id="magnify"><img src="'+i_path+'"><div id="close-popup"><i class="fa fa-times" aria-hidden="true"></i></div></div>');
+    $('#magnify').css({
+     left: ($(document).width() - $('#magnify').outerWidth())/2,
+     // top: ($(document).height() - $('#magnify').outerHeight())/2 upd: 24.10.2016
+            top: ($(window).height() - $('#magnify').outerHeight())/2
+   });
+    $('#overlay, #magnify').fadeIn('fast');
+  });
 
+  $('body').on('click', '#close-popup, #overlay', function(event) {
+    event.preventDefault();
+    $('#overlay, #magnify').fadeOut('fast', function() {
+      $('#close-popup, #magnify, #overlay').remove();
+    });
+  });
+});
 
 </script>

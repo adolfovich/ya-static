@@ -1,7 +1,7 @@
 <?php
 /**
- * Project:     Avtomain Trading
- * @copyright 2019 «Avtomain Holding.
+ * Project:
+ * @copyright 2019
  * @version 0.0.1
  */
 
@@ -16,22 +16,10 @@ class Core
 
   function __construct()
 	{
-      //$this->_conf();
-      //$this->_ssl();
+
       $this->ip();
-      //$this->host();
-	    //$this->_currency();
       $this->_setURL();
-      //$this->_qUrl();
-      //$this->_userAuth();
-      //$this->_security();
-      //$this->_getMess();
-      //$this->_getMess2();
-      //$this->_lang();
-      //$this->_agent();
-      //$this->_referer();
       $this->form = $this->form();
-      //$this->get = $this->_get();
     }
 
     public function setGet()
@@ -72,18 +60,11 @@ class Core
          $this->redir('http://'.str_replace('www.', '', $_SERVER['HTTP_HOST']).$_SERVER['REQUEST_URI']);
        }
 
-       /*if (!isset($_SERVER['REDIRECT_URL'])) {
-         $url = $this->_filterUrl($_SERVER['REQUEST_URI']);
-       } else {
-         $url = $this->_filterUrl($_SERVER['REDIRECT_URL']);
-       }*/
        $url = $this->_filterUrl($_SERVER['REQUEST_URI']);
   	   $url = substr($url, 1, strlen($url));
 
   	   $this->full_url = $url;
-       //$this->debuging($this->full_url, '_setURL $full_url');
   	   $url = explode('/', $url);
-       //$this->debuging($url, '_setURL $url');
        if($url){
   		   foreach($url as $url){
            $url = preg_replace("/\?.+/", "", $url);
@@ -102,7 +83,6 @@ class Core
   	       if($url[$i] == $allow[$ii]) $allow_url .=  $url[$i];
         }
       }
-      //return strtok($allow_url, '?');
       return $allow_url;
   	}
 
@@ -112,8 +92,6 @@ class Core
   	    $url = str_replace('"', '',  $url);
   	    $url = str_replace("'", '',  $url);
         $url = htmlspecialchars($url);
-        //$url = mysqli_real_escape_string($url);
-        //$this -> debuging($url, '_filterUrl');
   	    return $url;
   	}
 
@@ -130,7 +108,6 @@ class Core
     }
 
     public function form($form = ''){
-      //$this->debuging($_POST, 'form $_POST');
       function array_map_recursive($callback, $value){
          if (is_array($value)) {
            return array_map(function($value) use ($callback) { return array_map_recursive($callback, $value); }, $value);
@@ -140,8 +117,6 @@ class Core
 		  if(!$form) $form = $_POST;
 
       if($form){
-			//$form = array_map_recursive('mysql_real_escape_string', $form);
-			//if($this->user['type'] != 'admin' && $this->user['type'] != 'moder') $form = array_map_recursive('htmlspecialchars', $form);
 			$form = array_map_recursive('trim', $form);
             return $form;
         }
@@ -157,12 +132,9 @@ class Core
     public function login()
     {
       if (isset($_SESSION['id']) && isset($_SESSION['login'])) {
-        //echo 's1';
         if (isset($_COOKIE['PHPSESSID'])) {
-          //echo 's2';
           if (isset($_COOKIE['login']) && $_COOKIE['PHPSESSID'] == session_id() && $_SESSION['login'] == $_COOKIE['login']) {
             $session_time = $this->cfgRead('session_time');
-            //echo 's3';
             $email = $_COOKIE['login'];
             setcookie('login', null, -1, '/cab');
             setcookie ("login", $email, time() + $session_time, '/cab');
@@ -171,19 +143,16 @@ class Core
             return true;
           }
         } else {
-          session_destroy();
+          //session_destroy();
         }
       }
       return false;
     }
 
 
-
-
     public function writeLog($type, $text)
     {
       global $db;
-      //$sql = "INSERT INTO `logs` SET `type` = ?s, text = ?s";
       $sql = $db->parse("INSERT INTO `logs` SET `type` = ?s, text = ?s",$type,$text);
       var_dump($sql);
     	//$db->query($sql,$type,$text);

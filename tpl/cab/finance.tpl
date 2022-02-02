@@ -63,8 +63,8 @@
             </div>
 
             <div id="opDescParams">
-            
-            </div>            
+
+            </div>
 
             <div class="form-group" style="margin-bottom: 0.5rem;">
               <label for="opAmount">Сумма</label>
@@ -368,7 +368,7 @@ $( "#addOperationSubmit" ).click(function() {
                                 }
 
                                 //var_dump($is_selected);
-                                
+
                                 if ((($echo_month == date("m") && $echo_year == date("Y")) || ($echo_month == date("m", strtotime($_GET['rent_month'].'-01')) && $echo_year == date("Y", strtotime($_GET['rent_month'].'-01')))) && $is_selected == 0) {
                                   $selected = 'selected';
                                   $is_selected = 1;
@@ -376,10 +376,10 @@ $( "#addOperationSubmit" ).click(function() {
                                   $selected = '';
                                 }
                                 echo '<option '.$selected.' value="'.$echo_year.'-'.$echo_month.'">'.$core->getMonthName($echo_month).' '.$echo_year.'</option>';
-                                
+
                               }
                             ?>
-                            
+
                           </select>
                         </div>
                       </div>
@@ -415,22 +415,22 @@ $( "#addOperationSubmit" ).click(function() {
                                           $tooltip_data_month = date("m");
                                           $tooltip_data_year = date("Y");
                                         }
-                                        
-                                        
+
+
                                         $tooltip_data = $db->getAll("SELECT * FROM finance_journal WHERE salon = ?i AND date between ?s AND ?s ",
                                             $salon_payments['id'],
                                             $tooltip_data_year.'-'.$tooltip_data_month.'-01 00:00:00',
                                             $tooltip_data_year.'-'.$tooltip_data_month.'-'.date("t", strtotime($tooltip_data_year.'-'.$tooltip_data_month.'-01 00:00:00')).' 23:59:59');
 
                                         foreach ($tooltip_data as $value) {
-                                          
+
                                           if ($value['op_decryption'] == 'Аренда') {
                                             $tooltip_rent .= date("d.m.y H:i", strtotime($value['date'])).' | '.$value['amount'].'<br>';
                                           } else if ($value['op_decryption'] == 'Ком- платежи') {
                                             $tooltip_communal .= date("d.m.y H:i", strtotime($value['date'])).' | '.$value['amount'].'<br>';
                                           }
                                         }
-                                        
+
                                       ?>
                                       <tr>
                                         <td scope="col" class="text-left"><?=$salon_payments['name']?></td>
@@ -457,12 +457,6 @@ $( "#addOperationSubmit" ).click(function() {
                           </div>
                         </div>
               </div>
-
-
-
-
-
-
             </div>
           </div>
         </div>
@@ -548,7 +542,7 @@ $( "#addOperationSubmit" ).click(function() {
           //opDescParams
           console.log(result.response.html);
           $('#opDescParams').html(result.response.html);
-          
+
         } else {
           Swal.fire({
             title: 'Ошибка!',
