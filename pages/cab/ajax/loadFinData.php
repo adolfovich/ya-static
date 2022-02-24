@@ -48,6 +48,7 @@ $operations = $db->getAll($sql);
 $sum = 0;
 $credit = 0;
 $debit = 0;
+$incass = 0;
 //var_dump($sql);
 if ($operations) {
 
@@ -74,6 +75,7 @@ if ($operations) {
       $debit += $operation['amount'];
     }  else if ($operation['op_type'] == 'neutral') {
       //$sum += $operation['amount'];
+      $incass += $operation['amount'];
     }
   }
 
@@ -88,7 +90,10 @@ if ($operations) {
   $arr['response']['operations'] .= '<b>'.number_format($credit, 2, '.', ' ').'р.</b> | ';
 
   $arr['response']['operations'] .= 'ИТОГО: ';
-  $arr['response']['operations'] .= '<b>'.number_format($sum, 2, '.', ' ').'р.</b></th>';
+  $arr['response']['operations'] .= '<b>'.number_format($sum, 2, '.', ' ').'р.</b> | ';
+
+  $arr['response']['operations'] .= 'ИНКАССАЦИЯ: ';
+  $arr['response']['operations'] .= '<b>'.number_format($incass, 2, '.', ' ').'р.</b> </th> ';
 
   $arr['response']['operations'] .= '</tr>';
 
